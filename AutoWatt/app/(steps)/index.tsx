@@ -2,12 +2,16 @@ import { useState } from 'react';
 import { useRouter } from 'expo-router';
 import { View, Text, ScrollView, TextInput } from 'react-native';
 import InputGroup from '../../components/InputGroup';
+import ScreenTitle from '../../components/ScreenTitle';
 
 export default function HomeScreen() {
 	const router = useRouter();
   const [name, setName] = useState('');
   const [address, setAddress] = useState('');
   const [systemSize, setSystemSize] = useState('');
+  const [batteryStorage, setBatteryStorage] = useState(false);
+  const [voltageOptimiser, setVoltageOptimiser] = useState(false);
+  const [authorisedPerson, setAuthorisedPerson] = useState('');
 
   const handlePress = () => {
     router.push('/(start)');
@@ -15,9 +19,7 @@ export default function HomeScreen() {
 
   return (
     <ScrollView style={{ padding: 20 }}>
-      <View style={{ flexDirection: 'row', justifyContent: 'center', marginTop: 40 }}>
-        <Text style={{ fontSize: 28, fontWeight: 500 }}>Solar Maintenances</Text>
-      </View>
+      <ScreenTitle>Solar Maintenance</ScreenTitle>
 
       <InputGroup
         label="Name"
@@ -39,30 +41,31 @@ export default function HomeScreen() {
       />
 
       <InputGroup
-        type="numeric"
+        tag="switch"
         note="this allows for the System Components - Battery Storage page to be triggered - if it's no this should just be grey'd out"
         label="Is battery stroage installed on-site?"
-        value={systemSize}
-        setValue={setSystemSize}
+        value={batteryStorage}
+        setValue={setBatteryStorage}
       />
 
       <InputGroup
-        type="numeric"
+        tag="switch"
         label="Is voltage optimiser installed on-site?"
         note="this allows for the System Components - Voltage Optimiser page to be triggered - if it's no this should just be grey'd out (see battery example above for example)"
-        value={systemSize}
-        setValue={setSystemSize}
+        value={voltageOptimiser}
+        setValue={setVoltageOptimiser}
+      />
+
+      <InputGroup
+        label="Authorised person"
+        placeholder="Enter name here"
+        value={authorisedPerson}
+        setValue={setAuthorisedPerson}
       />
 
       <View>
         <Text>
-          
-Is battery stroage installed on-site? Y/N option - this allows for the System Components - Battery Storage page to be triggered - if it's no this should just be grey'd out
-  
-Is voltage optimiser installed on-site? Y/N option - this allows for the System Components - Voltage Optimiser page to be triggered - if it's no this should just be grey'd out (see battery example above for example)
-  
-Authorised person Manual input
-  
+
 Start The date is chosen via a Calander or this wheel (if this is only available on iPhone than Calander is fine) - TIME is the same
   
 Roof access available Y/N option

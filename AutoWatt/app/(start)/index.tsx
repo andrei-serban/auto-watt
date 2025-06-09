@@ -31,7 +31,7 @@ export default function HomeScreen() {
         borderRadius: 5,
         flexDirection: 'row',
         justifyContent: 'center',
-        backgroundColor: '#1D3D47'
+        backgroundColor: '#0a7ea4'
       }} onPress={handlePress}>
         <Text style={{
           fontSize: 16,
