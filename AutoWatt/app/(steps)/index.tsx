@@ -12,6 +12,9 @@ export default function HomeScreen() {
   const [batteryStorage, setBatteryStorage] = useState(false);
   const [voltageOptimiser, setVoltageOptimiser] = useState(false);
   const [authorisedPerson, setAuthorisedPerson] = useState('');
+  const [roofAccess, setRoofAccess] = useState('');
+  const [cleaningPerformed, setCleaningPerformed] = useState('');
+  const [ramsCompleted, setRamsCompleted] = useState('');
 
   const handlePress = () => {
     router.push('/(start)');
@@ -63,17 +66,32 @@ export default function HomeScreen() {
         setValue={setAuthorisedPerson}
       />
 
+      <InputGroup
+        tag="switch"
+        label="Roof access available"
+        value={roofAccess}
+        setValue={setRoofAccess}
+      />
+
+      <InputGroup
+        tag="switch"
+        label="Cleaning performed"
+        value={cleaningPerformed}
+        setValue={setCleaningPerformed}
+      />
+
+      <InputGroup
+        tag="switch"
+        label="RAMs completed"
+        value={ramsCompleted}
+        setValue={setRamsCompleted}
+      />
+
       <View>
         <Text>
 
 Start The date is chosen via a Calander or this wheel (if this is only available on iPhone than Calander is fine) - TIME is the same
-  
-Roof access available Y/N option
-  
-Cleaning performed  Y/N option
-  
-RAMs completed  Y/N option
-  
+
 Weather This brings you to weather page and once the option is selected this should be updated to look like
   
 Ambient temperature This brings you to ambient temperature page and once the option is selected this should be updated to look like
