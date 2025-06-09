@@ -4,6 +4,8 @@ import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import 'react-native-reanimated';
 
+// import StepOneScreen from '../screens/StepOneScreen';
+
 import { useColorScheme } from '@/hooks/useColorScheme';
 
 export default function RootLayout() {
@@ -19,8 +21,9 @@ export default function RootLayout() {
 
   return (
     <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+      <Stack initialRouteName="(start)">
+        <Stack.Screen name="(start)" options={{ headerShown: false }} />
+        <Stack.Screen name="(steps)" options={{ title: '', headerBackTitle: 'Cancel' }} />
         <Stack.Screen name="+not-found" />
       </Stack>
       <StatusBar style="auto" />
