@@ -1,12 +1,14 @@
 import { useState } from 'react';
 import { useRouter } from 'expo-router';
 import { View, Text, ScrollView, TextInput } from 'react-native';
-import InputGroup from '../../components/InputGroup';
-import ScreenTitle from '../../components/ScreenTitle';
+import InputGroup from '@/components/InputGroup';
+import ScreenTitle from '@/components/ScreenTitle';
+import MegaButton from '@/components/MegaButton';
 
 export default function HomeScreen() {
 	const router = useRouter();
   const [name, setName] = useState('');
+  const [notes, setNotes] = useState('');
   const [address, setAddress] = useState('');
   const [systemSize, setSystemSize] = useState('');
   const [batteryStorage, setBatteryStorage] = useState(false);
@@ -66,25 +68,93 @@ export default function HomeScreen() {
         setValue={setAuthorisedPerson}
       />
 
-      <InputGroup
-        tag="switch"
-        label="Roof access available"
-        value={roofAccess}
-        setValue={setRoofAccess}
+      <View style={{ borderColor: '#777', borderWidth: 1, borderRadius: 10, padding: 8, marginTop: 25 }}>
+        <InputGroup
+          tag="switch"
+          marginTop={0}
+          label="Roof access available"
+          value={roofAccess}
+          setValue={setRoofAccess}
+        />
+
+        <InputGroup
+          tag="switch"
+          marginTop={10}
+          label="Cleaning performed"
+          value={cleaningPerformed}
+          setValue={setCleaningPerformed}
+        />
+
+        <InputGroup
+          tag="switch"
+          marginTop={10}
+          label="RAMs completed"
+          value={ramsCompleted}
+          setValue={setRamsCompleted}
+        />
+      </View>
+
+      <MegaButton
+        title="Inverters / AC Distribution"
+        status={0}
+      />
+
+      <MegaButton
+        title="Mains Connection"
+        status={1}
+      />
+
+      <MegaButton
+        title="PV Generator (DC Side)"
+        status={-1}
+      />
+
+      <MegaButton
+        title="Electrical Testing"
+        onPress={() => router.push('/(steps)/electrical-testing')}
+        status={1}
+      />
+
+      <MegaButton
+        title="Performance Checks"
+        status={-2}
+      />
+
+      <MegaButton
+        title="Visual Inspection"
+        status={-2}
+      />
+
+      <MegaButton
+        title="System Safety Risks"
+        status={-2}
+      />
+
+      <MegaButton
+        disabled={true}
+        title="Battery Systems"
+        status={-2}
+      />
+
+      <MegaButton
+        title="Voltage Optimiser"
+        status={-2}
       />
 
       <InputGroup
-        tag="switch"
-        label="Cleaning performed"
-        value={cleaningPerformed}
-        setValue={setCleaningPerformed}
+        numberOfLines={8}
+        label="System Summary notes"
+        placeholder="Note"
+        value={notes}
+        setValue={setNotes}
       />
 
       <InputGroup
-        tag="switch"
-        label="RAMs completed"
-        value={ramsCompleted}
-        setValue={setRamsCompleted}
+        numberOfLines={8}
+        label={'Follow-up details (e.g. "Recommend scaffold and revisit to check frame condition.")'}
+        placeholder="Note"
+        value={notes}
+        setValue={setNotes}
       />
 
       <View>
@@ -97,8 +167,6 @@ Weather This brings you to weather page and once the option is selected this sho
 Ambient temperature This brings you to ambient temperature page and once the option is selected this should be updated to look like
   
 System components The system components – each one brings you to a new page with the tasks associated with that component – I would like that if everything on the task list ‘Passes’ then the front page box will say Pass and same for Fail (maybe colours as well to make it easy – the box goes green for Pass and Red for Fail - see examples to the right)
-  
-System summary notes  System summary notes is a note logged by the technician manually
   
 Inspection limitations  The inspection limitations – these are tick boxes to confirm whether something wasn’t done. 
   

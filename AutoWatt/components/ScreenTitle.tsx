@@ -1,4 +1,4 @@
-import { View, Text, TextInput, Switch } from 'react-native';
+import { View, Text } from 'react-native';
 
 export default function ScreenTitle({
 	children

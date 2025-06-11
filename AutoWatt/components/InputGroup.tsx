@@ -8,10 +8,11 @@ export default function InputGroup({
 	setValue,
 	placeholder,
 	tag = 'input',
-	numberOfLines = 1
+	numberOfLines = 1,
+	marginTop = undefined
 }) {
   return (
-    <View style={{ borderColor: '#777', borderWidth: 1, borderRadius: 10, padding: 8, marginTop: 25 }}>
+    <View style={{ borderColor: '#777', borderWidth: 1, borderRadius: 10, padding: 8, marginTop: marginTop ?? 25 }}>
       <Text style={{ marginBottom: 5, fontSize: 20, fontWeight: 300 }}>{label}</Text>
 
       {
