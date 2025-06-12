@@ -1,4 +1,5 @@
 import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
+import { GlobalProvider } from '../context/GlobalContext';
 import { useFonts } from 'expo-font';
 import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
@@ -21,12 +22,14 @@ export default function RootLayout() {
 
   return (
     <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack initialRouteName="(start)">
-        <Stack.Screen name="(start)" options={{ headerShown: false }} />
-        <Stack.Screen name="(steps)" options={{ title: '', headerBackTitle: 'Cancel' }} />
-        <Stack.Screen name="+not-found" />
-      </Stack>
-      <StatusBar style="auto" />
+      <GlobalProvider>
+        <Stack initialRouteName="(start)">
+          <Stack.Screen name="(start)" options={{ headerShown: false }} />
+          <Stack.Screen name="(steps)" options={{ title: '', headerBackTitle: 'Cancel' }} />
+          <Stack.Screen name="+not-found" />
+        </Stack>
+        <StatusBar style="auto" />
+      </GlobalProvider>
     </ThemeProvider>
   );
 }

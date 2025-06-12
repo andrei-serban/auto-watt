@@ -14,13 +14,13 @@ export default function MegaButton({
     		opacity: disabled ? 0.5 : 1,
   			backgroundColor: 
   				status === 1 
-  				? 'green' 
+  				? '#28A745' 
   				: (status === 0 
-						? 'red' 
+						? '#DC3545' 
 						: (
 							status === -2
-							? 'lightgray'
-							: 'gray'
+							? '#E9ECEF'
+							: '#6C757D'
 						)
 					), 
   			marginTop: 10, 
@@ -30,12 +30,18 @@ export default function MegaButton({
   		}}
 		>
       <View style={{ marginBottom: 15, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-	      <Text style={{ fontSize: 28, fontWeight: 300, color: '#fff' }}>
+	      <Text style={{ fontSize: 28, fontWeight: 300, color: status === -2 ? '#6C757D' : '#fff' }}>
 	      	{title}
 	    	</Text>
 	    	<Feather name="chevron-right" size={28} color="white" />
     	</View>
-    	<Text style={{ fontSize: 28, fontWeight: 700, color: '#fff', opacity: 0.75 }}>
+    	<Text style={{ 
+    		fontSize: 28, 
+    		fontWeight: 700, 
+    		fontStyle: status === -2 ? 'italic' : 'normal',
+    		color: status === -2 ? '#6C757D' : '#fff', 
+    		opacity: 0.75
+    	}}>
       	{
       		status === 1
       		? 'Pass'

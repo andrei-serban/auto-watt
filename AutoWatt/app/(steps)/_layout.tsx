@@ -1,6 +1,7 @@
 import { Tabs } from 'expo-router';
 import React from 'react';
 import { Platform } from 'react-native';
+import { Fontisto, Feather } from '@expo/vector-icons';
 
 import { HapticTab } from '@/components/HapticTab';
 import { IconSymbol } from '@/components/ui/IconSymbol';
@@ -37,7 +38,21 @@ export default function TabLayout() {
         name="electrical-testing"
         options={{
           title: 'Electric',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="house.fill" color={color} />,
+          tabBarIcon: ({ color }) => <Fontisto size={28} name="lightbulb" color={color} />,
+        }}
+      />
+      <Tabs.Screen
+        name="weather"
+        options={{
+          title: 'Weather',
+          tabBarIcon: ({ color }) => <Feather name="sun" size={28} color={color} />,
+        }}
+      />
+      <Tabs.Screen
+        name="ambient-temp"
+        options={{
+          title: 'Ambient Temp',
+          tabBarIcon: ({ color }) => <Feather name="sun" size={28} color={color} />,
         }}
       />
     </Tabs>

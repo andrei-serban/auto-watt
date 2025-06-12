@@ -6,13 +6,8 @@ import InputGroup from '../../components/InputGroup';
 import ScreenTitle from '../../components/ScreenTitle';
 import ScreenSummary from '../../components/ScreenSummary';
 
-export default function HomeScreen() {
-	const router = useRouter();
+export default function ElectricalTestingScreen() {
   const [notes, setNotes] = useState('');
-
-  const handlePress = () => {
-    router.push('/(start)');
-  };
 
   return (
     <ScrollView style={{ padding: 20 }}>

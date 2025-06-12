@@ -1,12 +1,14 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { useRouter } from 'expo-router';
 import { View, Text, ScrollView, TextInput } from 'react-native';
 import InputGroup from '@/components/InputGroup';
-import ScreenTitle from '@/components/ScreenTitle';
 import MegaButton from '@/components/MegaButton';
+import ScreenTitle from '@/components/ScreenTitle';
+import ScreenButton from '@/components/ScreenButton';
+import { GlobalContext } from '@/context/GlobalContext';
 
 export default function HomeScreen() {
-	const router = useRouter();
+  const router = useRouter();
   const [name, setName] = useState('');
   const [notes, setNotes] = useState('');
   const [address, setAddress] = useState('');
@@ -18,9 +20,7 @@ export default function HomeScreen() {
   const [cleaningPerformed, setCleaningPerformed] = useState('');
   const [ramsCompleted, setRamsCompleted] = useState('');
 
-  const handlePress = () => {
-    router.push('/(start)');
-  };
+  const { weather, ambientTemp } = useContext(GlobalContext);
 
   return (
     <ScrollView style={{ padding: 20 }}>
@@ -94,6 +94,20 @@ export default function HomeScreen() {
         />
       </View>
 
+      <View style={{ borderColor: '#777', borderWidth: 1, borderRadius: 10, padding: 8, marginTop: 25 }}>
+        <ScreenButton
+          text="Weather"
+          value={weather}
+          onPress={() => router.push('/(steps)/weather')}
+        />
+        <View style={{ height: 0, borderTopWidth: 1, borderTopColor: '#777' }}></View>
+        <ScreenButton
+          text="Ambient Temp"
+          value={ambientTemp}
+          onPress={() => router.push('/(steps)/ambient-temp')}
+        />
+      </View>
+
       <MegaButton
         title="Inverters / AC Distribution"
         status={0}
@@ -162,10 +176,6 @@ export default function HomeScreen() {
 
 Start The date is chosen via a Calander or this wheel (if this is only available on iPhone than Calander is fine) - TIME is the same
 
-Weather This brings you to weather page and once the option is selected this should be updated to look like
-  
-Ambient temperature This brings you to ambient temperature page and once the option is selected this should be updated to look like
-  
 System components The system components – each one brings you to a new page with the tasks associated with that component – I would like that if everything on the task list ‘Passes’ then the front page box will say Pass and same for Fail (maybe colours as well to make it easy – the box goes green for Pass and Red for Fail - see examples to the right)
   
 Inspection limitations  The inspection limitations – these are tick boxes to confirm whether something wasn’t done. 
