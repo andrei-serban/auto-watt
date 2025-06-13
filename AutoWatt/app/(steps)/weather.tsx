@@ -1,8 +1,9 @@
 import { useState, useContext } from 'react';
 import { useRouter } from 'expo-router';
 import { View, ScrollView } from 'react-native';
-import ScreenTitle from '../../components/ScreenTitle';
-import ScreenButton from '../../components/ScreenButton';
+import BackButton from '@/components/BackButton';
+import ScreenTitle from '@/components/ScreenTitle';
+import ScreenButton from '@/components/ScreenButton';
 import { GlobalContext } from '@/context/GlobalContext';
 
 export default function WeatherScreen() {
@@ -23,6 +24,8 @@ export default function WeatherScreen() {
 
   return (
     <ScrollView style={{ padding: 20 }}>
+    	<BackButton />
+
     	<ScreenTitle>
     		Solar Maintenance{'\n'}Weather
     	</ScreenTitle>

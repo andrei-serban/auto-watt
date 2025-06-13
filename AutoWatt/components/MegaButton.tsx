@@ -20,7 +20,11 @@ export default function MegaButton({
 						: (
 							status === -2
 							? '#E9ECEF'
-							: '#6C757D'
+							: (
+								status === -3
+								? 'orange'
+								: '#6C757D'
+							)
 						)
 					), 
   			marginTop: 10, 
@@ -33,7 +37,7 @@ export default function MegaButton({
 	      <Text style={{ fontSize: 28, fontWeight: 300, color: status === -2 ? '#6C757D' : '#fff' }}>
 	      	{title}
 	    	</Text>
-	    	<Feather name="chevron-right" size={28} color="white" />
+	    	<Feather name="chevron-right" size={28} color={status === -2 ? '#6C757D' : '#fff'} />
     	</View>
     	<Text style={{ 
     		fontSize: 28, 
@@ -50,7 +54,11 @@ export default function MegaButton({
       			: (
       				status === -2
       				? 'Not started'
-      				: 'N/A'
+      				: (
+	      				status === -3
+	      				? 'Deactivated'
+	      				: 'N/A'
+	    				)
     				)
     			)
       	}

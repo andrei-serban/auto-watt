@@ -20,18 +20,41 @@ export default function HomeScreen() {
   const [cleaningPerformed, setCleaningPerformed] = useState('');
   const [ramsCompleted, setRamsCompleted] = useState('');
 
-  const { 
+  const {
     weather, 
     ambientTemp,
     technicianEmail,
     managerEmail,
 
+    mainsConnectionTasks,
+    electricalTestingTasks,
+
     setTechnicianEmail,
     setManagerEmail
   } = useContext(GlobalContext);
 
+  const getTaskGroupStatus = (tasks) => {
+    if (tasks.filter((task) => task.value === '').length === tasks.length) {
+      return -2;
+    }
+
+    if (tasks.map(task => task.value).filter(value => value === 'fail').length > 0) {
+      return 0;
+    }
+
+    if (tasks.map(task => task.value).filter(value => value === 'n/a').length > 0) {
+      return -1;
+    }
+
+    if (tasks.map(task => task.value).filter(value => ['pass', ''].includes(value)).length === tasks.length) {
+      return 1;
+    }
+
+    return -3;
+  }
+
   return (
-    <ScrollView style={{ padding: 20 }}>
+    <ScrollView style={{ padding: 20, paddingTop: 120 }}>
       <ScreenTitle>Solar Maintenance</ScreenTitle>
 
       <InputGroup
@@ -131,7 +154,8 @@ export default function HomeScreen() {
 
       <MegaButton
         title="Mains Connection"
-        status={1}
+        onPress={() => router.push('/(steps)/mains-connection')}
+        status={getTaskGroupStatus(mainsConnectionTasks)}
       />
 
       <MegaButton
@@ -142,7 +166,7 @@ export default function HomeScreen() {
       <MegaButton
         title="Electrical Testing"
         onPress={() => router.push('/(steps)/electrical-testing')}
-        status={1}
+        status={getTaskGroupStatus(electricalTestingTasks)}
       />
 
       <MegaButton

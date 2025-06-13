@@ -9,10 +9,6 @@ import { ThemedView } from '@/components/ThemedView';
 export default function HomeScreen() {
   const router = useRouter();
 
-  const handlePress = () => {
-    router.push('/(steps)');
-  };
-
   return (
     <ParallaxScrollView
       headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
@@ -25,14 +21,17 @@ export default function HomeScreen() {
       <ThemedView style={styles.titleContainer}>
         <ThemedText type="subtitle" style={{ fontSize: 28 }}>Welcome to AutoWatt!</ThemedText>
       </ThemedView>
-      <TouchableOpacity style={{
-        padding: 15,
-        marginTop: 50,
-        borderRadius: 5,
-        flexDirection: 'row',
-        justifyContent: 'center',
-        backgroundColor: '#0a7ea4'
-      }} onPress={handlePress}>
+      <TouchableOpacity 
+        style={{
+          padding: 15,
+          marginTop: 50,
+          borderRadius: 5,
+          flexDirection: 'row',
+          justifyContent: 'center',
+          backgroundColor: '#0a7ea4'
+        }} 
+        onPress={() => router.push('/(steps)')}
+      >
         <Text style={{
           fontSize: 16,
           color: 'white',

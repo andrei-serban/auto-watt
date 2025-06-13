@@ -1,7 +1,7 @@
 import { Tabs } from 'expo-router';
 import React from 'react';
 import { Platform } from 'react-native';
-import { Fontisto, Feather } from '@expo/vector-icons';
+import { Fontisto, Feather, Octicons, FontAwesome5 } from '@expo/vector-icons';
 
 import { HapticTab } from '@/components/HapticTab';
 import { IconSymbol } from '@/components/ui/IconSymbol';
@@ -35,6 +35,13 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
+        name="mains-connection"
+        options={{
+          title: 'Mains',
+          tabBarIcon: ({ color }) => <Octicons size={28} name="plug" color={color} />,
+        }}
+      />
+      <Tabs.Screen
         name="electrical-testing"
         options={{
           title: 'Electric',
@@ -52,7 +59,7 @@ export default function TabLayout() {
         name="ambient-temp"
         options={{
           title: 'Ambient Temp',
-          tabBarIcon: ({ color }) => <Feather name="sun" size={28} color={color} />,
+          tabBarIcon: ({ color }) => <FontAwesome5 name="temperature-high" size={28} color={color} />,
         }}
       />
     </Tabs>

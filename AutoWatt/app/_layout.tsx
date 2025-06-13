@@ -25,7 +25,7 @@ export default function RootLayout() {
       <GlobalProvider>
         <Stack initialRouteName="(start)">
           <Stack.Screen name="(start)" options={{ headerShown: false }} />
-          <Stack.Screen name="(steps)" options={{ title: '', headerBackTitle: 'Cancel' }} />
+          <Stack.Screen name="(steps)" options={{ headerShown: false }} />
           <Stack.Screen name="+not-found" />
         </Stack>
         <StatusBar style="auto" />
