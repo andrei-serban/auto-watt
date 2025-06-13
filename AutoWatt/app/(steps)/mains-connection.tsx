@@ -1,51 +1,68 @@
-import { useContext } from 'react';
-import { View, Text, ScrollView } from 'react-native';
-import TaskGroup from '@/components/TaskGroup';
-import InputGroup from '@/components/InputGroup';
-import BackButton from '@/components/BackButton';
-import ScreenTitle from '@/components/ScreenTitle';
-import ScreenSummary from '@/components/ScreenSummary';
-import { GlobalContext } from '@/context/GlobalContext';
+import { useContext } from "react";
+import { View, Text, ScrollView } from "react-native";
+import TaskGroup from "@/components/TaskGroup";
+import InputGroup from "@/components/InputGroup";
+import BackButton from "@/components/BackButton";
+import ScreenTitle from "@/components/ScreenTitle";
+import ScreenSummary from "@/components/ScreenSummary";
+import { GlobalContext } from "@/context/GlobalContext";
 
 export default function MainsConnectionScreen() {
-	const {
+  const {
     mainsConnectionTasks,
     setMainsConnectionTasks,
     mainsConnectionNotes,
-    setMainsConnectionNotes
+    setMainsConnectionNotes,
   } = useContext(GlobalContext);
 
   return (
     <ScrollView style={{ padding: 20 }}>
-    	<BackButton />
+      <BackButton />
 
-    	<ScreenTitle>
-    		Solar Maintenance{'\n'}System Components:{'\n'}Mains Connection
-    	</ScreenTitle>
+      <ScreenTitle>
+        Solar Maintenance{"\n"}System Components:{"\n"}Mains Connection
+      </ScreenTitle>
 
-    	<ScreenSummary />
+      <ScreenSummary />
 
-    	<View style={{ marginTop: 30 }}>
-    		<Text style={{ color: '#A9A9A9', fontWeight: 700, fontSize: 32, marginBottom: 10 }}>Tasks</Text>
-				<View style={{ borderColor: '#888', borderWidth: 1, borderRadius: 10, padding: 10, paddingTop: 0 }}>
-					{
-						mainsConnectionTasks.map((task, index) => <TaskGroup
-							key={task.label}
-							title={task.title}
-							label={task.label}
-							value={task.value}
-							onPress={(value) => {
-								const newTasks = [].concat(mainsConnectionTasks);
-								newTasks[index].value = value;
-								setMainsConnectionTasks(newTasks);
-							}}
-						/>)
-					}
-				</View>
-			</View>
+      <View style={{ marginTop: 30 }}>
+        <Text
+          style={{
+            color: "#A9A9A9",
+            fontWeight: 700,
+            fontSize: 32,
+            marginBottom: 10,
+          }}
+        >
+          Tasks
+        </Text>
+        <View
+          style={{
+            borderColor: "#888",
+            borderWidth: 1,
+            borderRadius: 10,
+            padding: 10,
+            paddingTop: 0,
+          }}
+        >
+          {mainsConnectionTasks.map((task, index) => (
+            <TaskGroup
+              key={task.label}
+              title={task.title}
+              label={task.label}
+              value={task.value}
+              onPress={(value) => {
+                const newTasks = [].concat(mainsConnectionTasks);
+                newTasks[index].value = value;
+                setMainsConnectionTasks(newTasks);
+              }}
+            />
+          ))}
+        </View>
+      </View>
 
-			<InputGroup
-      	numberOfLines={8}
+      <InputGroup
+        numberOfLines={8}
         label="Mains Connection notes"
         placeholder="Note"
         value={mainsConnectionNotes}
