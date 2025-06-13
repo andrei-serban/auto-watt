@@ -13,11 +13,16 @@ export default function InputGroup({
 }) {
   return (
     <View style={{ borderColor: '#777', borderWidth: 1, borderRadius: 10, padding: 8, marginTop: marginTop ?? 25 }}>
-      <Text style={{ marginBottom: 5, fontSize: 20, fontWeight: 300 }}>{label}</Text>
+      {
+      	label
+      	? <Text style={{ marginBottom: 5, fontSize: 20, fontWeight: 300 }}>{label}</Text>
+      	: null
+      }
 
       {
       	tag === 'input'
       	? <TextInput
+      		autoCapitalize={(type || '').includes('email') ? 'none' : 'sentences'}
       		multiline={numberOfLines > 1}
           numberOfLines={numberOfLines}
 	        style={{ fontSize: 24, height: numberOfLines > 1 ? (numberOfLines * 30) : 'auto' }}
@@ -46,7 +51,7 @@ export default function InputGroup({
     	{
     		note
     		? <Text style={{ paddingTop: 10, fontSize: 10 }}>
-    			Note for self: {note}
+    			Note to self: {note}
   			</Text>
     		: null
     	}

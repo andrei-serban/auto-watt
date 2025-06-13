@@ -20,7 +20,15 @@ export default function HomeScreen() {
   const [cleaningPerformed, setCleaningPerformed] = useState('');
   const [ramsCompleted, setRamsCompleted] = useState('');
 
-  const { weather, ambientTemp } = useContext(GlobalContext);
+  const { 
+    weather, 
+    ambientTemp,
+    technicianEmail,
+    managerEmail,
+
+    setTechnicianEmail,
+    setManagerEmail
+  } = useContext(GlobalContext);
 
   return (
     <ScrollView style={{ padding: 20 }}>
@@ -108,6 +116,14 @@ export default function HomeScreen() {
         />
       </View>
 
+      <View>
+        <Text style={{ color: '#A9A9A9', fontWeight: 700, marginTop: 25, fontSize: 32 }}>System components</Text>
+        <Text style={{ color: '#A9A9A9', fontWeight: 300, fontSize: 32 }}>(1 out of 6 completed)</Text>
+        <Text style={{ paddingTop: 10, fontSize: 10 }}>
+          Note to self: System components The system components – each one brings you to a new page with the tasks associated with that component – I would like that if everything on the task list ‘Passes’ then the front page box will say Pass and same for Fail (maybe colours as well to make it easy – the box goes green for Pass and Red for Fail - see examples to the right)
+        </Text>
+      </View>
+
       <MegaButton
         title="Inverters / AC Distribution"
         status={0}
@@ -172,19 +188,35 @@ export default function HomeScreen() {
       />
 
       <View>
+        <Text style={{ color: '#A9A9A9', fontWeight: 700, marginTop: 25, fontSize: 32 }}>Send report to</Text>
+      </View>
+
+      <InputGroup
+        marginTop={10}
+        type="email-address"
+        placeholder="Technician email"
+        value={technicianEmail}
+        setValue={setTechnicianEmail}
+      />
+
+      <InputGroup
+        marginTop={10}
+        type="email-address"
+        placeholder="Managers email"
+        value={managerEmail}
+        setValue={setManagerEmail}
+      />
+
+      <View>
         <Text>
 
 Start The date is chosen via a Calander or this wheel (if this is only available on iPhone than Calander is fine) - TIME is the same
-
-System components The system components – each one brings you to a new page with the tasks associated with that component – I would like that if everything on the task list ‘Passes’ then the front page box will say Pass and same for Fail (maybe colours as well to make it easy – the box goes green for Pass and Red for Fail - see examples to the right)
   
 Inspection limitations  The inspection limitations – these are tick boxes to confirm whether something wasn’t done. 
   
 Follow-up required  Follow up required is a Yes and No button
   
 Follow-up details Follow-up notes is a note logged by the technician manually
-  
-Send report to  ‘Send report to’ allows the technician to manually enter email address to themselves and their manager (they have to have at least one email in there – error upon submitting if not filled in and highlight the area)
   
 Generate report Generate report finishes the report and states the auto generation ‘pdf’ process bring you to the end page (15. Report submitted)
   After pressing “Generate Report”, just show:

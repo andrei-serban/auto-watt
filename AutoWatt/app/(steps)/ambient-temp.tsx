@@ -38,7 +38,7 @@ export default function AmbientTempScreen() {
     	</ScreenTitle>
 
     	<View style={{ borderColor: '#777', borderWidth: 1, borderRadius: 10, padding: 8, marginTop: 25 }}>
-        {options.map((option, index) => <View key={option}>
+        {options.map((option, index) => <View key={option.value}>
 	        {
 	        	index
 	        	? <View style={{ height: 0, borderTopWidth: 1, borderTopColor: '#777' }}></View>
