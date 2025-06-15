@@ -1,6 +1,8 @@
+import { useRouter } from "expo-router";
 import { View, Text, TouchableOpacity } from "react-native";
 
 export default function TaskGroup({ title, label, value, onPress }) {
+  const router = useRouter();
   const options = ["pass", "fail", "n/a"];
 
   return (
@@ -39,7 +41,13 @@ export default function TaskGroup({ title, label, value, onPress }) {
       <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
         {options.map((option) => (
           <TouchableOpacity
-            onPress={() => onPress(option)}
+            onPress={() => {
+              onPress(option);
+
+              if (option === 'fail') {
+                router.push("/(steps)/fail");
+              }
+            }}
             key={option}
             style={{
               backgroundColor: option === value ? "#F1F9FF" : "#0a7ea4",

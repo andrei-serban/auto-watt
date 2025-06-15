@@ -1,10 +1,11 @@
 import { Image } from "expo-image";
 import { useRouter } from "expo-router";
-import { Platform, StyleSheet, TouchableOpacity, Text } from "react-native";
+import { StyleSheet } from "react-native";
 
 import ParallaxScrollView from "@/components/ParallaxScrollView";
 import { ThemedText } from "@/components/ThemedText";
 import { ThemedView } from "@/components/ThemedView";
+import ActionButton from "@/components/ActionButton";
 
 export default function HomeScreen() {
   const router = useRouter();
@@ -24,27 +25,12 @@ export default function HomeScreen() {
           Welcome to AutoWatt!
         </ThemedText>
       </ThemedView>
-      <TouchableOpacity
-        style={{
-          padding: 15,
-          marginTop: 50,
-          borderRadius: 5,
-          flexDirection: "row",
-          justifyContent: "center",
-          backgroundColor: "#0a7ea4",
-        }}
+
+      <ActionButton
         onPress={() => router.push("/(steps)")}
-      >
-        <Text
-          style={{
-            fontSize: 16,
-            color: "white",
-            fontWeight: 700,
-          }}
-        >
-          START
-        </Text>
-      </TouchableOpacity>
+        text="START"
+      />
+
       {/*
       <ThemedView style={styles.stepContainer}>
         <ThemedText type="subtitle">Step 1: Try it</ThemedText>
@@ -78,10 +64,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     flexDirection: "row",
     justifyContent: "center",
-  },
-  stepContainer: {
-    gap: 8,
-    marginBottom: 8,
   },
   reactLogo: {
     height: 178,
