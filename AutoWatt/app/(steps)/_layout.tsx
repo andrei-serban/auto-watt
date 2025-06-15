@@ -1,7 +1,13 @@
 import { Tabs } from "expo-router";
 import React from "react";
 import { Platform } from "react-native";
-import { Fontisto, Feather, Octicons, FontAwesome5, MaterialIcons } from "@expo/vector-icons";
+import {
+  Fontisto,
+  Feather,
+  Octicons,
+  FontAwesome5,
+  MaterialIcons,
+} from "@expo/vector-icons";
 
 import { HapticTab } from "@/components/HapticTab";
 import { IconSymbol } from "@/components/ui/IconSymbol";
@@ -79,6 +85,15 @@ export default function TabLayout() {
           title: "Fail",
           tabBarIcon: ({ color }) => (
             <MaterialIcons name="sms-failed" size={28} color={color} />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="report-submitted"
+        options={{
+          title: "Done",
+          tabBarIcon: ({ color }) => (
+            <MaterialIcons name="done" size={28} color={color} />
           ),
         }}
       />

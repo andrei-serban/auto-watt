@@ -44,7 +44,7 @@ export default function TaskGroup({ title, label, value, onPress }) {
             onPress={() => {
               onPress(option);
 
-              if (option === 'fail') {
+              if (option === "fail") {
                 router.push("/(steps)/fail");
               }
             }}

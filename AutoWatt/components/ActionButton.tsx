@@ -1,8 +1,13 @@
 import { View, TouchableOpacity, Text } from "react-native";
 
-export default function ActionButton({ text, onPress, width = '100%', marginTop = 50 }) {
+export default function ActionButton({
+  text,
+  onPress,
+  width = "100%",
+  marginTop = 50,
+}) {
   return (
-    <View style={{ alignItems: 'center' }}>
+    <View style={{ alignItems: "center" }}>
       <TouchableOpacity
         style={{
           width,

@@ -1,10 +1,19 @@
 import { useState, useContext } from "react";
 import { useRouter } from "expo-router";
-import { View, Text, ScrollView, TextInput } from "react-native";
+import {
+  View,
+  Text,
+  ScrollView,
+  TextInput,
+  TouchableOpacity,
+} from "react-native";
+import Checkbox from "expo-checkbox";
+import DateTimePicker from "@react-native-community/datetimepicker";
 import InputGroup from "@/components/InputGroup";
 import MegaButton from "@/components/MegaButton";
 import ScreenTitle from "@/components/ScreenTitle";
 import ScreenButton from "@/components/ScreenButton";
+import ActionButton from "@/components/ActionButton";
 import { GlobalContext } from "@/context/GlobalContext";
 
 export default function HomeScreen() {
@@ -19,6 +28,18 @@ export default function HomeScreen() {
   const [roofAccess, setRoofAccess] = useState("");
   const [cleaningPerformed, setCleaningPerformed] = useState("");
   const [ramsCompleted, setRamsCompleted] = useState("");
+  const [date, setDate] = useState(new Date());
+  const limitations = [
+    "Could not assess roof",
+    "Could only assess roof visually (e.g. from cherrypicker or drone)",
+    "Structural integrity not assessed",
+    "No thermography performed",
+    "No electrical testing carried out",
+    "Could not isolate system",
+    "No comms / logging check done",
+    `I confirm that the above areas were not
+inspected or fall outside my competency`,
+  ];
 
   const {
     weather,
@@ -110,6 +131,29 @@ export default function HomeScreen() {
           marginTop: 25,
         }}
       >
+        <View
+          style={{
+            flexDirection: "row",
+            alignItems: "center",
+            marginBottom: 10,
+          }}
+        >
+          <Text style={{ fontSize: 20 }}>Start</Text>
+          <DateTimePicker
+            value={date}
+            is24Hour={true}
+            display="default"
+            onChange={() => {}}
+          />
+          <DateTimePicker
+            value={date}
+            mode="time"
+            is24Hour={true}
+            display="default"
+            onChange={() => {}}
+          />
+        </View>
+
         <InputGroup
           tag="switch"
           marginTop={0}
@@ -217,7 +261,69 @@ export default function HomeScreen() {
         setValue={setNotes}
       />
 
+      <View style={{ marginTop: 50 }}>
+        <Text
+          style={{
+            color: "#A9A9A9",
+            fontWeight: 700,
+            fontSize: 32,
+          }}
+        >
+          Inspection limitations
+        </Text>
+        <Text
+          style={{
+            color: "#A9A9A9",
+            fontWeight: 300,
+            fontSize: 32,
+          }}
+        >
+          Declare what you could not inspect or were not qualified to assess
+        </Text>
+        <View
+          style={{
+            borderWidth: 1,
+            borderColor: "#777",
+            padding: 8,
+            borderRadius: 10,
+            marginTop: 10,
+            gap: 10,
+          }}
+        >
+          {limitations.map((limitation, index) => (
+            <TouchableOpacity
+              key={limitation}
+              style={{ flexDirection: "row", gap: 10 }}
+            >
+              <Checkbox
+                value={index % 2}
+                onValueChange={() => {}}
+                color={index % 2 ? "#0a7ea4" : undefined}
+              />
+              <Text>{limitation}</Text>
+            </TouchableOpacity>
+          ))}
+        </View>
+      </View>
+
+      <View style={{ marginVertical: 50 }}>
+        <Text
+          style={{
+            color: "#A9A9A9",
+            fontWeight: 700,
+            fontSize: 32,
+          }}
+        >
+          Follow-up required?
+        </Text>
+        <View style={{ flexDirection: "row", justifyContent: "space-evenly" }}>
+          <ActionButton text="Yes" width={130} marginTop={20} />
+          <ActionButton text="No" width={130} marginTop={20} />
+        </View>
+      </View>
+
       <InputGroup
+        marginTop={0}
         numberOfLines={8}
         label={
           'Follow-up details (e.g. "Recommend scaffold and revisit to check frame condition.")'
@@ -256,21 +362,15 @@ export default function HomeScreen() {
         setValue={setManagerEmail}
       />
 
-      <View>
-        <Text>
-          Start The date is chosen via a Calander or this wheel (if this is only
-          available on iPhone than Calander is fine) - TIME is the same
-          Inspection limitations The inspection limitations – these are tick
-          boxes to confirm whether something wasn’t done. Follow-up required
-          Follow up required is a Yes and No button Follow-up details Follow-up
-          notes is a note logged by the technician manually Generate report
-          Generate report finishes the report and states the auto generation
-          ‘pdf’ process bring you to the end page (15. Report submitted) After
-          pressing “Generate Report”, just show: ✅ “Inspection submitted” 📎
-          PDF generating… 📨 Sent to technician@example.com This is reassurance
-          and helps users trust the app.
-        </Text>
-      </View>
+      <ActionButton onPress={() => {}} text="Generate Report" />
+
+      <Text>
+        Generate report Generate report finishes the report and states the auto
+        generation ‘pdf’ process bring you to the end page (15. Report
+        submitted) After pressing “Generate Report”, just show: ✅ “Inspection
+        submitted” 📎 PDF generating… 📨 Sent to technician@example.com This is
+        reassurance and helps users trust the app.
+      </Text>
 
       <View style={{ height: 360 }}></View>
     </ScrollView>

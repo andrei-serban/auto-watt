@@ -1,19 +1,19 @@
 import { useState, useContext } from "react";
+import { Image } from "expo-image";
 import { View, Text, ScrollView, TouchableOpacity } from "react-native";
 import InputGroup from "@/components/InputGroup";
 import ScreenTitle from "@/components/ScreenTitle";
 import ActionButton from "@/components/ActionButton";
 import { GlobalContext } from "@/context/GlobalContext";
-import * as ImagePicker from 'expo-image-picker';
+import * as ImagePicker from "expo-image-picker";
 
 export default function FailScreen() {
-	const severities = ['Critical fault', 'Major fault', 'Minor fault'];
-	const [selectedSeverity, setSelectedSeverity] = useState(0);
+  const severities = ["Critical fault", "Major fault", "Minor fault"];
+  const [selectedSeverity, setSelectedSeverity] = useState(0);
+  const [photos, setPhotos] = useState([]);
 
-  const {
-    electricalTestingNotes,
-    setElectricalTestingNotes,
-  } = useContext(GlobalContext);
+  const { electricalTestingNotes, setElectricalTestingNotes } =
+    useContext(GlobalContext);
 
   return (
     <ScrollView style={{ padding: 20, paddingTop: 120 }}>
@@ -32,31 +32,52 @@ export default function FailScreen() {
         >
           Select the severity of this fault before submitting
         </Text>
-        <View style={{ alignItems: 'center' }}>
-        	{
-        		severities.map((severity, index) => <View key={severity} style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', width: 300, marginTop: 30 }}>
-        			<TouchableOpacity 
-        				onPress={() => setSelectedSeverity(index+1)}
-	        			style={{
-	        				width: '45%', 
-		              backgroundColor: selectedSeverity === (index+1) ? "#F1F9FF" : "#0a7ea4",
-		              borderColor: "#0a7ea4",
-		              borderWidth: 2,
-		              borderRadius: 3,
-		              padding: 15,
-	        			}}
-        			>
-        				<Text style={{ 
-        					textAlign: 'center', 
-        					color: selectedSeverity === (index+1) ? "#0a7ea4" : "#fff",
-        					fontWeight: 700
-        				}}>
-        					Category {index+1}
-      					</Text>	
-        			</TouchableOpacity>
-        			<Text style={{ width: '45%', fontSize: 24, fontWeight: 300, color: '#A9A9A9' }}>{severity}</Text>	
-        		</View>)
-        	}
+        <View style={{ alignItems: "center" }}>
+          {severities.map((severity, index) => (
+            <View
+              key={severity}
+              style={{
+                flexDirection: "row",
+                alignItems: "center",
+                justifyContent: "space-between",
+                width: 300,
+                marginTop: 30,
+              }}
+            >
+              <TouchableOpacity
+                onPress={() => setSelectedSeverity(index + 1)}
+                style={{
+                  width: "45%",
+                  backgroundColor:
+                    selectedSeverity === index + 1 ? "#F1F9FF" : "#0a7ea4",
+                  borderColor: "#0a7ea4",
+                  borderWidth: 2,
+                  borderRadius: 3,
+                  padding: 15,
+                }}
+              >
+                <Text
+                  style={{
+                    textAlign: "center",
+                    color: selectedSeverity === index + 1 ? "#0a7ea4" : "#fff",
+                    fontWeight: 700,
+                  }}
+                >
+                  Category {index + 1}
+                </Text>
+              </TouchableOpacity>
+              <Text
+                style={{
+                  width: "45%",
+                  fontSize: 24,
+                  fontWeight: 300,
+                  color: "#A9A9A9",
+                }}
+              >
+                {severity}
+              </Text>
+            </View>
+          ))}
         </View>
       </View>
 
@@ -85,33 +106,63 @@ export default function FailScreen() {
       />
 
       <View style={{ marginTop: 50 }}>
-	      <Text style={{ fontSize: 26, fontWeight: 300, textAlign: "center", color: "#A9A9A9" }}>
-	        Media upload (up to 5 photos)
-	      </Text>
-	      <ActionButton
-	      	width={180}
-	      	marginTop={20}
-	        onPress={async () => {
-	        	console.log('ImagePicker', ImagePicker);
-				    let result = await ImagePicker.launchImageLibraryAsync({
-				      mediaTypes: ImagePicker.MediaTypeOptions.Images,
-				      allowsEditing: true,
-				      aspect: [4, 3],
-				      quality: 1,
-				    });
+        <Text
+          style={{
+            fontSize: 26,
+            fontWeight: 300,
+            textAlign: "center",
+            color: "#A9A9A9",
+          }}
+        >
+          Media upload (up to 5 photos)
+        </Text>
+        {photos.length ? (
+          <View
+            style={{
+              marginTop: 20,
+              flexDirection: "row",
+              flexWrap: "wrap",
+              gap: 1,
+            }}
+          >
+            {photos.map((photo) => (
+              <Image
+                key={photo}
+                source={photo}
+                style={{
+                  width: "33%",
+                  height: 100,
+                  aspectRatio: 1,
+                  borderWidth: 2,
+                  borderColor: "#0a7ea4",
+                }}
+              />
+            ))}
+          </View>
+        ) : null}
+        {photos.length < 5 ? (
+          <ActionButton
+            width={180}
+            marginTop={20}
+            onPress={async () => {
+              let result = await ImagePicker.launchImageLibraryAsync({
+                mediaTypes: ["images"],
+                allowsEditing: true,
+                aspect: [4, 3],
+                quality: 1,
+              });
 
-				    if (!result.canceled) {
-				      //setImage(result.assets[0].uri);
-				    }
-				  }}
-	        text="Select Photos"
-	      />
+              if (!result.canceled) {
+                const newPhotos = photos.concat([result.assets[0].uri]);
+                setPhotos(newPhotos);
+              }
+            }}
+            text="Select Photos"
+          />
+        ) : null}
       </View>
 
-      <ActionButton
-        onPress={() => {}}
-        text="Save Fault Log"
-      />
+      <ActionButton onPress={() => {}} text="Save Fault Log" />
 
       <View style={{ height: 360 }}></View>
     </ScrollView>
