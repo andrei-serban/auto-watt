@@ -1,6 +1,7 @@
 import { useState, useContext } from "react";
 import { Image } from "expo-image";
 import { View, Text, ScrollView, TouchableOpacity } from "react-native";
+import BackButton from "@/components/BackButton";
 import InputGroup from "@/components/InputGroup";
 import ScreenTitle from "@/components/ScreenTitle";
 import ActionButton from "@/components/ActionButton";
@@ -16,7 +17,9 @@ export default function FailScreen() {
     useContext(GlobalContext);
 
   return (
-    <ScrollView style={{ padding: 20, paddingTop: 120 }}>
+    <ScrollView style={{ padding: 20 }}>
+      <BackButton />
+
       <ScreenTitle subtitle="TO BE FILLED WITH ITEM">
         TO BE FILLED WITH CATEGORY - FAIL
       </ScreenTitle>

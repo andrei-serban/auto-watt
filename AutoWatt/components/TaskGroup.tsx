@@ -1,9 +1,15 @@
 import { useRouter } from "expo-router";
 import { View, Text, TouchableOpacity } from "react-native";
 
-export default function TaskGroup({ title, label, value, onPress }) {
+export default function TaskGroup({
+  title,
+  label,
+  value,
+  optionCount = 3,
+  onPress,
+}) {
   const router = useRouter();
-  const options = ["pass", "fail", "n/a"];
+  const options = optionCount === 2 ? ["yes", "no"] : ["pass", "fail", "n/a"];
 
   return (
     <View
@@ -38,7 +44,7 @@ export default function TaskGroup({ title, label, value, onPress }) {
         {label}
       </Text>
 
-      <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
+      <View style={{ flexDirection: "row", justifyContent: "space-evenly" }}>
         {options.map((option) => (
           <TouchableOpacity
             onPress={() => {

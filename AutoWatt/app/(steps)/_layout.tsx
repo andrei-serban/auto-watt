@@ -7,6 +7,7 @@ import {
   Octicons,
   FontAwesome5,
   MaterialIcons,
+  MaterialCommunityIcons,
 } from "@expo/vector-icons";
 
 import { HapticTab } from "@/components/HapticTab";
@@ -58,6 +59,19 @@ export default function TabLayout() {
           title: "Electric",
           tabBarIcon: ({ color }) => (
             <Fontisto size={28} name="lightbulb" color={color} />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="performance-checks"
+        options={{
+          title: "Performance",
+          tabBarIcon: ({ color }) => (
+            <MaterialCommunityIcons
+              name="format-list-checks"
+              size={28}
+              color={color}
+            />
           ),
         }}
       />

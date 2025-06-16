@@ -67,7 +67,7 @@ export default function MegaButton({
             : status === -2
               ? "Not started"
               : status === -3
-                ? "Deactivated"
+                ? ""
                 : "N/A"}
       </Text>
     </TouchableOpacity>

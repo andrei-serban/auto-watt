@@ -18,6 +18,7 @@ import { Fontisto } from "@expo/vector-icons";
 
 export default function HomeScreen() {
   const router = useRouter();
+  const [submissionStep, setSubmissionStep] = useState(0);
   const [name, setName] = useState("");
   const [notes, setNotes] = useState("");
   const [address, setAddress] = useState("");
@@ -48,6 +49,7 @@ export default function HomeScreen() {
 
     mainsConnectionTasks,
     electricalTestingTasks,
+    performanceChecksTasks,
 
     setTechnicianEmail,
     setManagerEmail,
@@ -75,7 +77,8 @@ export default function HomeScreen() {
     if (
       tasks
         .map((task) => task.value)
-        .filter((value) => ["pass", ""].includes(value)).length === tasks.length
+        .filter((value) => ["pass", "yes", ""].includes(value)).length ===
+      tasks.length
     ) {
       return 1;
     }
@@ -242,7 +245,11 @@ export default function HomeScreen() {
         status={getTaskGroupStatus(electricalTestingTasks)}
       />
 
-      <MegaButton title="Performance Checks" status={-2} />
+      <MegaButton
+        title="Performance Checks"
+        onPress={() => router.push("/(steps)/performance-checks")}
+        status={getTaskGroupStatus(performanceChecksTasks)}
+      />
 
       <MegaButton title="Visual Inspection" status={-2} />
 
@@ -290,18 +297,15 @@ export default function HomeScreen() {
           }}
         >
           {limitations.map((limitation, index) => (
-            <TouchableOpacity
-              key={limitation}
-              style={{ flexDirection: "row" }}
-            >
-              <View style={{ width: '10%' }}>
-                {
-                  index % 2
-                  ? <Fontisto name="checkbox-active" size={20} color="#0a7ea4" />
-                  : <Fontisto name="checkbox-passive" size={20} />  
-                }
+            <TouchableOpacity key={limitation} style={{ flexDirection: "row" }}>
+              <View style={{ width: "10%" }}>
+                {index % 2 ? (
+                  <Fontisto name="checkbox-active" size={20} color="#0a7ea4" />
+                ) : (
+                  <Fontisto name="checkbox-passive" size={20} />
+                )}
               </View>
-              <Text style={{ fontSize: 18, width: '90%' }}>{limitation}</Text>
+              <Text style={{ fontSize: 18, width: "90%" }}>{limitation}</Text>
             </TouchableOpacity>
           ))}
         </View>
@@ -363,15 +367,65 @@ export default function HomeScreen() {
         setValue={setManagerEmail}
       />
 
-      <ActionButton onPress={() => {}} text="Generate Report" />
+      {submissionStep === 0 ? (
+        <ActionButton
+          onPress={() => {
+            setSubmissionStep(1);
 
-      <Text>
-        Generate report Generate report finishes the report and states the auto
-        generation ‘pdf’ process bring you to the end page (15. Report
-        submitted) After pressing “Generate Report”, just show: ✅ “Inspection
-        submitted” 📎 PDF generating… 📨 Sent to technician@example.com This is
-        reassurance and helps users trust the app.
-      </Text>
+            setTimeout(() => {
+              setSubmissionStep(2);
+
+              setTimeout(() => {
+                setSubmissionStep(3);
+
+                setTimeout(() => {
+                  router.push("/(steps)/report-submitted");
+                }, 1000);
+              }, 1000);
+            }, 1000);
+          }}
+          text="Generate Report"
+        />
+      ) : null}
+
+      {submissionStep === 1 ? (
+        <Text
+          style={{
+            textAlign: "center",
+            padding: 20,
+            fontWeight: 700,
+            fontSize: 16,
+          }}
+        >
+          ✅ Inspection submitted
+        </Text>
+      ) : null}
+
+      {submissionStep === 2 ? (
+        <Text
+          style={{
+            textAlign: "center",
+            padding: 20,
+            fontWeight: 700,
+            fontSize: 16,
+          }}
+        >
+          📎 PDF generating...
+        </Text>
+      ) : null}
+
+      {submissionStep === 3 ? (
+        <Text
+          style={{
+            textAlign: "center",
+            padding: 20,
+            fontWeight: 700,
+            fontSize: 16,
+          }}
+        >
+          📨 Sent to technician@example.com
+        </Text>
+      ) : null}
 
       <View style={{ height: 360 }}></View>
     </ScrollView>

@@ -67,6 +67,31 @@ export const GlobalProvider = ({ children }) => {
   ]);
   const [electricalTestingNotes, setElectricalTestingNotes] = useState("");
 
+  const [performanceChecksExportValue, setPerformanceChecksExportValue] =
+    useState("");
+  const [performanceChecksTasks, setPerformanceChecksTasks] = useState([
+    {
+      label: "Generation meter reading logged",
+      value: "",
+      optionCount: 2,
+    },
+    {
+      label: "Output vs expected (adjusted)",
+      value: "",
+      optionCount: 2,
+    },
+    {
+      label: "Inverter logs reviewed",
+      value: "",
+      optionCount: 2,
+    },
+    {
+      label: "Monitor and comms working",
+      value: "",
+    },
+  ]);
+  const [performanceChecksNotes, setPerformanceChecksNotes] = useState("");
+
   return (
     <GlobalContext.Provider
       value={{
@@ -88,6 +113,13 @@ export const GlobalProvider = ({ children }) => {
         setElectricalTestingTasks,
         electricalTestingNotes,
         setElectricalTestingNotes,
+
+        performanceChecksTasks,
+        setPerformanceChecksTasks,
+        performanceChecksExportValue,
+        setPerformanceChecksExportValue,
+        performanceChecksNotes,
+        setPerformanceChecksNotes,
       }}
     >
       {children}
