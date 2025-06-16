@@ -7,7 +7,6 @@ import {
   TextInput,
   TouchableOpacity,
 } from "react-native";
-import Checkbox from "expo-checkbox";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import InputGroup from "@/components/InputGroup";
 import MegaButton from "@/components/MegaButton";
@@ -15,6 +14,7 @@ import ScreenTitle from "@/components/ScreenTitle";
 import ScreenButton from "@/components/ScreenButton";
 import ActionButton from "@/components/ActionButton";
 import { GlobalContext } from "@/context/GlobalContext";
+import { Fontisto } from "@expo/vector-icons";
 
 export default function HomeScreen() {
   const router = useRouter();
@@ -37,8 +37,7 @@ export default function HomeScreen() {
     "No electrical testing carried out",
     "Could not isolate system",
     "No comms / logging check done",
-    `I confirm that the above areas were not
-inspected or fall outside my competency`,
+    "I confirm that the above areas were not inspected or fall outside my competency",
   ];
 
   const {
@@ -293,14 +292,16 @@ inspected or fall outside my competency`,
           {limitations.map((limitation, index) => (
             <TouchableOpacity
               key={limitation}
-              style={{ flexDirection: "row", gap: 10 }}
+              style={{ flexDirection: "row" }}
             >
-              <Checkbox
-                value={index % 2}
-                onValueChange={() => {}}
-                color={index % 2 ? "#0a7ea4" : undefined}
-              />
-              <Text>{limitation}</Text>
+              <View style={{ width: '10%' }}>
+                {
+                  index % 2
+                  ? <Fontisto name="checkbox-active" size={20} color="#0a7ea4" />
+                  : <Fontisto name="checkbox-passive" size={20} />  
+                }
+              </View>
+              <Text style={{ fontSize: 18, width: '90%' }}>{limitation}</Text>
             </TouchableOpacity>
           ))}
         </View>
