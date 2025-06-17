@@ -50,6 +50,7 @@ export default function HomeScreen() {
     mainsConnectionTasks,
     electricalTestingTasks,
     performanceChecksTasks,
+    safetyRisksTasks,
 
     setTechnicianEmail,
     setManagerEmail,
@@ -61,8 +62,8 @@ export default function HomeScreen() {
     }
 
     if (
-      tasks.map((task) => task.value).filter((value) => value === "fail")
-        .length > 0
+      tasks.map((task) => task.value).filter((value) => ["fail", "no"]).length >
+      0
     ) {
       return 0;
     }
@@ -253,7 +254,11 @@ export default function HomeScreen() {
 
       <MegaButton title="Visual Inspection" status={-2} />
 
-      <MegaButton title="System Safety Risks" status={-2} />
+      <MegaButton
+        title="System Safety Risks"
+        onPress={() => router.push("/(steps)/safety-risks")}
+        status={getTaskGroupStatus(safetyRisksTasks)}
+      />
 
       <MegaButton disabled={true} title="Battery Systems" status={-2} />
 

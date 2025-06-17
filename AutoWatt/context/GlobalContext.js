@@ -92,6 +92,39 @@ export const GlobalProvider = ({ children }) => {
   ]);
   const [performanceChecksNotes, setPerformanceChecksNotes] = useState("");
 
+  const [safetyRisksTasks, setSafetyRisksTasks] = useState([
+    {
+      label: "Are MC4 connectors secure, matched and undamaged? (5% sample)",
+      value: "",
+    },
+    {
+      label: "Are DC cables elevated and free from mechanical abrasion?",
+      value: "",
+    },
+    {
+      label: "Any signs of electrical arcing, scorching or melted insulation?",
+      value: "",
+    },
+    {
+      label: "Were thermal images taken for this system?",
+      value: "",
+      optionCount: 2,
+      allowPhotos: true,
+    },
+    {
+      label: "Any hotspots identified (e.g. connectors, junction boxes)?",
+      value: "",
+      yesAndNo: true,
+    },
+    {
+      label:
+        "Cleaning method checked - no signs of damage from high pressure washing or aggressive brushing?",
+      value: "",
+      yesAndNo: true,
+    },
+  ]);
+  const [safetyRisksNotes, setSafetyRisksNotes] = useState("");
+
   return (
     <GlobalContext.Provider
       value={{
@@ -120,6 +153,11 @@ export const GlobalProvider = ({ children }) => {
         setPerformanceChecksExportValue,
         performanceChecksNotes,
         setPerformanceChecksNotes,
+
+        safetyRisksTasks,
+        setSafetyRisksTasks,
+        safetyRisksNotes,
+        setSafetyRisksNotes,
       }}
     >
       {children}

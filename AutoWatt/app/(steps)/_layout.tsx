@@ -2,9 +2,10 @@ import { Tabs } from "expo-router";
 import React from "react";
 import { Platform } from "react-native";
 import {
-  Fontisto,
   Feather,
+  Fontisto,
   Octicons,
+  AntDesign,
   FontAwesome5,
   MaterialIcons,
   MaterialCommunityIcons,
@@ -72,6 +73,15 @@ export default function TabLayout() {
               size={28}
               color={color}
             />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="safety-risks"
+        options={{
+          title: "Safety Risks",
+          tabBarIcon: ({ color }) => (
+            <AntDesign name="Safety" size={28} color={color} />
           ),
         }}
       />

@@ -1,15 +1,25 @@
+import { useState } from "react";
+import { Image } from "expo-image";
 import { useRouter } from "expo-router";
 import { View, Text, TouchableOpacity } from "react-native";
+import ActionButton from "@/components/ActionButton";
+import * as ImagePicker from "expo-image-picker";
 
 export default function TaskGroup({
   title,
   label,
   value,
   optionCount = 3,
+  yesAndNo = false,
+  allowPhotos = false,
   onPress,
 }) {
   const router = useRouter();
-  const options = optionCount === 2 ? ["yes", "no"] : ["pass", "fail", "n/a"];
+  const [photos, setPhotos] = useState([]);
+  const options =
+    optionCount === 2
+      ? ["yes", "no"]
+      : [yesAndNo ? "yes" : "pass", yesAndNo ? "no" : "fail", "n/a"];
 
   return (
     <View
@@ -77,6 +87,67 @@ export default function TaskGroup({
           </TouchableOpacity>
         ))}
       </View>
+
+      {allowPhotos ? (
+        <View>
+          <Text
+            style={{
+              fontSize: 24,
+              color: "#888",
+              marginTop: 20,
+            }}
+          >
+            Upload photos (up to 3) if{" "}
+            <Text style={{ fontWeight: 700 }}>YES</Text> selected
+          </Text>
+
+          {photos.length ? (
+            <View
+              style={{
+                marginTop: 10,
+                flexDirection: "row",
+                flexWrap: "wrap",
+                gap: 1,
+              }}
+            >
+              {photos.map((photo) => (
+                <Image
+                  key={photo}
+                  source={photo}
+                  style={{
+                    width: "33%",
+                    height: 100,
+                    aspectRatio: 1,
+                    borderWidth: 2,
+                    borderColor: "#0a7ea4",
+                  }}
+                />
+              ))}
+            </View>
+          ) : null}
+
+          {photos.length < 3 ? (
+            <ActionButton
+              width={180}
+              marginTop={10}
+              onPress={async () => {
+                let result = await ImagePicker.launchImageLibraryAsync({
+                  mediaTypes: ["images"],
+                  allowsEditing: true,
+                  aspect: [4, 3],
+                  quality: 1,
+                });
+
+                if (!result.canceled) {
+                  const newPhotos = photos.concat([result.assets[0].uri]);
+                  setPhotos(newPhotos);
+                }
+              }}
+              text="Select Photos"
+            />
+          ) : null}
+        </View>
+      ) : null}
     </View>
   );
 }
