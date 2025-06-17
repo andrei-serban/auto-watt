@@ -50,6 +50,7 @@ export default function HomeScreen() {
     mainsConnectionTasks,
     electricalTestingTasks,
     performanceChecksTasks,
+    visualChecksTasks,
     safetyRisksTasks,
 
     setTechnicianEmail,
@@ -252,7 +253,11 @@ export default function HomeScreen() {
         status={getTaskGroupStatus(performanceChecksTasks)}
       />
 
-      <MegaButton title="Visual Inspection" status={-2} />
+      <MegaButton
+        title="Visual Inspection"
+        onPress={() => router.push("/(steps)/visual-checks")}
+        status={getTaskGroupStatus(visualChecksTasks)}
+      />
 
       <MegaButton
         title="System Safety Risks"

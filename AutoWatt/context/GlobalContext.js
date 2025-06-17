@@ -92,6 +92,40 @@ export const GlobalProvider = ({ children }) => {
   ]);
   const [performanceChecksNotes, setPerformanceChecksNotes] = useState("");
 
+  const [visualChecksTasks, setVisualChecksTasks] = useState([
+    {
+      label: "PV modules visually sound (no damage, soiling)",
+      value: "",
+    },
+    {
+      label: "Mounting system secure, corrosion-free",
+      value: "",
+    },
+    {
+      label: "Cables intact, fixes, UV-resistant",
+      value: "",
+    },
+    {
+      label: "Signage & labels present, legible",
+      value: "",
+    },
+    {
+      label:
+        "Signs of birds nesting, droppings or wildlife interference \n\n(may impact performance or safety)?",
+      value: "",
+      optionCount: 2,
+      allowPhotos: true,
+    },
+    {
+      label:
+        "Debris, leaves or obstruction under panels (may impact performance or safety)?",
+      value: "",
+      optionCount: 2,
+      allowPhotos: true,
+    },
+  ]);
+  const [visualChecksNotes, setVisualChecksNotes] = useState("");
+
   const [safetyRisksTasks, setSafetyRisksTasks] = useState([
     {
       label: "Are MC4 connectors secure, matched and undamaged? (5% sample)",
@@ -153,6 +187,11 @@ export const GlobalProvider = ({ children }) => {
         setPerformanceChecksExportValue,
         performanceChecksNotes,
         setPerformanceChecksNotes,
+
+        visualChecksTasks,
+        setVisualChecksTasks,
+        visualChecksNotes,
+        setVisualChecksNotes,
 
         safetyRisksTasks,
         setSafetyRisksTasks,

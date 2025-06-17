@@ -77,6 +77,15 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
+        name="visual-checks"
+        options={{
+          title: "Visual Checks",
+          tabBarIcon: ({ color }) => (
+            <MaterialIcons name="graphic-eq" size={28} color={color} />
+          ),
+        }}
+      />
+      <Tabs.Screen
         name="safety-risks"
         options={{
           title: "Safety Risks",
