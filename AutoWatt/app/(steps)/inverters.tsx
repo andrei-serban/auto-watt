@@ -9,12 +9,16 @@ import ActionButton from "@/components/ActionButton";
 import ScreenSummary from "@/components/ScreenSummary";
 import { GlobalContext } from "@/context/GlobalContext";
 
-export default function ElectricalTestingScreen() {
+export default function InvertersScreen() {
   const {
-    electricalTestingTasks,
-    setElectricalTestingTasks,
-    electricalTestingNotes,
-    setElectricalTestingNotes,
+    invertersCount,
+    setInvertersCount,
+    inverters,
+    setInverters,
+    invertersTasks,
+    setInvertersTasks,
+    invertersNotes,
+    setInvertersNotes,
   } = useContext(GlobalContext);
   const router = useRouter();
 
@@ -23,7 +27,7 @@ export default function ElectricalTestingScreen() {
       <BackButton />
 
       <ScreenTitle>
-        Solar Maintenance{"\n"}System Components:{"\n"}Electrical Testing
+        Solar Maintenance{"\n"}System Components:{"\n"}Inverters / DC Distribution
       </ScreenTitle>
 
       <ScreenSummary />
@@ -47,16 +51,16 @@ export default function ElectricalTestingScreen() {
             padding: 10,
           }}
         >
-          {electricalTestingTasks.map((task, index) => (
+          {invertersTasks.map((task, index) => (
             <TaskGroup
               key={task.label}
               title={task.title}
               label={task.label}
               value={task.value}
               onPress={(value) => {
-                const newTasks = [].concat(electricalTestingTasks);
+                const newTasks = [].concat(invertersTasks);
                 newTasks[index].value = value;
-                setElectricalTestingTasks(newTasks);
+                setInvertersTasks(newTasks);
               }}
             />
           ))}
@@ -65,10 +69,10 @@ export default function ElectricalTestingScreen() {
 
       <InputGroup
         numberOfLines={8}
-        label="Electrical Testing notes"
+        label="Inverters notes"
         placeholder="Note"
-        value={electricalTestingNotes}
-        setValue={setElectricalTestingNotes}
+        value={invertersNotes}
+        setValue={setInvertersNotes}
       />
 
       <ActionButton onPress={() => router.push("/(steps)")} text="Save & Return" />

@@ -1,9 +1,11 @@
 import { useContext } from "react";
+import { useRouter } from "expo-router";
 import { View, Text, ScrollView } from "react-native";
 import TaskGroup from "@/components/TaskGroup";
 import InputGroup from "@/components/InputGroup";
 import BackButton from "@/components/BackButton";
 import ScreenTitle from "@/components/ScreenTitle";
+import ActionButton from "@/components/ActionButton";
 import ScreenSummary from "@/components/ScreenSummary";
 import { GlobalContext } from "@/context/GlobalContext";
 
@@ -14,6 +16,7 @@ export default function MainsConnectionScreen() {
     mainsConnectionNotes,
     setMainsConnectionNotes,
   } = useContext(GlobalContext);
+  const router = useRouter();
 
   return (
     <ScrollView style={{ padding: 20 }}>
@@ -68,6 +71,8 @@ export default function MainsConnectionScreen() {
         value={mainsConnectionNotes}
         setValue={setMainsConnectionNotes}
       />
+
+      <ActionButton onPress={() => router.push("/(steps)")} text="Save & Return" />
 
       <View style={{ height: 360 }}></View>
     </ScrollView>

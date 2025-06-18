@@ -8,6 +8,21 @@ export const GlobalProvider = ({ children }) => {
   const [managerEmail, setManagerEmail] = useState("");
   const [ambientTemp, setAmbientTemp] = useState("");
 
+  const [invertersCount, setInvertersCount] = useState(1);
+  const [inverters, setInverters] = useState([
+    {
+      
+    }
+  ]);
+  const [invertersTasks, setInvertersTasks] = useState([
+    {
+      title: "Labeling & Signage",
+      label: "Warning / hazard signs present",
+      value: "",
+    },
+  ]);
+  const [invertersNotes, setInvertersNotes] = useState("");
+
   const [mainsConnectionTasks, setMainsConnectionTasks] = useState([
     {
       title: "Labeling & Signage",
@@ -170,6 +185,15 @@ export const GlobalProvider = ({ children }) => {
         setTechnicianEmail,
         managerEmail,
         setManagerEmail,
+
+        invertersCount,
+        setInvertersCount,
+        inverters,
+        setInverters,
+        invertersTasks,
+        setInvertersTasks,
+        invertersNotes,
+        setInvertersNotes,
 
         mainsConnectionTasks,
         setMainsConnectionTasks,

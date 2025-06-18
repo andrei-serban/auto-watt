@@ -46,6 +46,15 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
+        name="inverters"
+        options={{
+          title: "Inverters",
+          tabBarIcon: ({ color }) => (
+            <MaterialIcons size={28} name="electrical-services" color={color} />
+          ),
+        }}
+      />
+      <Tabs.Screen
         name="mains-connection"
         options={{
           title: "Mains",

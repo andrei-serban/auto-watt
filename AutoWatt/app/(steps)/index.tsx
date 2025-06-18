@@ -47,6 +47,7 @@ export default function HomeScreen() {
     technicianEmail,
     managerEmail,
 
+    invertersTasks,
     mainsConnectionTasks,
     electricalTestingTasks,
     performanceChecksTasks,
@@ -231,7 +232,11 @@ export default function HomeScreen() {
         </Text>
       </View>
 
-      <MegaButton title="Inverters / AC Distribution" status={0} />
+      <MegaButton 
+        title="Inverters / AC Distribution" 
+        onPress={() => router.push("/(steps)/inverters")}
+        status={getTaskGroupStatus(invertersTasks)}
+      />
 
       <MegaButton
         title="Mains Connection"
