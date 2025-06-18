@@ -8,16 +8,80 @@ export const GlobalProvider = ({ children }) => {
   const [managerEmail, setManagerEmail] = useState("");
   const [ambientTemp, setAmbientTemp] = useState("");
 
-  const [invertersCount, setInvertersCount] = useState(1);
+  const [invertersCount, setInvertersCount] = useState("1");
   const [inverters, setInverters] = useState([
     {
-      
-    }
+      make: "",
+      model: "",
+      serial: "",
+      size: "",
+      strings: "1",
+      status: "",
+    },
   ]);
   const [invertersTasks, setInvertersTasks] = useState([
     {
-      title: "Labeling & Signage",
-      label: "Warning / hazard signs present",
+      label: 'Inverters operaing in "normal" mode',
+      value: "",
+    },
+    {
+      label: "No signs of overheat, noise, vibration",
+      value: "",
+    },
+    {
+      label: "Warning / hazard signs functional",
+      value: "",
+    },
+    {
+      label: "Door locks, humidity, internal condition checked",
+      value: "",
+    },
+    {
+      label: "Dust filters checked, replaced if needed",
+      value: "",
+    },
+    {
+      label: "Heat exchangers cleaned",
+      value: "",
+    },
+    {
+      label: "Labels readable and correctly placed",
+      value: "",
+    },
+    {
+      label: "Grounding system visually inspected",
+      value: "",
+    },
+    {
+      label: "Fuses / breakers / disconnections condition",
+      value: "",
+    },
+    {
+      label: "Fan functionality and noise assessed",
+      value: "",
+    },
+    {
+      label: "Cable condition, connection tightness",
+      value: "",
+    },
+    {
+      label: "Supply voltage within spec",
+      value: "",
+    },
+    {
+      label: "Surge protection working (if applicable)",
+      value: "",
+    },
+    {
+      label: "Ground insulation protection (if applicable)",
+      value: "",
+    },
+    {
+      label: "Comms cabling, HUBs, loggers working",
+      value: "",
+    },
+    {
+      label: "Maintenance aligns with inverted and O&M manual",
       value: "",
     },
   ]);

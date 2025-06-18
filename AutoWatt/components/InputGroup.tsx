@@ -1,4 +1,5 @@
-import { View, Text, TextInput, Switch } from "react-native";
+import { useState } from "react";
+import { View, Text, TextInput, TouchableOpacity, Switch } from "react-native";
 
 export default function InputGroup({
   note,
@@ -11,6 +12,8 @@ export default function InputGroup({
   numberOfLines = 1,
   marginTop = undefined,
 }) {
+  const [isExpanded, setIsExpanded] = useState(0);
+
   return (
     <View
       style={{
@@ -25,6 +28,47 @@ export default function InputGroup({
         <Text style={{ marginBottom: 5, fontSize: 20, fontWeight: 300 }}>
           {label}
         </Text>
+      ) : null}
+
+      {tag === "picker" ? (
+        <View>
+          {isExpanded ? (
+            <View
+              style={{
+                flexDirection: "row",
+                flexWrap: "wrap",
+                gap: 2,
+                justifyContent: "space-evenly",
+              }}
+            >
+              {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((option) => (
+                <View key={option} style={{ width: "19%" }}>
+                  <TouchableOpacity
+                    style={{ borderWidth: 1, borderRadius: 5 }}
+                    onPress={() => {
+                      setIsExpanded(false);
+                      setValue(option);
+                    }}
+                  >
+                    <Text
+                      style={{
+                        fontSize: 24,
+                        padding: 10,
+                        textAlign: "center",
+                      }}
+                    >
+                      {option}
+                    </Text>
+                  </TouchableOpacity>
+                </View>
+              ))}
+            </View>
+          ) : (
+            <TouchableOpacity onPress={() => setIsExpanded(!isExpanded)}>
+              <Text style={{ fontSize: 24 }}>{value}</Text>
+            </TouchableOpacity>
+          )}
+        </View>
       ) : null}
 
       {tag === "input" ? (

@@ -3,6 +3,8 @@ import { Feather } from "@expo/vector-icons";
 
 export default function MegaButton({
   title,
+  backgroundColor,
+  displayMessage,
   status = -1,
   disabled = false,
   onPress = () => {},
@@ -12,8 +14,9 @@ export default function MegaButton({
       onPress={onPress}
       style={{
         opacity: disabled ? 0.5 : 1,
-        backgroundColor:
-          status === 1
+        backgroundColor: backgroundColor
+          ? backgroundColor
+          : status === 1
             ? "#28A745"
             : status === 0
               ? "#DC3545"
@@ -60,15 +63,17 @@ export default function MegaButton({
           opacity: 0.75,
         }}
       >
-        {status === 1
-          ? "Pass"
-          : status === 0
-            ? "Fail"
-            : status === -2
-              ? "Not started"
-              : status === -3
-                ? ""
-                : "N/A"}
+        {displayMessage
+          ? displayMessage
+          : status === 1
+            ? "Pass"
+            : status === 0
+              ? "Fail"
+              : status === -2
+                ? "Not started"
+                : status === -3
+                  ? ""
+                  : "N/A"}
       </Text>
     </TouchableOpacity>
   );

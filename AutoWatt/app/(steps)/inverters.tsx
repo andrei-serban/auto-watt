@@ -1,13 +1,24 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { useRouter } from "expo-router";
 import { View, Text, ScrollView } from "react-native";
 import TaskGroup from "@/components/TaskGroup";
+import MegaButton from "@/components/MegaButton";
 import InputGroup from "@/components/InputGroup";
 import BackButton from "@/components/BackButton";
 import ScreenTitle from "@/components/ScreenTitle";
 import ActionButton from "@/components/ActionButton";
 import ScreenSummary from "@/components/ScreenSummary";
 import { GlobalContext } from "@/context/GlobalContext";
+
+const inverterLabels = {
+  make: "Inverter make",
+  model: "Inverter model",
+  serial: "Inverter serial number",
+  size: "Size of inverter (kW)",
+  strings: "No. of strings on inverter",
+  status:
+    'Inverter status (e.g. "Enter inverter display status or error code")',
+};
 
 export default function InvertersScreen() {
   const {
@@ -20,6 +31,7 @@ export default function InvertersScreen() {
     invertersNotes,
     setInvertersNotes,
   } = useContext(GlobalContext);
+  const [activeInverter, setActiveInverter] = useState(-1);
   const router = useRouter();
 
   return (
@@ -27,10 +39,86 @@ export default function InvertersScreen() {
       <BackButton />
 
       <ScreenTitle>
-        Solar Maintenance{"\n"}System Components:{"\n"}Inverters / DC Distribution
+        Solar Maintenance{"\n"}System Components:{"\n"}Inverters / DC
+        Distribution
       </ScreenTitle>
 
       <ScreenSummary />
+
+      <InputGroup
+        label="Number of inverters"
+        tag="picker"
+        value={invertersCount}
+        setValue={(value) => {
+          const newInverters = [];
+          const newValue = isNaN(value) ? 1 : value;
+
+          for (let i = 0; i < newValue; i++) {
+            newInverters.push({
+              make: "",
+              model: "",
+              serial: "",
+              size: "",
+              strings: "1",
+              status: "",
+            });
+          }
+
+          setInvertersCount(newValue);
+          setInverters(newInverters);
+        }}
+      />
+
+      {inverters.map((inverter, index) => {
+        const allFields = Object.values(inverter);
+        const filledFields = allFields.filter((field) => field.trim() !== "");
+
+        return (
+          <View key={index}>
+            <MegaButton
+              backgroundColor="#bbb"
+              title={`Inverter ${index + 1}`}
+              displayMessage={
+                filledFields.length === allFields.length
+                  ? "Inverter info complete"
+                  : filledFields.length > 0
+                    ? "Partially complete"
+                    : "Not started"
+              }
+              onPress={() => {
+                if (activeInverter === index) {
+                  setActiveInverter(-1);
+                } else {
+                  setActiveInverter(index);
+                }
+              }}
+            />
+            {activeInverter === index ? (
+              <View>
+                {Object.keys(inverter).map((key) => (
+                  <View key={key}>
+                    <InputGroup
+                      label={inverterLabels[key]}
+                      placeholder={`Enter the ${key} here`}
+                      type={
+                        ["size", "strings"].includes(key)
+                          ? "numeric"
+                          : "default"
+                      }
+                      value={inverter[key]}
+                      setValue={(value) => {
+                        const newInverters = [].concat(inverters);
+                        newInverters[index][key] = value;
+                        setInverters(newInverters);
+                      }}
+                    />
+                  </View>
+                ))}
+              </View>
+            ) : null}
+          </View>
+        );
+      })}
 
       <View style={{ marginTop: 30 }}>
         <Text
@@ -75,7 +163,10 @@ export default function InvertersScreen() {
         setValue={setInvertersNotes}
       />
 
-      <ActionButton onPress={() => router.push("/(steps)")} text="Save & Return" />
+      <ActionButton
+        onPress={() => router.push("/(steps)")}
+        text="Save & Return"
+      />
 
       <View style={{ height: 360 }}></View>
     </ScrollView>

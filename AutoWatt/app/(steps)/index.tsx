@@ -64,8 +64,9 @@ export default function HomeScreen() {
     }
 
     if (
-      tasks.map((task) => task.value).filter((value) => ["fail", "no"]).length >
-      0
+      tasks
+        .map((task) => task.value)
+        .filter((value) => ["fail", "no"].includes(value)).length > 0
     ) {
       return 0;
     }
@@ -232,8 +233,8 @@ export default function HomeScreen() {
         </Text>
       </View>
 
-      <MegaButton 
-        title="Inverters / AC Distribution" 
+      <MegaButton
+        title="Inverters / AC Distribution"
         onPress={() => router.push("/(steps)/inverters")}
         status={getTaskGroupStatus(invertersTasks)}
       />
