@@ -1,4 +1,4 @@
-import { Tabs } from "expo-router";
+import { Stack } from "expo-router";
 import React from "react";
 import { Platform } from "react-native";
 import {
@@ -11,9 +11,7 @@ import {
   MaterialCommunityIcons,
 } from "@expo/vector-icons";
 
-import { HapticTab } from "@/components/HapticTab";
 import { IconSymbol } from "@/components/ui/IconSymbol";
-import TabBarBackground from "@/components/ui/TabBarBackground";
 import { Colors } from "@/constants/Colors";
 import { useColorScheme } from "@/hooks/useColorScheme";
 
@@ -21,12 +19,10 @@ export default function TabLayout() {
   const colorScheme = useColorScheme();
 
   return (
-    <Tabs
+    <Stack
       screenOptions={{
         tabBarActiveTintColor: Colors[colorScheme ?? "light"].tint,
         headerShown: false,
-        tabBarButton: HapticTab,
-        tabBarBackground: TabBarBackground,
         tabBarStyle: Platform.select({
           ios: {
             // Use a transparent background on iOS to show the blur effect
@@ -36,8 +32,9 @@ export default function TabLayout() {
         }),
       }}
     >
-      <Tabs.Screen
+      <Stack.Screen
         name="index"
+        tabBarStyle={{ display: "none" }}
         options={{
           title: "Start",
           tabBarIcon: ({ color }) => (
@@ -45,7 +42,7 @@ export default function TabLayout() {
           ),
         }}
       />
-      <Tabs.Screen
+      <Stack.Screen
         name="inverters"
         options={{
           title: "Inverters",
@@ -54,7 +51,7 @@ export default function TabLayout() {
           ),
         }}
       />
-      <Tabs.Screen
+      <Stack.Screen
         name="mains-connection"
         options={{
           title: "Mains",
@@ -63,7 +60,7 @@ export default function TabLayout() {
           ),
         }}
       />
-      <Tabs.Screen
+      <Stack.Screen
         name="pv-generator"
         options={{
           title: "PV Generator",
@@ -72,7 +69,7 @@ export default function TabLayout() {
           ),
         }}
       />
-      <Tabs.Screen
+      <Stack.Screen
         name="electrical-testing"
         options={{
           title: "Electric",
@@ -81,7 +78,7 @@ export default function TabLayout() {
           ),
         }}
       />
-      <Tabs.Screen
+      <Stack.Screen
         name="performance-checks"
         options={{
           title: "Performance",
@@ -94,7 +91,7 @@ export default function TabLayout() {
           ),
         }}
       />
-      <Tabs.Screen
+      <Stack.Screen
         name="visual-checks"
         options={{
           title: "Visual Checks",
@@ -103,7 +100,7 @@ export default function TabLayout() {
           ),
         }}
       />
-      <Tabs.Screen
+      <Stack.Screen
         name="safety-risks"
         options={{
           title: "Safety Risks",
@@ -112,7 +109,16 @@ export default function TabLayout() {
           ),
         }}
       />
-      <Tabs.Screen
+      <Stack.Screen
+        name="battery-storage"
+        options={{
+          title: "Batteries",
+          tabBarIcon: ({ color }) => (
+            <Feather name="battery" size={28} color={color} />
+          ),
+        }}
+      />
+      <Stack.Screen
         name="weather"
         options={{
           title: "Weather",
@@ -121,7 +127,7 @@ export default function TabLayout() {
           ),
         }}
       />
-      <Tabs.Screen
+      <Stack.Screen
         name="ambient-temp"
         options={{
           title: "Ambient Temp",
@@ -130,7 +136,7 @@ export default function TabLayout() {
           ),
         }}
       />
-      <Tabs.Screen
+      <Stack.Screen
         name="fail"
         options={{
           title: "Fail",
@@ -139,7 +145,7 @@ export default function TabLayout() {
           ),
         }}
       />
-      <Tabs.Screen
+      <Stack.Screen
         name="report-submitted"
         options={{
           title: "Done",
@@ -148,6 +154,6 @@ export default function TabLayout() {
           ),
         }}
       />
-    </Tabs>
+    </Stack>
   );
 }

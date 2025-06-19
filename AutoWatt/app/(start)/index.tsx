@@ -1,8 +1,6 @@
 import { Image } from "expo-image";
 import { useRouter } from "expo-router";
-import { StyleSheet } from "react-native";
-
-import ParallaxScrollView from "@/components/ParallaxScrollView";
+import { StyleSheet, View } from "react-native";
 import { ThemedText } from "@/components/ThemedText";
 import { ThemedView } from "@/components/ThemedView";
 import ActionButton from "@/components/ActionButton";
@@ -11,7 +9,7 @@ export default function HomeScreen() {
   const router = useRouter();
 
   return (
-    <ParallaxScrollView
+    <View
       headerBackgroundColor={{ light: "#A1CEDC", dark: "#1D3D47" }}
       headerImage={
         <Image
@@ -51,7 +49,7 @@ export default function HomeScreen() {
         </ThemedText>
       </ThemedView>
       */}
-    </ParallaxScrollView>
+    </View>
   );
 }
 
