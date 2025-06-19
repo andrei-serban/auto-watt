@@ -54,6 +54,7 @@ export default function HomeScreen() {
     performanceChecksTasks,
     visualChecksTasks,
     safetyRisksTasks,
+    batterySystemsTasks,
 
     setTechnicianEmail,
     setManagerEmail,
@@ -270,7 +271,12 @@ export default function HomeScreen() {
         status={getTaskGroupStatus(safetyRisksTasks)}
       />
 
-      <MegaButton disabled={true} title="Battery Systems" status={-2} />
+      <MegaButton
+        disabled={true}
+        title="Battery Systems"
+        onPress={() => router.push("/(steps)/battery-storage")}
+        status={getTaskGroupStatus(batterySystemsTasks)}
+      />
 
       <MegaButton title="Voltage Optimiser" status={-2} />
 

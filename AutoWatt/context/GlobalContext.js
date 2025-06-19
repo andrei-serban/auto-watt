@@ -279,6 +279,29 @@ export const GlobalProvider = ({ children }) => {
   ]);
   const [safetyRisksNotes, setSafetyRisksNotes] = useState("");
 
+  const [batterySystemsCount, setBatterySystemsCount] = useState("1");
+  const [batterySystems, setBatterySystems] = useState([
+    {
+      make: "",
+      model: "",
+      serial: "",
+      size: "",
+      status: "",
+    },
+  ]);
+  const [batterySystemsTasks, setBatterySystemsTasks] = useState([
+    {
+      label:
+        "Battery location safe and compliant (e.g. ventilated, non-combustible surface)",
+      value: "",
+    },
+    {
+      label: "Signs of overheating, restricted airflow, or obstruction",
+      value: "",
+    },
+  ]);
+  const [batterySystemsNotes, setBatterySystemsNotes] = useState("");
+
   return (
     <GlobalContext.Provider
       value={{
@@ -333,6 +356,15 @@ export const GlobalProvider = ({ children }) => {
         setSafetyRisksTasks,
         safetyRisksNotes,
         setSafetyRisksNotes,
+
+        batterySystemsCount,
+        setBatterySystemsCount,
+        batterySystems,
+        setBatterySystems,
+        batterySystemsTasks,
+        setBatterySystemsTasks,
+        batterySystemsNotes,
+        setBatterySystemsNotes,
       }}
     >
       {children}

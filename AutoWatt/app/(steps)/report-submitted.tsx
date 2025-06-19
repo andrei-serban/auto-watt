@@ -8,8 +8,15 @@ export default function ReportSubmittedScreen() {
   const router = useRouter();
 
   return (
-    <View style={{ padding: 20, alignItems: 'center', justifyContent: 'center', height: '100%' }}>
-      <View style={{ width: '100%', gap: 40 }}>
+    <View
+      style={{
+        padding: 20,
+        alignItems: "center",
+        justifyContent: "center",
+        height: "100%",
+      }}
+    >
+      <View style={{ width: "100%", gap: 40 }}>
         <View style={styles.titleContainer}>
           <ThemedText
             type="subtitle"
@@ -41,6 +48,6 @@ const styles = StyleSheet.create({
   },
   reactLogo: {
     height: 240,
-    width: '100%'
+    width: "100%",
   },
 });

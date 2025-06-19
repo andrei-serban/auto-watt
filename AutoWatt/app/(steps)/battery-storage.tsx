@@ -10,28 +10,26 @@ import ActionButton from "@/components/ActionButton";
 import ScreenSummary from "@/components/ScreenSummary";
 import { GlobalContext } from "@/context/GlobalContext";
 
-const inverterLabels = {
-  make: "Inverter make",
-  model: "Inverter model",
-  serial: "Inverter serial number",
-  size: "Size of inverter (kW)",
-  strings: "No. of strings on inverter",
-  status:
-    'Inverter status (e.g. "Enter inverter display status or error code")',
+const batterySystemLabels = {
+  make: "Battery make",
+  model: "Battery model",
+  serial: "Battery serial number",
+  size: "Size of Battery (kW)",
+  status: 'Battery status (e.g. "Enter battery display status or error code")',
 };
 
 export default function BatteryStorageScreen() {
   const {
-    invertersCount,
-    setInvertersCount,
-    inverters,
-    setInverters,
-    invertersTasks,
-    setInvertersTasks,
-    invertersNotes,
-    setInvertersNotes,
+    batterySystemsCount,
+    setBatterySystemsCount,
+    batterySystems,
+    setBatterySystems,
+    batterySystemsTasks,
+    setBatterySystemsTasks,
+    batterySystemsNotes,
+    setBatterySystemsNotes,
   } = useContext(GlobalContext);
-  const [activeInverter, setActiveInverter] = useState(-1);
+  const [activeBatterySystem, setActiveBatterySystem] = useState(-1);
   const router = useRouter();
 
   return (
@@ -39,77 +37,75 @@ export default function BatteryStorageScreen() {
       <BackButton />
 
       <ScreenTitle>
-        Solar Maintenance{"\n"}System Components:{"\n"}Inverters / DC
-        Distribution
+        Solar Maintenance{"\n"}System Components:{"\n"}Battery Storage
       </ScreenTitle>
 
       <ScreenSummary />
 
       <InputGroup
-        label="Number of inverters"
+        label="Number of battery systems"
         tag="picker"
-        value={invertersCount}
+        value={batterySystemsCount}
         setValue={(value) => {
-          const newInverters = [];
+          const newBatterySystems = [];
           const newValue = isNaN(value) ? 1 : value;
 
           for (let i = 0; i < newValue; i++) {
-            newInverters.push({
+            newBatterySystems.push({
               make: "",
               model: "",
               serial: "",
               size: "",
-              strings: "1",
               status: "",
             });
           }
 
-          setInvertersCount(newValue);
-          setInverters(newInverters);
+          setBatterySystemsCount(newValue);
+          setBatterySystems(newBatterySystems);
         }}
       />
 
-      {inverters.map((inverter, index) => {
-        const allFields = Object.values(inverter);
+      {batterySystems.map((batterySystem, index) => {
+        const allFields = Object.values(batterySystem);
         const filledFields = allFields.filter((field) => field.trim() !== "");
 
         return (
           <View key={index}>
             <MegaButton
               backgroundColor="#bbb"
-              title={`Inverter ${index + 1}`}
+              title={`Battery ${index + 1}`}
               displayMessage={
                 filledFields.length === allFields.length
-                  ? "Inverter info complete"
+                  ? "Battery info complete"
                   : filledFields.length > 0
                     ? "Partially complete"
                     : "Not started"
               }
               onPress={() => {
-                if (activeInverter === index) {
-                  setActiveInverter(-1);
+                if (activeBatterySystem === index) {
+                  setActiveBatterySystem(-1);
                 } else {
-                  setActiveInverter(index);
+                  setActiveBatterySystem(index);
                 }
               }}
             />
-            {activeInverter === index ? (
+            {activeBatterySystem === index ? (
               <View>
-                {Object.keys(inverter).map((key) => (
+                {Object.keys(batterySystem).map((key) => (
                   <View key={key}>
                     <InputGroup
-                      label={inverterLabels[key]}
+                      label={batterySystemLabels[key]}
                       placeholder={`Enter the ${key} here`}
                       type={
                         ["size", "strings"].includes(key)
                           ? "numeric"
                           : "default"
                       }
-                      value={inverter[key]}
+                      value={batterySystem[key]}
                       setValue={(value) => {
-                        const newInverters = [].concat(inverters);
-                        newInverters[index][key] = value;
-                        setInverters(newInverters);
+                        const newBatterySystems = [].concat(batterySystems);
+                        newBatterySystems[index][key] = value;
+                        setBatterySystems(newBatterySystems);
                       }}
                     />
                   </View>
@@ -139,16 +135,16 @@ export default function BatteryStorageScreen() {
             padding: 10,
           }}
         >
-          {invertersTasks.map((task, index) => (
+          {batterySystemsTasks.map((task, index) => (
             <TaskGroup
               key={task.label}
               title={task.title}
               label={task.label}
               value={task.value}
               onPress={(value) => {
-                const newTasks = [].concat(invertersTasks);
+                const newTasks = [].concat(batterySystemsTasks);
                 newTasks[index].value = value;
-                setInvertersTasks(newTasks);
+                setBatterySystemsTasks(newTasks);
               }}
             />
           ))}
@@ -157,10 +153,10 @@ export default function BatteryStorageScreen() {
 
       <InputGroup
         numberOfLines={8}
-        label="Inverters notes"
+        label="Battery Storage"
         placeholder="Note"
-        value={invertersNotes}
-        setValue={setInvertersNotes}
+        value={batterySystemsNotes}
+        setValue={setBatterySystemsNotes}
       />
 
       <ActionButton

@@ -91,15 +91,46 @@ export default function PvGeneratorScreen() {
       </View>
 
       <View style={{ marginTop: 30 }}>
-      	<Text style={{ fontSize: 24, marginBottom: 20, fontWeight: 300, color: '#777' }}>Voc / Isc sample measurement</Text>
+        <Text
+          style={{
+            fontSize: 24,
+            marginBottom: 20,
+            fontWeight: 300,
+            color: "#777",
+          }}
+        >
+          Voc / Isc sample measurement
+        </Text>
 
-				<View style={{ borderWidth: 1, borderRadius: 10, borderColor: '#777', padding: 10 }}>
-      		{[1,2,3,4,5,6].map(string => <TouchableOpacity key={string} style={{ paddingTop: 10, paddingBottom: 10, borderBottomWidth: 1, borderBottomColor: '#777', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
-      			<Text style={{ color: '#555', fontSize: 28, fontWeight: 300 }}>String {string}</Text>
-      			<Feather name="chevron-right" size={28} color="#2F9DFB" />
-      		</TouchableOpacity>)}
-    		</View>
-    	</View>
+        <View
+          style={{
+            borderWidth: 1,
+            borderRadius: 10,
+            borderColor: "#777",
+            padding: 10,
+          }}
+        >
+          {[1, 2, 3, 4, 5, 6].map((string) => (
+            <TouchableOpacity
+              key={string}
+              style={{
+                paddingTop: 10,
+                paddingBottom: 10,
+                borderBottomWidth: 1,
+                borderBottomColor: "#777",
+                flexDirection: "row",
+                alignItems: "center",
+                justifyContent: "space-between",
+              }}
+            >
+              <Text style={{ color: "#555", fontSize: 28, fontWeight: 300 }}>
+                String {string}
+              </Text>
+              <Feather name="chevron-right" size={28} color="#2F9DFB" />
+            </TouchableOpacity>
+          ))}
+        </View>
+      </View>
 
       <InputGroup
         numberOfLines={8}
