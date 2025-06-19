@@ -87,6 +87,47 @@ export const GlobalProvider = ({ children }) => {
   ]);
   const [invertersNotes, setInvertersNotes] = useState("");
 
+  const [pvGeneratorPreNote, setPvGeneratorPreNote] = useState("");
+  const [pvGeneratorTasks, setPvGeneratorTasks] = useState([
+    {
+      label: "PV frame screw options (5% sample)",
+      value: "",
+    },
+    {
+      label: "Frame construction stability (5% sample)",
+      value: "",
+    },
+    {
+      label: "Module fixing to frame (5% sample)",
+      value: "",
+    },
+    {
+      label: "DC connectors test (5% sample)",
+      value: "",
+    },
+    {
+      label: "Solar cable condition / fixing (5% sample)",
+      value: "",
+    },
+    {
+      label: "Grounding connections cleaned & checked",
+      value: "",
+    },
+    {
+      label: "Modules mechanically intact, no discolouration",
+      value: "",
+    },
+    {
+      label: "Thermography of modules / connections (5%)",
+      value: "",
+    },
+    {
+      label: "Further 5% test if fault detected",
+      value: "",
+    },
+  ]);
+  const [pvGeneratorNotes, setPvGeneratorNotes] = useState("");
+
   const [mainsConnectionTasks, setMainsConnectionTasks] = useState([
     {
       title: "Labeling & Signage",
@@ -263,6 +304,13 @@ export const GlobalProvider = ({ children }) => {
         setMainsConnectionTasks,
         mainsConnectionNotes,
         setMainsConnectionNotes,
+
+        pvGeneratorPreNote,
+        setPvGeneratorPreNote,
+        pvGeneratorTasks,
+        setPvGeneratorTasks,
+        pvGeneratorNotes,
+        setPvGeneratorNotes,
 
         electricalTestingTasks,
         setElectricalTestingTasks,

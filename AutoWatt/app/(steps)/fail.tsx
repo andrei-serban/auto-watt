@@ -1,17 +1,15 @@
 import { useState, useContext } from "react";
-import { Image } from "expo-image";
 import { View, Text, ScrollView, TouchableOpacity } from "react-native";
 import BackButton from "@/components/BackButton";
 import InputGroup from "@/components/InputGroup";
 import ScreenTitle from "@/components/ScreenTitle";
 import ActionButton from "@/components/ActionButton";
+import MediaUploader from "@/components/MediaUploader";
 import { GlobalContext } from "@/context/GlobalContext";
-import * as ImagePicker from "expo-image-picker";
 
 export default function FailScreen() {
   const severities = ["Critical fault", "Major fault", "Minor fault"];
   const [selectedSeverity, setSelectedSeverity] = useState(0);
-  const [photos, setPhotos] = useState([]);
 
   const { electricalTestingNotes, setElectricalTestingNotes } =
     useContext(GlobalContext);
@@ -119,50 +117,8 @@ export default function FailScreen() {
         >
           Media upload (up to 5 photos)
         </Text>
-        {photos.length ? (
-          <View
-            style={{
-              marginTop: 20,
-              flexDirection: "row",
-              flexWrap: "wrap",
-              gap: 1,
-            }}
-          >
-            {photos.map((photo) => (
-              <Image
-                key={photo}
-                source={photo}
-                style={{
-                  width: "33%",
-                  height: 100,
-                  aspectRatio: 1,
-                  borderWidth: 2,
-                  borderColor: "#0a7ea4",
-                }}
-              />
-            ))}
-          </View>
-        ) : null}
-        {photos.length < 5 ? (
-          <ActionButton
-            width={180}
-            marginTop={20}
-            onPress={async () => {
-              let result = await ImagePicker.launchImageLibraryAsync({
-                mediaTypes: ["images"],
-                allowsEditing: true,
-                aspect: [4, 3],
-                quality: 1,
-              });
 
-              if (!result.canceled) {
-                const newPhotos = photos.concat([result.assets[0].uri]);
-                setPhotos(newPhotos);
-              }
-            }}
-            text="Select Photos"
-          />
-        ) : null}
+        <MediaUploader maxCount={5} />
       </View>
 
       <ActionButton onPress={() => {}} text="Save Fault Log" />

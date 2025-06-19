@@ -64,6 +64,15 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
+        name="pv-generator"
+        options={{
+          title: "PV Generator",
+          tabBarIcon: ({ color }) => (
+            <FontAwesome5 size={28} name="solar-panel" color={color} />
+          ),
+        }}
+      />
+      <Tabs.Screen
         name="electrical-testing"
         options={{
           title: "Electric",

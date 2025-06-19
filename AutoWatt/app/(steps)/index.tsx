@@ -49,6 +49,7 @@ export default function HomeScreen() {
 
     invertersTasks,
     mainsConnectionTasks,
+    pvGeneratorTasks,
     electricalTestingTasks,
     performanceChecksTasks,
     visualChecksTasks,
@@ -220,17 +221,11 @@ export default function HomeScreen() {
         >
           System components
         </Text>
+        {/*
         <Text style={{ color: "#A9A9A9", fontWeight: 300, fontSize: 32 }}>
           (1 out of 6 completed)
         </Text>
-        <Text style={{ paddingTop: 10, fontSize: 10 }}>
-          Note to self: System components The system components – each one
-          brings you to a new page with the tasks associated with that component
-          – I would like that if everything on the task list ‘Passes’ then the
-          front page box will say Pass and same for Fail (maybe colours as well
-          to make it easy – the box goes green for Pass and Red for Fail - see
-          examples to the right)
-        </Text>
+        */}
       </View>
 
       <MegaButton
@@ -245,7 +240,11 @@ export default function HomeScreen() {
         status={getTaskGroupStatus(mainsConnectionTasks)}
       />
 
-      <MegaButton title="PV Generator (DC Side)" status={-1} />
+      <MegaButton
+        title="PV Generator (DC Side)"
+        onPress={() => router.push("/(steps)/pv-generator")}
+        status={getTaskGroupStatus(pvGeneratorTasks)}
+      />
 
       <MegaButton
         title="Electrical Testing"

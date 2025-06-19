@@ -3,7 +3,7 @@ import { Image } from "expo-image";
 import { useRouter } from "expo-router";
 import { View, Text, TouchableOpacity } from "react-native";
 import ActionButton from "@/components/ActionButton";
-import * as ImagePicker from "expo-image-picker";
+import MediaUploader from "@/components/MediaUploader";
 
 export default function TaskGroup({
   title,
@@ -15,7 +15,6 @@ export default function TaskGroup({
   onPress,
 }) {
   const router = useRouter();
-  const [photos, setPhotos] = useState([]);
   const options =
     optionCount === 2
       ? ["yes", "no"]
@@ -101,51 +100,7 @@ export default function TaskGroup({
             <Text style={{ fontWeight: 700 }}>YES</Text> selected
           </Text>
 
-          {photos.length ? (
-            <View
-              style={{
-                marginTop: 10,
-                flexDirection: "row",
-                flexWrap: "wrap",
-                gap: 1,
-              }}
-            >
-              {photos.map((photo) => (
-                <Image
-                  key={photo}
-                  source={photo}
-                  style={{
-                    width: "33%",
-                    height: 100,
-                    aspectRatio: 1,
-                    borderWidth: 2,
-                    borderColor: "#0a7ea4",
-                  }}
-                />
-              ))}
-            </View>
-          ) : null}
-
-          {photos.length < 3 ? (
-            <ActionButton
-              width={180}
-              marginTop={10}
-              onPress={async () => {
-                let result = await ImagePicker.launchImageLibraryAsync({
-                  mediaTypes: ["images"],
-                  allowsEditing: true,
-                  aspect: [4, 3],
-                  quality: 1,
-                });
-
-                if (!result.canceled) {
-                  const newPhotos = photos.concat([result.assets[0].uri]);
-                  setPhotos(newPhotos);
-                }
-              }}
-              text="Select Photos"
-            />
-          ) : null}
+          <MediaUploader maxCount={3} />
         </View>
       ) : null}
     </View>
