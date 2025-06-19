@@ -2,29 +2,27 @@ import { Image } from "expo-image";
 import { useRouter } from "expo-router";
 import { StyleSheet, View } from "react-native";
 import { ThemedText } from "@/components/ThemedText";
-import { ThemedView } from "@/components/ThemedView";
 import ActionButton from "@/components/ActionButton";
 
 export default function HomeScreen() {
   const router = useRouter();
 
   return (
-    <View
-      headerBackgroundColor={{ light: "#A1CEDC", dark: "#1D3D47" }}
-      headerImage={
+    <View style={{ padding: 20, alignItems: 'center', justifyContent: 'center', height: '100%' }}>
+      <View style={{ width: '100%', gap: 40 }}>
+        <View style={styles.titleContainer}>
+          <ThemedText type="subtitle" style={{ fontSize: 28 }}>
+            Welcome to AutoWatt!
+          </ThemedText>
+        </View>
+
         <Image
           source={require("@/assets/images/partial-react-logo.png")}
           style={styles.reactLogo}
         />
-      }
-    >
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="subtitle" style={{ fontSize: 28 }}>
-          Welcome to AutoWatt!
-        </ThemedText>
-      </ThemedView>
 
-      <ActionButton onPress={() => router.push("/(steps)")} text="START" />
+        <ActionButton onPress={() => router.push("/(steps)")} text="START" />
+      </View>
 
       {/*
       <ThemedView style={styles.stepContainer}>
@@ -61,10 +59,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
-    position: "absolute",
+    height: 240,
+    width: '100%'
   },
 });

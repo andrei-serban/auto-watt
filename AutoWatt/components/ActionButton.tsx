@@ -25,6 +25,7 @@ export default function ActionButton({
             fontSize: 16,
             color: "white",
             fontWeight: 700,
+            textAlign: 'center',
           }}
         >
           {text}

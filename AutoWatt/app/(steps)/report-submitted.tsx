@@ -1,38 +1,34 @@
 import { Image } from "expo-image";
 import { useRouter } from "expo-router";
-import { StyleSheet } from "react-native";
-
-import ParallaxScrollView from "@/components/ParallaxScrollView";
+import { StyleSheet, View } from "react-native";
 import { ThemedText } from "@/components/ThemedText";
-import { ThemedView } from "@/components/ThemedView";
 import ActionButton from "@/components/ActionButton";
 
 export default function ReportSubmittedScreen() {
   const router = useRouter();
 
   return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: "#A1CEDC", dark: "#1D3D47" }}
-      headerImage={
+    <View style={{ padding: 20, alignItems: 'center', justifyContent: 'center', height: '100%' }}>
+      <View style={{ width: '100%', gap: 40 }}>
+        <View style={styles.titleContainer}>
+          <ThemedText
+            type="subtitle"
+            style={{ fontSize: 28, textAlign: "center" }}
+          >
+            Report submitted
+            {"\n\n"}
+            Thank you!
+          </ThemedText>
+        </View>
+
         <Image
           source={require("@/assets/images/partial-react-logo.png")}
           style={styles.reactLogo}
         />
-      }
-    >
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText
-          type="subtitle"
-          style={{ fontSize: 28, textAlign: "center" }}
-        >
-          Report submitted
-          {"\n\n"}
-          Thank you!
-        </ThemedText>
-      </ThemedView>
 
-      <ActionButton onPress={() => router.push("/(start)")} text="HOME" />
-    </ParallaxScrollView>
+        <ActionButton onPress={() => router.push("/(start)")} text="HOME" />
+      </View>
+    </View>
   );
 }
 
@@ -44,10 +40,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
-    position: "absolute",
+    height: 240,
+    width: '100%'
   },
 });
