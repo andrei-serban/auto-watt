@@ -3,6 +3,18 @@ import React, { createContext, useState } from "react";
 export const GlobalContext = createContext();
 
 export const GlobalProvider = ({ children }) => {
+  const [name, setName] = useState("");
+  const [notes, setNotes] = useState("");
+  const [address, setAddress] = useState("");
+  const [systemSize, setSystemSize] = useState("");
+  const [batteryStorage, setBatteryStorage] = useState(false);
+  const [voltageOptimiser, setVoltageOptimiser] = useState(false);
+  const [authorisedPerson, setAuthorisedPerson] = useState("");
+  const [roofAccess, setRoofAccess] = useState("");
+  const [cleaningPerformed, setCleaningPerformed] = useState("");
+  const [ramsCompleted, setRamsCompleted] = useState("");
+  const [date, setDate] = useState(new Date());
+
   const [weather, setWeather] = useState("");
   const [technicianEmail, setTechnicianEmail] = useState("");
   const [managerEmail, setManagerEmail] = useState("");
@@ -328,6 +340,29 @@ export const GlobalProvider = ({ children }) => {
   return (
     <GlobalContext.Provider
       value={{
+        name, 
+        setName,
+        notes, 
+        setNotes,
+        address, 
+        setAddress,
+        systemSize, 
+        setSystemSize,
+        batteryStorage, 
+        setBatteryStorage,
+        voltageOptimiser, 
+        setVoltageOptimiser,
+        authorisedPerson, 
+        setAuthorisedPerson,
+        roofAccess, 
+        setRoofAccess,
+        cleaningPerformed, 
+        setCleaningPerformed,
+        ramsCompleted, 
+        setRamsCompleted,
+        date, 
+        setDate,
+
         weather,
         setWeather,
         ambientTemp,
