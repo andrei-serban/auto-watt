@@ -19,17 +19,6 @@ import { Fontisto } from "@expo/vector-icons";
 export default function HomeScreen() {
   const router = useRouter();
   const [submissionStep, setSubmissionStep] = useState(0);
-  const [name, setName] = useState("");
-  const [notes, setNotes] = useState("");
-  const [address, setAddress] = useState("");
-  const [systemSize, setSystemSize] = useState("");
-  const [batteryStorage, setBatteryStorage] = useState(false);
-  const [voltageOptimiser, setVoltageOptimiser] = useState(false);
-  const [authorisedPerson, setAuthorisedPerson] = useState("");
-  const [roofAccess, setRoofAccess] = useState("");
-  const [cleaningPerformed, setCleaningPerformed] = useState("");
-  const [ramsCompleted, setRamsCompleted] = useState("");
-  const [date, setDate] = useState(new Date());
   const limitations = [
     "Could not assess roof",
     "Could only assess roof visually (e.g. from cherrypicker or drone)",

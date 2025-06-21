@@ -1,4 +1,4 @@
-import { useState, useContext } from "react";
+import { useContext } from "react";
 import { useRouter } from "expo-router";
 import { View, ScrollView } from "react-native";
 import BackButton from "@/components/BackButton";
