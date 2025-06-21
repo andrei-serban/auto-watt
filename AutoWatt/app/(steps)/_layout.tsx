@@ -119,6 +119,15 @@ export default function TabLayout() {
         }}
       />
       <Stack.Screen
+        name="voltage-optimiser"
+        options={{
+          title: "VO's",
+          tabBarIcon: ({ color }) => (
+            <Feather name="battery" size={28} color={color} />
+          ),
+        }}
+      />
+      <Stack.Screen
         name="weather"
         options={{
           title: "Weather",

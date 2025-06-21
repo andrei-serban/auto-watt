@@ -302,6 +302,29 @@ export const GlobalProvider = ({ children }) => {
   ]);
   const [batterySystemsNotes, setBatterySystemsNotes] = useState("");
 
+  const [voltageOptimisersCount, setVoltageOptimisersCount] = useState("1");
+  const [voltageOptimisers, setVoltageOptimisers] = useState([
+    {
+      make: "",
+      model: "",
+      serial: "",
+      size: "",
+      status: "",
+    },
+  ]);
+  const [voltageOptimisersTasks, setVoltageOptimisersTasks] = useState([
+    {
+      label:
+        "VO location safe and compliant (e.g. ventilated, non-combustible surface)",
+      value: "",
+    },
+    {
+      label: "Signs of overheating, restricted airflow, or obstruction",
+      value: "",
+    },
+  ]);
+  const [voltageOptimisersNotes, setVoltageOptimisersNotes] = useState("");
+
   return (
     <GlobalContext.Provider
       value={{
@@ -365,6 +388,15 @@ export const GlobalProvider = ({ children }) => {
         setBatterySystemsTasks,
         batterySystemsNotes,
         setBatterySystemsNotes,
+
+        voltageOptimisersCount,
+        setVoltageOptimisersCount,
+        voltageOptimisers,
+        setVoltageOptimisers,
+        voltageOptimisersTasks,
+        setVoltageOptimisersTasks,
+        voltageOptimisersNotes,
+        setVoltageOptimisersNotes,
       }}
     >
       {children}

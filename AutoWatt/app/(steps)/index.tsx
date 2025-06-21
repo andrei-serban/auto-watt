@@ -55,6 +55,7 @@ export default function HomeScreen() {
     visualChecksTasks,
     safetyRisksTasks,
     batterySystemsTasks,
+    voltageOptimisersTasks,
 
     setTechnicianEmail,
     setManagerEmail,
@@ -278,7 +279,11 @@ export default function HomeScreen() {
         status={getTaskGroupStatus(batterySystemsTasks)}
       />
 
-      <MegaButton title="Voltage Optimiser" status={-2} />
+      <MegaButton 
+        title="Voltage Optimiser" 
+        onPress={() => router.push("/(steps)/voltage-optimiser")}
+        status={getTaskGroupStatus(voltageOptimisersTasks)}
+      />
 
       <InputGroup
         numberOfLines={8}
