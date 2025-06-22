@@ -285,15 +285,24 @@ export default function HomeScreen() {
       />
 
       <MegaButton
-        disabled={true}
+        disabled={!batteryStorage}
         title="Battery Systems"
-        onPress={() => router.push("/(steps)/battery-storage")}
+        onPress={() => {
+          if (batteryStorage) {
+            router.push("/(steps)/battery-storage")
+          }
+        }}
         status={getTaskGroupStatus(batterySystemsTasks)}
       />
 
       <MegaButton 
+        disabled={!voltageOptimiser}
         title="Voltage Optimiser" 
-        onPress={() => router.push("/(steps)/voltage-optimiser")}
+        onPress={() => {
+          if (voltageOptimiser) {
+            router.push("/(steps)/voltage-optimiser")
+          }
+        }}
         status={getTaskGroupStatus(voltageOptimisersTasks)}
       />
 
