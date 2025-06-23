@@ -3,19 +3,966 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>PDF Example</title>
+  <title>Solar Maintenance Report</title>
   <style>
     body {
+      font-size: 16px;
+      padding: 20px;
       font-family: Arial, sans-serif;
-      padding: 40px;
     }
+    p { margin: 20px 0px; }
     h1 {
-      color: #3498db;
+      color: #0F4761;
+      font-size: 28px;
+      font-weight: normal;
+      margin: 0px 0px 20px;
+    }
+    h2 {
+      color: #0F4761;
+      font-size: 24px;
+      font-weight: normal;
+      margin: 20px 0px 20px 30px;
+    }
+    h2 + h3 { margin-top: 20px; }
+    h3 {
+      font-size: 20px;
+      font-weight: bold;
+      margin: 40px 0px 20px;
+      text-decoration: underline;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    table + table,
+    textbox + h1 {
+      margin-top: 30px;
+    }
+    pretitle {
+      width: 100%;
+      padding: 10px;
+      display: block;
+      box-sizing: border-box;
+      border: 1px solid #000;
+      border-bottom: 0px none;
+    }
+    textbox {
+      width: 100%;
+      padding: 10px;
+      display: block;
+      min-height: 120px;
+      box-sizing: border-box;
+      border: 1px solid #000;
+    }
+    textbox + pretitle { margin-top: 30px; }
+    table th,
+    table td {
+      padding: 5px;
+      font-size: 16px;
+      text-align: left;
+      border: 1px solid #000;
+    }
+    failure {
+      color: red;
+      font-weight: bold;
+      text-decoration: underline;
     }
   </style>
 </head>
 <body>
-  <h1>Hello from Puppeteer!</h1>
-  <p>This PDF was generated from HTML using Node.js and Puppeteer.</p>
+  <h1>Solar Maintenance - Overview</h1>
+
+  <table>
+    <tr>
+      <td>1</td>
+      <td>Name</td>
+      <td>Cash &amp; Carry</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>Address</td>
+      <td>Grove St, Oldham, GR0 1VE</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>System size (kW)</td>
+      <td>100</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>Is battery storage installed on-site</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td>Is a Voltage optimiser installed on-site</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>6</td>
+      <td>Authorised Person</td>
+      <td>Andrew Lloyd</td>
+    </tr>
+    <tr>
+      <td>7</td>
+      <td>Start date &amp; time</td>
+      <td>10/04/2025 at 08:00</td>
+    </tr>
+    <tr>
+      <td>8</td>
+      <td>Roof access available</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>9</td>
+      <td>Cleaning performed</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>10</td>
+      <td>RAMs completed</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>11</td>
+      <td>Fireman's Switch</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>12</td>
+      <td>Weather</td>
+      <td>Sunny</td>
+    </tr>
+    <tr>
+      <td>13</td>
+      <td>Ambient temp</td>
+      <td>Cool</td>
+    </tr>
+  </table>
+
+  <h3>System Components:</h3>
+
+  <table>
+    <tr>
+      <th></th>
+      <th>Component</th>
+      <th>P / F / N/A</th>
+      <th>Failed on</th>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>Inverters / AC Distribution</td>
+      <td>
+        <failure>Fail</failure>
+      </td>
+      <td>Cable condition, connection tightness</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>Mains Connection</td>
+      <td>Pass</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>PV Generator (DC Side)</td>
+      <td>N/A</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>Electrical Testing</td>
+      <td>Pass</td>
+      <td></td>
+    </tr>
+    <tr> 
+      <td>5</td>
+      <td>Performance Checks</td>
+      <td>Pass</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>6</td>
+      <td>Visual inspection</td>
+      <td>Pass</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>7</td>
+      <td>System Safety Risks</td>
+      <td>Pass</td>
+      <td></td>
+    </tr>
+    <tr> 
+      <td>8</td>
+      <td>Battery Systems</td>
+      <td>Pass</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>9</td>
+      <td>Voltage Optimiser</td>
+      <td>Pass</td>
+      <td></td>
+    </tr>
+  </table>
+
+  <h3>System summary notes:</h3>
+  <textbox></textbox>
+
+  <h3>Inspection Limitations:</h3>
+  <table>
+    <tr>
+      <td>No.</td>
+      <td>Limitations</td>
+      <td>Tick to confirm</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>Could not assess roof</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>Could only access roof visually (e.g. from cherrypicker or drone)</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>Structural integrity not assessed</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>No thermography performed</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td>No electrical testing carried out</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>6</td>
+      <td>Could not isolate system</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>7</td>
+      <td>No comms / logging check done</td>
+      <td></td>
+    </tr>
+  </table>
+
+  <table>
+    <tr>
+      <td>Follow-up required</td>
+      <td>Yes</td>
+    </tr>
+  </table>
+
+  <h3>Follow-up details:</h3>
+  <textbox></textbox>
+
+  <h1>Solar Maintenance - System Components</h1>
+  <h2>1. Inverters / AC Distribution</h2>
+  <h3>Inverter info:</h3>
+
+  <table>
+    <tr>
+      <td>Number of Inverters</td>
+      <td>1</td>
+    <tr>
+      <td>Inverter info</td>
+      <td>Complete</td>
+    <tr>
+      <td>Inverter make</td>
+      <td></td>
+    <tr>
+      <td>Inverter Model</td>
+      <td></td>
+    <tr>
+      <td>Inverter serial number</td>
+      <td></td>
+    <tr>
+      <td>Size of inverter (kW)</td>
+      <td></td>
+    <tr>
+      <td>No. of strings on inverter</td>
+      <td></td>
+    <tr>
+      <td>Inverter status (e.g. "Enter inverter display status or error code")</td>
+      <td></td>
+    </tr>
+  <table>
+
+  <h3>Tasks:</h3>
+  <table>
+    <tr>
+      <th>No.</th>
+      <th>Task</th>
+      <th>Pass / Fail / N/A</th>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>Inverters operating in "normal" mode</td>
+      <td>Pass</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>No signs of overheat, noise, vibration</td>
+      <td>Pass</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>Warning / hazard signs functional</td>
+      <td>Pass</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>Door locks, humidity, internal condition checked</td>
+      <td>Pass</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td>Dust filters checked, replaced if needed</td>
+      <td>Pass</td>
+    </tr>
+    <tr>
+      <td>6</td>
+      <td>Heat exchangers cleaned</td>
+      <td>Pass</td>
+    </tr>
+    <tr>
+      <td>7</td>
+      <td>Labels readable and correctly placed</td>
+      <td>Pass</td>
+    </tr>
+    <tr>
+      <td>8</td>
+      <td>Grounding system visually inspected</td>
+      <td>Pass</td>
+    </tr>
+    <tr>
+      <td>9</td>
+      <td>Fuses / breakers / disconnections condition</td>
+      <td>Pass</td>
+    </tr>
+    <tr>
+      <td>10</td>
+      <td>Fan functionality and noise assessed</td>
+      <td>Pass</td>
+    </tr>
+    <tr>
+      <td>11</td>
+      <td>Cable condition, connection tightness</td>
+      <td>
+        <failure>Fail</failure>
+      </td>
+    </tr>
+    <tr>
+      <td>12</td>
+      <td>Supply voltage within spec</td>
+      <td>Pass</td>
+    </tr>
+    <tr>
+      <td>13</td>
+      <td>Surge protection working (if applicable)</td>
+      <td>N/A</td>
+    </tr>
+    <tr>
+      <td>14</td>
+      <td>Ground insulation protection (if applicable)</td>
+      <td>N/A</td>
+    </tr>
+    <tr> 
+      <td>15</td>
+      <td>Comms cabling, HUBs, loggers working</td>
+      <td>N/A</td>
+    </tr>
+    <tr>
+      <td>16</td>
+      <td>Maintenance aligns with inverter O&amp;M manual</td>
+      <td>Pass</td>
+    </tr>
+  <table>
+
+  <p>
+    <failure>Fail:</failure> Cable condition, connection tightness
+  </p>
+
+  <p>
+    <em>Category:</em> 1
+  </p>
+  
+  <pretitle>Is the system safe to generate?</pretitle>
+  <textbox>
+    No, I have disconnected the inverter. Smell of burn upon removing the inverter boot. Burnt connection found, most likely due to connection used (bad lug).
+  </textbox>
+ 
+  <pretitle>What remedial work was done?</pretitle>
+  <textbox>DC isolators open, inverter removed from the system.</textbox>
+
+  <pretitle>What needs to happen next?</pretitle>
+  <textbox>Recommend that AC isolator and H07 flex is installed.</textbox>
+
+  <h3>
+    Media upload of <failure>Fail</failure>:
+  </h3>
+
+  <h3>Inverter notes:</h3>
+  <textbox>
+    Could not fully complete tests as the burnt connection was found early into the maintenance.
+    Recommend that AC isolator and H07 flex is installed. Will complete the tests upon re-visit.
+  </textbox>
+
+  <h2>2. Mains Connection</h2>
+  <h3>Tasks:</h3>
+
+  <table>
+    <tr>
+      <th>No.</th>
+      <th>Task</th>
+      <th>Pass / Fail / N/A</th>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>Warning / hazard signs present and legible</td>
+      <td>Pass</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>Labels correct and visible</td>
+      <td>Pass</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>Entrance barriers assessed (if applicable)</td>
+      <td>Pass</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>Mains connection tightness / no burns</td>
+      <td>Pass</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td>Breaker operates mechanically</td>
+      <td>Pass</td>
+    </tr>
+    <tr>
+      <td>6</td>
+      <td>Protection device rating correct</td>
+      <td>Pass</td>
+    </tr>
+  </table>
+
+  <h3>Mains Connection notes:</h3>
+  <textbox></textbox>
+
+  <h2>3. PV Generator (DC Side)</h2>
+  <h3>Modules soiling / shading:</h3>
+  <textbox></textbox>
+  <h3>Media upload:</h3>
+
+  <h3>Tasks:</h3>
+
+  <table>
+    <tr>
+      <th>No.</th>
+      <th>Task</th>
+      <th>Pass / Fail / N/A</th>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>PV frame screw joints (5% sample)</td>
+      <td>Pass</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>Frame construction stability (5% sample)</td>
+      <td>Pass</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>Module fixing to frame (5% sample)</td>
+      <td>Pass</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>DC connectors test (5% sample)</td>
+      <td>Pass</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td>Solar cable condition / fixings (5% sample)</td>
+      <td>Pass</td>
+    </tr>
+    <tr>
+      <td>6</td>
+      <td>Grounding connections cleaned &amp; checked</td>
+      <td>Pass</td>
+    </tr>
+    <tr>
+      <td>7</td>
+      <td>Modules mechanically intact, no discolouration</td>
+      <td>Pass</td>
+    </tr>
+    <tr>
+      <td>8</td>
+      <td>Thermography of modules / connections (5%)</td>
+      <td>Pass</td>
+    </tr>
+    <tr>
+      <td>9</td>
+      <td>Further 5% test if fault detected</td>
+      <td>Pass</td>
+    </tr>
+  </table>
+
+  <h3>String Tests:</h3>
+
+  <p>
+    <strong>Polarity Check:</strong> Yes
+  </p>
+
+  <table>
+    <tr>
+      <th colspan="2">String</th>
+      <td>1</td>
+      <td>2</td>
+      <td>3</td>
+      <td>4</td>
+      <td>5</td>
+      <td>6</td>
+      <td>7</td>
+      <td>8</td>
+    </tr>
+    <tr>
+      <th rowspan="3" valign="top">String Test</th>
+      <th>
+        V<small>oc</small>(V)
+      </th>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>
+        I<small>sc</small>(A)
+      </th>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>Irradiance</th>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <th rowspan="3" valign="top">Array Test insulation</th>
+      <th>Test Voltage (V)</th>
+      <td colspan="8"></td>
+    </tr>
+    <tr>
+      <th>Pos – Earth (MΩ)</th>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>NEG – Earth (MΩ)</th>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+  </table>
+
+  <h3>PV Generator (DC Side) notes:</h3>
+  <textbox></textbox>
+  
+  <h2>4. Electrical Testing</h2>
+  <h3>Tasks:</h3>
+  <table>
+    <tr>
+      <th>No.</th>
+      <th>Task</th>
+      <th>Pass / Fail / N/A</th>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>Voc within acceptable range</td>
+      <td>Pass</td>
+    <tr>
+    </tr>
+      <td>2</td>
+      <td>Isc measured safely</td>
+      <td>Pass</td>
+    <tr>
+    </tr>
+      <td>3</td>
+      <td>Insulation resistance within limit</td>
+      <td>Pass</td>
+    <tr>
+    </tr>
+      <td>4</td>
+      <td>Earth continuity tested</td>
+      <td>Pass</td>
+    <tr>
+    </tr>
+      <td>5</td>
+      <td>Inverter functional test</td>
+      <td>Pass</td>
+    <tr>
+    </tr>
+      <td>6</td>
+      <td>RCD trip tested (if installed)</td>
+      <td>Pass</td>
+    </tr>
+  </table>
+
+  <h3>Electrical Testing notes:</h3>
+  <textbox></textbox>
+
+  <h2>5. Performance Checks</h2>
+  <h3>Tasks:</h3>
+
+  <table>
+    <tr>
+      <th>No.</th>
+      <th>Task</th>
+      <th>Yes / No</th>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>Generation meter reading logged</td>
+      <td>Yes</td>
+    </tr>
+  </table>
+
+  <table>
+    <tr>
+      <th>No.</th>
+      <th>Task</th>
+      <th>kWh</th>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>Export Value (kWh)</td>
+      <td>12345</td>
+    </tr>
+  </table>
+
+  <table>
+    <tr>
+      <th>No.</th>
+      <th>Task</th>
+      <th>Yes / No</th>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>Output vs expected (adjusted)</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>Inverter logs reviewed</td>
+      <td>Yes</td>
+    </tr>
+  </table>
+
+  <table>
+    <tr>
+      <th>No.</th>
+      <th>Task</th>
+      <th>Pass / Fail / N/A</th>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td>Monitor and comms working</td>
+      <td>Yes</td>
+    </tr>
+  </table>
+
+  <h3>Performance checking notes:</h3>
+  <textbox></textbox>
+
+  <h2>6. Visual Inspection</h2>
+  <h3>Tasks:</h3>
+  <table>
+    <tr>
+      <th>No.</th>
+      <th>Task</th>
+      <th>Pass / Fail / N/A</th>
+    <tr>
+      <td>1</td>
+      <td>PV modules visually sound (no damage, soiling)</td>
+      <td>Pass</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>Mounting system secure, corrosion-free</td>
+      <td>Pass</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>Cables intact, fixed, UV-resistant</td>
+      <td>Pass</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>Signage &amp; labels present, legible</td>
+      <td>Pass</td>
+    </tr>
+  </table>
+
+  <table>
+    <tr>
+      <th>No.</th>
+      <th>Task</th>
+      <th>Yes / No</th>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td>Signs of birds nesting, droppings or wildlife interference (may impact performance or safety)?</td>
+      <td>Yes</td>
+    </tr>
+  </table>
+
+  <p>
+    <strong>Photos:</strong>
+  </p>
+
+  <table>
+    <tr>
+      <th>No.</th>
+      <th>Task</th>
+      <th>Yes / No</th>
+    </tr>
+    <tr>
+      <td>6</td>
+      <td>Debris, leaves or obstruction under panels (may impact performance or safety)?</td>
+      <td>Yes</td>
+    </tr>
+  </table>
+
+  <p>
+    <strong>Photos:</strong>
+  </p>
+
+  <h3>Visual Inspection notes:</h3>
+  <textbox></textbox>
+                                    
+  <h2>7. System Safety Risks</h2>
+  <h3>Tasks:</h3>
+
+  <table>
+    <tr>
+      <th>No.</th>
+      <th>Task</th>
+      <th>Pass / Fail / N/A</th>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>Are MC4 connectors secure, matched and undamaged? (5% sample)</td>
+      <td>Pass</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>Are DC cables elevated and free from mechanical abrasion?</td>
+      <td>Pass</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>Any signs of electrical arcing, scorching or melted insulation?</td>
+      <td>Pass</td>
+    </tr>
+  </table>
+
+  <table>
+    <tr>
+      <th>No.</th>
+      <th>Task</th>
+      <th>Yes / No</th>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td>Were thermal images taken for this system?</td>
+      <td>Yes</td>
+    </tr>
+  </table>
+
+  <p>
+    <strong>Photos:</strong>
+  </p>
+
+  <table>
+    <tr>
+      <th>No.</th>
+      <th>Task</th>
+      <th>Yes / No / N/A</th>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>Any hotspots identified (e.g. connectors, junction boxes)?</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>Cleaning method checked – no signs of damage from high pressure washing or aggressive brushing?</td>
+      <td>Yes</td>
+    </tr>
+  </table>
+
+  <h3>System Safety notes:</h3>
+  <textbox></textbox>
+
+  <h2>8. Battery Storage</h2>
+  <h3>Battery info:</h3>
+  <table>
+    <tr>
+      <td>Battery Info</td>
+      <td>Complete</td>
+    </tr>
+    <tr>
+      <td>Number of Batteries</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>Battery info</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>Battery make</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>Battery Model</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>Battery serial number</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>Size of Battery (kW)</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>Battery status (e.g. “Enter battery display status or error code”)</td>
+      <td></td>
+    </tr>
+  </table>
+
+  <h3>Tasks:</h3>
+
+  <table>
+    <tr>
+      <th>No.</th>
+      <th>Task</th>
+      <th>Pass / Fail / N/A</th>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>Battery location safe and compliant (e.g. ventilated, non-combustible surface)?</td>
+      <td>Pass</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>Signs of overheating, restricted airflow, or obstruction?</td>
+      <td>Pass</td>
+    </tr>
+  </table>
+
+  <h3>Battery Storage notes:</h3>
+  <textbox></textbox>
+
+  <h2>9. Voltage Optimiser (VO)</h2>
+  <h3>Voltage Optimiser info:</h3>
+
+  <table>
+    <tr>
+      <td>VO Info</td>
+      <td>Complete</td>
+    </tr>
+    <tr>
+      <td>Number of VO's </td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>VO info</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>VO make</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>VO Model</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>VO serial number</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>Size of VO (kW)</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>VO status (e.g. “Enter VO display status or error code”)</td>
+      <td></td>
+    </tr>
+  </table>
+
+  <h3>Tasks:</h3>
+
+  <table>
+    <tr>
+      <th>No.</th>
+      <th>Task</th>
+      <th>Pass / Fail / N/A</th>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>VO location safe and compliant (e.g. ventilated, non- combustible surface)?</td>
+      <td>Pass</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>Signs of overheating, restricted airflow, or obstruction?</td>
+      <td>Pass</td>
+    </tr>
+  </table>
+
+  <h3>Voltage Optimiser notes:</h3>
+  <textbox></textbox>
 </body>
 </html>
