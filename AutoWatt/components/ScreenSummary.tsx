@@ -3,12 +3,8 @@ import { View, Text } from "react-native";
 import { GlobalContext } from "@/context/GlobalContext";
 
 export default function ScreenTitle({ children }) {
-  const {
-    name, 
-    address, 
-    systemSize, 
-    authorisedPerson
-  } = useContext(GlobalContext);
+  const { name, address, systemSize, authorisedPerson } =
+    useContext(GlobalContext);
 
   return (
     <View style={{ marginTop: 40, gap: 10 }}>

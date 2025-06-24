@@ -1,8 +1,10 @@
 import { useState, useContext } from "react";
 import { useRouter } from "expo-router";
+import * as Network from "expo-network";
 import {
   View,
   Text,
+  Alert,
   ScrollView,
   TextInput,
   TouchableOpacity,
@@ -19,40 +21,31 @@ import { Fontisto } from "@expo/vector-icons";
 export default function HomeScreen() {
   const router = useRouter();
   const [submissionStep, setSubmissionStep] = useState(0);
-  const limitations = [
-    "Could not assess roof",
-    "Could only assess roof visually (e.g. from cherrypicker or drone)",
-    "Structural integrity not assessed",
-    "No thermography performed",
-    "No electrical testing carried out",
-    "Could not isolate system",
-    "No comms / logging check done",
-    "I confirm that the above areas were not inspected or fall outside my competency",
-  ];
-
   const {
-    name, 
+    name,
     setName,
-    notes, 
+    notes,
     setNotes,
-    address, 
+    address,
     setAddress,
-    systemSize, 
+    systemSize,
     setSystemSize,
-    batteryStorage, 
+    batteryStorage,
     setBatteryStorage,
-    voltageOptimiser, 
+    voltageOptimiser,
     setVoltageOptimiser,
-    authorisedPerson, 
+    authorisedPerson,
     setAuthorisedPerson,
-    roofAccess, 
+    roofAccess,
     setRoofAccess,
-    cleaningPerformed, 
+    cleaningPerformed,
     setCleaningPerformed,
-    ramsCompleted, 
+    ramsCompleted,
     setRamsCompleted,
-    date, 
+    date,
     setDate,
+    limitations,
+    setLimitations,
 
     weather,
     ambientTemp,
@@ -106,7 +99,7 @@ export default function HomeScreen() {
   };
 
   return (
-    <ScrollView style={{ padding: 20, paddingTop: 120 }}>
+    <ScrollView style={{ padding: 20 }}>
       <ScreenTitle>Solar Maintenance</ScreenTitle>
 
       <InputGroup label="Name" value={name} setValue={setName} />
@@ -289,18 +282,18 @@ export default function HomeScreen() {
         title="Battery Systems"
         onPress={() => {
           if (batteryStorage) {
-            router.push("/(steps)/battery-storage")
+            router.push("/(steps)/battery-storage");
           }
         }}
         status={getTaskGroupStatus(batterySystemsTasks)}
       />
 
-      <MegaButton 
+      <MegaButton
         disabled={!voltageOptimiser}
-        title="Voltage Optimiser" 
+        title="Voltage Optimiser"
         onPress={() => {
           if (voltageOptimiser) {
-            router.push("/(steps)/voltage-optimiser")
+            router.push("/(steps)/voltage-optimiser");
           }
         }}
         status={getTaskGroupStatus(voltageOptimisersTasks)}
@@ -344,15 +337,25 @@ export default function HomeScreen() {
           }}
         >
           {limitations.map((limitation, index) => (
-            <TouchableOpacity key={limitation} style={{ flexDirection: "row" }}>
+            <TouchableOpacity
+              key={limitation.text}
+              style={{ flexDirection: "row" }}
+              onPress={() => {
+                const newLimitations = [].concat(limitations);
+                newLimitations[index].checked = !limitation.checked;
+                setLimitations(newLimitations);
+              }}
+            >
               <View style={{ width: "10%" }}>
-                {index % 2 ? (
+                {limitation.checked ? (
                   <Fontisto name="checkbox-active" size={20} color="#0a7ea4" />
                 ) : (
                   <Fontisto name="checkbox-passive" size={20} />
                 )}
               </View>
-              <Text style={{ fontSize: 18, width: "90%" }}>{limitation}</Text>
+              <Text style={{ fontSize: 18, width: "90%" }}>
+                {limitation.text}
+              </Text>
             </TouchableOpacity>
           ))}
         </View>
@@ -416,20 +419,28 @@ export default function HomeScreen() {
 
       {submissionStep === 0 ? (
         <ActionButton
-          onPress={() => {
-            setSubmissionStep(1);
+          onPress={async () => {
+            const status = await Network.getNetworkStateAsync();
 
-            setTimeout(() => {
-              setSubmissionStep(2);
+            if (status.isInternetReachable) {
+              setSubmissionStep(1);
 
               setTimeout(() => {
-                setSubmissionStep(3);
+                setSubmissionStep(2);
 
                 setTimeout(() => {
-                  router.push("/(steps)/report-submitted");
+                  setSubmissionStep(3);
+
+                  setTimeout(() => {
+                    router.push("/(steps)/report-submitted");
+                  }, 1000);
                 }, 1000);
               }, 1000);
-            }, 1000);
+            } else {
+              Alert.alert(
+                "The report cannot be submitted right now because your device is offline. Please try again when the device will be back online.",
+              );
+            }
           }}
           text="Generate Report"
         />

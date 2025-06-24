@@ -16,7 +16,7 @@ export default function ReportSubmittedScreen() {
         height: "100%",
       }}
     >
-      <View style={{ width: "100%", gap: 40 }}>
+      <View style={{ width: "100%", gap: 40, paddingBottom: 40 }}>
         <View style={styles.titleContainer}>
           <ThemedText
             type="subtitle"
@@ -41,7 +41,6 @@ export default function ReportSubmittedScreen() {
 
 const styles = StyleSheet.create({
   titleContainer: {
-    marginTop: 40,
     alignItems: "center",
     flexDirection: "row",
     justifyContent: "center",

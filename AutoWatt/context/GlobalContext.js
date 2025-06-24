@@ -15,6 +15,41 @@ export const GlobalProvider = ({ children }) => {
   const [ramsCompleted, setRamsCompleted] = useState("");
   const [date, setDate] = useState(new Date());
 
+  const [limitations, setLimitations] = useState([
+    {
+      text: "Could not assess roof",
+      checked: true,
+    },
+    {
+      text: "Could only assess roof visually (e.g. from cherrypicker or drone)",
+      checked: false,
+    },
+    {
+      text: "Structural integrity not assessed",
+      checked: false,
+    },
+    {
+      text: "No thermography performed",
+      checked: false,
+    },
+    {
+      text: "No electrical testing carried out",
+      checked: false,
+    },
+    {
+      text: "Could not isolate system",
+      checked: false,
+    },
+    {
+      text: "No comms / logging check done",
+      checked: false,
+    },
+    {
+      text: "I confirm that the above areas were not inspected or fall outside my competency",
+      checked: false,
+    },
+  ]);
+
   const [weather, setWeather] = useState("");
   const [technicianEmail, setTechnicianEmail] = useState("");
   const [managerEmail, setManagerEmail] = useState("");
@@ -340,28 +375,30 @@ export const GlobalProvider = ({ children }) => {
   return (
     <GlobalContext.Provider
       value={{
-        name, 
+        name,
         setName,
-        notes, 
+        notes,
         setNotes,
-        address, 
+        address,
         setAddress,
-        systemSize, 
+        systemSize,
         setSystemSize,
-        batteryStorage, 
+        batteryStorage,
         setBatteryStorage,
-        voltageOptimiser, 
+        voltageOptimiser,
         setVoltageOptimiser,
-        authorisedPerson, 
+        authorisedPerson,
         setAuthorisedPerson,
-        roofAccess, 
+        roofAccess,
         setRoofAccess,
-        cleaningPerformed, 
+        cleaningPerformed,
         setCleaningPerformed,
-        ramsCompleted, 
+        ramsCompleted,
         setRamsCompleted,
-        date, 
+        date,
         setDate,
+        limitations,
+        setLimitations,
 
         weather,
         setWeather,

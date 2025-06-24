@@ -16,7 +16,7 @@ export default function HomeScreen() {
         height: "100%",
       }}
     >
-      <View style={{ width: "100%", gap: 40 }}>
+      <View style={{ width: "100%", gap: 40, paddingBottom: 40 }}>
         <View style={styles.titleContainer}>
           <ThemedText type="subtitle" style={{ fontSize: 28 }}>
             Welcome to AutoWatt!
@@ -60,7 +60,6 @@ export default function HomeScreen() {
 
 const styles = StyleSheet.create({
   titleContainer: {
-    marginTop: 40,
     alignItems: "center",
     flexDirection: "row",
     justifyContent: "center",

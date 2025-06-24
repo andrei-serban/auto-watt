@@ -103,7 +103,9 @@ export default function VoltageOptimiserScreen() {
                       }
                       value={voltageOptimiser[key]}
                       setValue={(value) => {
-                        const newVoltageOptimisers = [].concat(voltageOptimisers);
+                        const newVoltageOptimisers = [].concat(
+                          voltageOptimisers,
+                        );
                         newVoltageOptimisers[index][key] = value;
                         setVoltageOptimisers(newVoltageOptimisers);
                       }}
