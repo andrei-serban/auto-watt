@@ -9,6 +9,7 @@ import {
   TextInput,
   TouchableOpacity,
 } from "react-native";
+import axios from 'axios';
 import DateTimePicker from "@react-native-community/datetimepicker";
 import InputGroup from "@/components/InputGroup";
 import MegaButton from "@/components/MegaButton";
@@ -49,6 +50,10 @@ export default function HomeScreen() {
 
     weather,
     ambientTemp,
+    followUpRequired, 
+    setFollowUpRequired,
+    followUpDetails, 
+    setFollowUpDetails,
     technicianEmail,
     managerEmail,
 
@@ -64,6 +69,8 @@ export default function HomeScreen() {
 
     setTechnicianEmail,
     setManagerEmail,
+
+    getPayload
   } = useContext(GlobalContext);
 
   const getTaskGroupStatus = (tasks) => {
@@ -372,8 +379,20 @@ export default function HomeScreen() {
           Follow-up required?
         </Text>
         <View style={{ flexDirection: "row", justifyContent: "space-evenly" }}>
-          <ActionButton text="Yes" width={130} marginTop={20} />
-          <ActionButton text="No" width={130} marginTop={20} />
+          <ActionButton 
+            text="Yes" 
+            width={130} 
+            marginTop={20} 
+            onPress={() => setFollowUpRequired('yes')}
+            selected={followUpRequired === 'yes'}
+          />
+          <ActionButton 
+            text="No" 
+            width={130} 
+            marginTop={20} 
+            onPress={() => setFollowUpRequired('no')}
+            selected={followUpRequired === 'no'}
+          />
         </View>
       </View>
 
@@ -384,8 +403,8 @@ export default function HomeScreen() {
           'Follow-up details (e.g. "Recommend scaffold and revisit to check frame condition.")'
         }
         placeholder="Note"
-        value={notes}
-        setValue={setNotes}
+        value={followUpDetails}
+        setValue={setFollowUpDetails}
       />
 
       <View>
@@ -425,8 +444,12 @@ export default function HomeScreen() {
             if (status.isInternetReachable) {
               setSubmissionStep(1);
 
-              setTimeout(() => {
+              const submissionResponse = await axios.post('https://0c84-82-76-117-94.ngrok-free.app', getPayload());
+
+              setTimeout(async () => {
                 setSubmissionStep(2);
+
+                const pdfResponse = await axios.get(`https://0c84-82-76-117-94.ngrok-free.app?id=${submissionResponse.data.insertId}`);
 
                 setTimeout(() => {
                   setSubmissionStep(3);

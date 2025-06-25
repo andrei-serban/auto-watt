@@ -5,6 +5,7 @@ export default function ActionButton({
   onPress,
   width = "100%",
   marginTop = 50,
+  selected = false
 }) {
   return (
     <View style={{ alignItems: "center" }}>
@@ -12,7 +13,7 @@ export default function ActionButton({
         style={{
           width,
           marginTop,
-          padding: 15,
+          padding: 5,
           borderRadius: 5,
           flexDirection: "row",
           justifyContent: "center",
@@ -22,8 +23,12 @@ export default function ActionButton({
       >
         <Text
           style={{
+            padding: 10,
+            width: '100%',
             fontSize: 16,
-            color: "white",
+            borderRadius: 3,
+            color: selected ? '#0a7ea4' : "white",
+            backgroundColor: selected ? 'white' : 'transparent',
             fontWeight: 700,
             textAlign: "center",
           }}

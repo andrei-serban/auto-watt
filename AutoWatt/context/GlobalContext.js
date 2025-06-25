@@ -18,7 +18,7 @@ export const GlobalProvider = ({ children }) => {
   const [limitations, setLimitations] = useState([
     {
       text: "Could not assess roof",
-      checked: true,
+      checked: false,
     },
     {
       text: "Could only assess roof visually (e.g. from cherrypicker or drone)",
@@ -50,6 +50,8 @@ export const GlobalProvider = ({ children }) => {
     },
   ]);
 
+  const [followUpRequired, setFollowUpRequired] = useState(false);
+  const [followUpDetails, setFollowUpDetails] = useState(false);
   const [weather, setWeather] = useState("");
   const [technicianEmail, setTechnicianEmail] = useState("");
   const [managerEmail, setManagerEmail] = useState("");
@@ -400,6 +402,11 @@ export const GlobalProvider = ({ children }) => {
         limitations,
         setLimitations,
 
+        followUpRequired, 
+        setFollowUpRequired,
+        followUpDetails, 
+        setFollowUpDetails,
+
         weather,
         setWeather,
         ambientTemp,
@@ -469,6 +476,55 @@ export const GlobalProvider = ({ children }) => {
         setVoltageOptimisersTasks,
         voltageOptimisersNotes,
         setVoltageOptimisersNotes,
+
+        getPayload: function() {
+          return {
+            name,
+            notes,
+            address,
+            systemSize,
+            batteryStorage,
+            voltageOptimiser,
+            authorisedPerson,
+            roofAccess,
+            cleaningPerformed,
+            ramsCompleted,
+            date,
+            limitations,
+            followUpRequired, 
+            followUpDetails,
+            weather,
+            ambientTemp,
+            technicianEmail,
+            managerEmail,
+            invertersCount,
+            inverters,
+            invertersTasks,
+            invertersNotes,
+            mainsConnectionTasks,
+            mainsConnectionNotes,
+            pvGeneratorPreNote,
+            pvGeneratorTasks,
+            pvGeneratorNotes,
+            electricalTestingTasks,
+            electricalTestingNotes,
+            performanceChecksTasks,
+            performanceChecksExportValue,
+            performanceChecksNotes,
+            visualChecksTasks,
+            visualChecksNotes,
+            safetyRisksTasks,
+            safetyRisksNotes,
+            batterySystemsCount,
+            batterySystems,
+            batterySystemsTasks,
+            batterySystemsNotes,
+            voltageOptimisersCount,
+            voltageOptimisers,
+            voltageOptimisersTasks,
+            voltageOptimisersNotes,
+          }
+        }
       }}
     >
       {children}
