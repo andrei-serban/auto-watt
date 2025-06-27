@@ -91,17 +91,17 @@
     <tr>
       <td>4</td>
       <td>Is battery storage installed on-site</td>
-      <td>Yes</td>
+      <td>{{ batteryStorage }}</td>
     </tr>
     <tr>
       <td>5</td>
       <td>Is a Voltage optimiser installed on-site</td>
-      <td>Yes</td>
+      <td>{{ voltageOptimiser }}</td>
     </tr>
     <tr>
       <td>6</td>
       <td>Authorised Person</td>
-      <td>Andrew Lloyd</td>
+      <td>{{ authorisedPerson }}</td>
     </tr>
     <tr>
       <td>7</td>
@@ -111,17 +111,17 @@
     <tr>
       <td>8</td>
       <td>Roof access available</td>
-      <td>Yes</td>
+      <td>{{ roofAccess }}</td>
     </tr>
     <tr>
       <td>9</td>
       <td>Cleaning performed</td>
-      <td>Yes</td>
+      <td>{{ cleaningPerformed }}</td>
     </tr>
     <tr>
       <td>10</td>
       <td>RAMs completed</td>
-      <td>Yes</td>
+      <td>{{ ramsCompleted }}</td>
     </tr>
     <tr>
       <td>11</td>
@@ -208,7 +208,7 @@
   </table>
 
   <h3>System summary notes:</h3>
-  <textbox></textbox>
+  <textbox>{{ notes }}</textbox>
 
   <h3>Inspection Limitations:</h3>
   <table>
@@ -217,41 +217,8 @@
       <td>Limitations</td>
       <td>Tick to confirm</td>
     </tr>
-    <tr>
-      <td>1</td>
-      <td>Could not assess roof</td>
-      <td></td>
-    </tr>
-    <tr>
-      <td>2</td>
-      <td>Could only access roof visually (e.g. from cherrypicker or drone)</td>
-      <td></td>
-    </tr>
-    <tr>
-      <td>3</td>
-      <td>Structural integrity not assessed</td>
-      <td></td>
-    </tr>
-    <tr>
-      <td>4</td>
-      <td>No thermography performed</td>
-      <td></td>
-    </tr>
-    <tr>
-      <td>5</td>
-      <td>No electrical testing carried out</td>
-      <td></td>
-    </tr>
-    <tr>
-      <td>6</td>
-      <td>Could not isolate system</td>
-      <td></td>
-    </tr>
-    <tr>
-      <td>7</td>
-      <td>No comms / logging check done</td>
-      <td></td>
-    </tr>
+
+    !! limitations !!
   </table>
 
   <table>
@@ -303,88 +270,8 @@
       <th>Task</th>
       <th>Pass / Fail / N/A</th>
     </tr>
-    <tr>
-      <td>1</td>
-      <td>Inverters operating in "normal" mode</td>
-      <td>Pass</td>
-    </tr>
-    <tr>
-      <td>2</td>
-      <td>No signs of overheat, noise, vibration</td>
-      <td>Pass</td>
-    </tr>
-    <tr>
-      <td>3</td>
-      <td>Warning / hazard signs functional</td>
-      <td>Pass</td>
-    </tr>
-    <tr>
-      <td>4</td>
-      <td>Door locks, humidity, internal condition checked</td>
-      <td>Pass</td>
-    </tr>
-    <tr>
-      <td>5</td>
-      <td>Dust filters checked, replaced if needed</td>
-      <td>Pass</td>
-    </tr>
-    <tr>
-      <td>6</td>
-      <td>Heat exchangers cleaned</td>
-      <td>Pass</td>
-    </tr>
-    <tr>
-      <td>7</td>
-      <td>Labels readable and correctly placed</td>
-      <td>Pass</td>
-    </tr>
-    <tr>
-      <td>8</td>
-      <td>Grounding system visually inspected</td>
-      <td>Pass</td>
-    </tr>
-    <tr>
-      <td>9</td>
-      <td>Fuses / breakers / disconnections condition</td>
-      <td>Pass</td>
-    </tr>
-    <tr>
-      <td>10</td>
-      <td>Fan functionality and noise assessed</td>
-      <td>Pass</td>
-    </tr>
-    <tr>
-      <td>11</td>
-      <td>Cable condition, connection tightness</td>
-      <td>
-        <failure>Fail</failure>
-      </td>
-    </tr>
-    <tr>
-      <td>12</td>
-      <td>Supply voltage within spec</td>
-      <td>Pass</td>
-    </tr>
-    <tr>
-      <td>13</td>
-      <td>Surge protection working (if applicable)</td>
-      <td>N/A</td>
-    </tr>
-    <tr>
-      <td>14</td>
-      <td>Ground insulation protection (if applicable)</td>
-      <td>N/A</td>
-    </tr>
-    <tr> 
-      <td>15</td>
-      <td>Comms cabling, HUBs, loggers working</td>
-      <td>N/A</td>
-    </tr>
-    <tr>
-      <td>16</td>
-      <td>Maintenance aligns with inverter O&amp;M manual</td>
-      <td>Pass</td>
-    </tr>
+
+    !! invertersTasks !!
   <table>
 
   <p>
@@ -425,36 +312,8 @@
       <th>Task</th>
       <th>Pass / Fail / N/A</th>
     </tr>
-    <tr>
-      <td>1</td>
-      <td>Warning / hazard signs present and legible</td>
-      <td>Pass</td>
-    </tr>
-    <tr>
-      <td>2</td>
-      <td>Labels correct and visible</td>
-      <td>Pass</td>
-    </tr>
-    <tr>
-      <td>3</td>
-      <td>Entrance barriers assessed (if applicable)</td>
-      <td>Pass</td>
-    </tr>
-    <tr>
-      <td>4</td>
-      <td>Mains connection tightness / no burns</td>
-      <td>Pass</td>
-    </tr>
-    <tr>
-      <td>5</td>
-      <td>Breaker operates mechanically</td>
-      <td>Pass</td>
-    </tr>
-    <tr>
-      <td>6</td>
-      <td>Protection device rating correct</td>
-      <td>Pass</td>
-    </tr>
+
+    !! mainsConnectionTasks !!
   </table>
 
   <h3>Mains Connection notes:</h3>
@@ -473,51 +332,8 @@
       <th>Task</th>
       <th>Pass / Fail / N/A</th>
     </tr>
-    <tr>
-      <td>1</td>
-      <td>PV frame screw joints (5% sample)</td>
-      <td>Pass</td>
-    </tr>
-    <tr>
-      <td>2</td>
-      <td>Frame construction stability (5% sample)</td>
-      <td>Pass</td>
-    </tr>
-    <tr>
-      <td>3</td>
-      <td>Module fixing to frame (5% sample)</td>
-      <td>Pass</td>
-    </tr>
-    <tr>
-      <td>4</td>
-      <td>DC connectors test (5% sample)</td>
-      <td>Pass</td>
-    </tr>
-    <tr>
-      <td>5</td>
-      <td>Solar cable condition / fixings (5% sample)</td>
-      <td>Pass</td>
-    </tr>
-    <tr>
-      <td>6</td>
-      <td>Grounding connections cleaned &amp; checked</td>
-      <td>Pass</td>
-    </tr>
-    <tr>
-      <td>7</td>
-      <td>Modules mechanically intact, no discolouration</td>
-      <td>Pass</td>
-    </tr>
-    <tr>
-      <td>8</td>
-      <td>Thermography of modules / connections (5%)</td>
-      <td>Pass</td>
-    </tr>
-    <tr>
-      <td>9</td>
-      <td>Further 5% test if fault detected</td>
-      <td>Pass</td>
-    </tr>
+
+    !! pvGeneratorTasks !!
   </table>
 
   <h3>String Tests:</h3>
@@ -616,36 +432,8 @@
       <th>Task</th>
       <th>Pass / Fail / N/A</th>
     </tr>
-    <tr>
-      <td>1</td>
-      <td>Voc within acceptable range</td>
-      <td>Pass</td>
-    <tr>
-    </tr>
-      <td>2</td>
-      <td>Isc measured safely</td>
-      <td>Pass</td>
-    <tr>
-    </tr>
-      <td>3</td>
-      <td>Insulation resistance within limit</td>
-      <td>Pass</td>
-    <tr>
-    </tr>
-      <td>4</td>
-      <td>Earth continuity tested</td>
-      <td>Pass</td>
-    <tr>
-    </tr>
-      <td>5</td>
-      <td>Inverter functional test</td>
-      <td>Pass</td>
-    <tr>
-    </tr>
-      <td>6</td>
-      <td>RCD trip tested (if installed)</td>
-      <td>Pass</td>
-    </tr>
+
+    !! electricalTestingTasks !!
   </table>
 
   <h3>Electrical Testing notes:</h3>
@@ -721,26 +509,9 @@
       <th>No.</th>
       <th>Task</th>
       <th>Pass / Fail / N/A</th>
-    <tr>
-      <td>1</td>
-      <td>PV modules visually sound (no damage, soiling)</td>
-      <td>Pass</td>
     </tr>
-    <tr>
-      <td>2</td>
-      <td>Mounting system secure, corrosion-free</td>
-      <td>Pass</td>
-    </tr>
-    <tr>
-      <td>3</td>
-      <td>Cables intact, fixed, UV-resistant</td>
-      <td>Pass</td>
-    </tr>
-    <tr>
-      <td>4</td>
-      <td>Signage &amp; labels present, legible</td>
-      <td>Pass</td>
-    </tr>
+
+    !! visualChecksTasks1 !!
   </table>
 
   <table>
@@ -749,11 +520,8 @@
       <th>Task</th>
       <th>Yes / No</th>
     </tr>
-    <tr>
-      <td>5</td>
-      <td>Signs of birds nesting, droppings or wildlife interference (may impact performance or safety)?</td>
-      <td>Yes</td>
-    </tr>
+
+    !! visualChecksTasks2 !!
   </table>
 
   <p>
@@ -766,11 +534,8 @@
       <th>Task</th>
       <th>Yes / No</th>
     </tr>
-    <tr>
-      <td>6</td>
-      <td>Debris, leaves or obstruction under panels (may impact performance or safety)?</td>
-      <td>Yes</td>
-    </tr>
+
+    !! visualChecksTasks3 !!
   </table>
 
   <p>
@@ -789,21 +554,8 @@
       <th>Task</th>
       <th>Pass / Fail / N/A</th>
     </tr>
-    <tr>
-      <td>1</td>
-      <td>Are MC4 connectors secure, matched and undamaged? (5% sample)</td>
-      <td>Pass</td>
-    </tr>
-    <tr>
-      <td>2</td>
-      <td>Are DC cables elevated and free from mechanical abrasion?</td>
-      <td>Pass</td>
-    </tr>
-    <tr>
-      <td>3</td>
-      <td>Any signs of electrical arcing, scorching or melted insulation?</td>
-      <td>Pass</td>
-    </tr>
+
+    !! safetyRisksTasks1 !!
   </table>
 
   <table>
@@ -812,11 +564,8 @@
       <th>Task</th>
       <th>Yes / No</th>
     </tr>
-    <tr>
-      <td>5</td>
-      <td>Were thermal images taken for this system?</td>
-      <td>Yes</td>
-    </tr>
+
+    !! safetyRisksTasks2 !!
   </table>
 
   <p>
@@ -829,16 +578,8 @@
       <th>Task</th>
       <th>Yes / No / N/A</th>
     </tr>
-    <tr>
-      <td>1</td>
-      <td>Any hotspots identified (e.g. connectors, junction boxes)?</td>
-      <td>Yes</td>
-    </tr>
-    <tr>
-      <td>2</td>
-      <td>Cleaning method checked – no signs of damage from high pressure washing or aggressive brushing?</td>
-      <td>Yes</td>
-    </tr>
+
+    !! safetyRisksTasks3 !!
   </table>
 
   <h3>System Safety notes:</h3>

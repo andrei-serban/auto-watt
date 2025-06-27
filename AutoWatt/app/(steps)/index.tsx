@@ -19,6 +19,8 @@ import ActionButton from "@/components/ActionButton";
 import { GlobalContext } from "@/context/GlobalContext";
 import { Fontisto } from "@expo/vector-icons";
 
+const API_URL = 'https://100f-82-76-117-94.ngrok-free.app';
+
 export default function HomeScreen() {
   const router = useRouter();
   const [submissionStep, setSubmissionStep] = useState(0);
@@ -444,12 +446,12 @@ export default function HomeScreen() {
             if (status.isInternetReachable) {
               setSubmissionStep(1);
 
-              const submissionResponse = await axios.post('https://0c84-82-76-117-94.ngrok-free.app', getPayload());
+              const submissionResponse = await axios.post(API_URL, getPayload());
 
               setTimeout(async () => {
                 setSubmissionStep(2);
 
-                const pdfResponse = await axios.get(`https://0c84-82-76-117-94.ngrok-free.app?id=${submissionResponse.data.insertId}`);
+                const pdfResponse = await axios.get(`${API_URL}?id=${submissionResponse.data.insertId}`);
 
                 setTimeout(() => {
                   setSubmissionStep(3);
