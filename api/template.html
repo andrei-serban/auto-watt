@@ -106,7 +106,7 @@
     <tr>
       <td>7</td>
       <td>Start date &amp; time</td>
-      <td>10/04/2025 at 08:00</td>
+      <td>!! timestamp !!</td>
     </tr>
     <tr>
       <td>8</td>
@@ -131,12 +131,12 @@
     <tr>
       <td>12</td>
       <td>Weather</td>
-      <td>Sunny</td>
+      <td>{{ weather }}</td>
     </tr>
     <tr>
       <td>13</td>
       <td>Ambient temp</td>
-      <td>Cool</td>
+      <td>{{ ambientTemp }}</td>
     </tr>
   </table>
 
@@ -224,12 +224,12 @@
   <table>
     <tr>
       <td>Follow-up required</td>
-      <td>Yes</td>
+      <td>{{ followUpRequired }}</td>
     </tr>
   </table>
 
   <h3>Follow-up details:</h3>
-  <textbox></textbox>
+  <textbox>{{ followUpDetails }}</textbox>
 
   <h1>Solar Maintenance - System Components</h1>
   <h2>1. Inverters / AC Distribution</h2>
@@ -298,10 +298,7 @@
   </h3>
 
   <h3>Inverter notes:</h3>
-  <textbox>
-    Could not fully complete tests as the burnt connection was found early into the maintenance.
-    Recommend that AC isolator and H07 flex is installed. Will complete the tests upon re-visit.
-  </textbox>
+  <textbox>{{ invertersNotes }}</textbox>
 
   <h2>2. Mains Connection</h2>
   <h3>Tasks:</h3>
@@ -317,11 +314,11 @@
   </table>
 
   <h3>Mains Connection notes:</h3>
-  <textbox></textbox>
+  <textbox>{{ mainsConnectionNotes }}</textbox>
 
   <h2>3. PV Generator (DC Side)</h2>
   <h3>Modules soiling / shading:</h3>
-  <textbox></textbox>
+  <textbox>{{ pvGeneratorPreNote }}</textbox>
   <h3>Media upload:</h3>
 
   <h3>Tasks:</h3>
@@ -422,7 +419,7 @@
   </table>
 
   <h3>PV Generator (DC Side) notes:</h3>
-  <textbox></textbox>
+  <textbox>{{ pvGeneratorNotes }}</textbox>
   
   <h2>4. Electrical Testing</h2>
   <h3>Tasks:</h3>
@@ -437,7 +434,7 @@
   </table>
 
   <h3>Electrical Testing notes:</h3>
-  <textbox></textbox>
+  <textbox>{{ electricalTestingNotes }}</textbox>
 
   <h2>5. Performance Checks</h2>
   <h3>Tasks:</h3>
@@ -448,11 +445,8 @@
       <th>Task</th>
       <th>Yes / No</th>
     </tr>
-    <tr>
-      <td>1</td>
-      <td>Generation meter reading logged</td>
-      <td>Yes</td>
-    </tr>
+
+    !! performanceChecksTasks1 !!
   </table>
 
   <table>
@@ -464,7 +458,7 @@
     <tr>
       <td>2</td>
       <td>Export Value (kWh)</td>
-      <td>12345</td>
+      <td>{{ performanceChecksExportValue }}</td>
     </tr>
   </table>
 
@@ -474,16 +468,8 @@
       <th>Task</th>
       <th>Yes / No</th>
     </tr>
-    <tr>
-      <td>3</td>
-      <td>Output vs expected (adjusted)</td>
-      <td>Yes</td>
-    </tr>
-    <tr>
-      <td>4</td>
-      <td>Inverter logs reviewed</td>
-      <td>Yes</td>
-    </tr>
+
+    !! performanceChecksTasks2 !!
   </table>
 
   <table>
@@ -492,15 +478,12 @@
       <th>Task</th>
       <th>Pass / Fail / N/A</th>
     </tr>
-    <tr>
-      <td>5</td>
-      <td>Monitor and comms working</td>
-      <td>Yes</td>
-    </tr>
+
+    !! performanceChecksTasks3 !!
   </table>
 
   <h3>Performance checking notes:</h3>
-  <textbox></textbox>
+  <textbox>{{ performanceChecksNotes }}</textbox>
 
   <h2>6. Visual Inspection</h2>
   <h3>Tasks:</h3>
@@ -543,7 +526,7 @@
   </p>
 
   <h3>Visual Inspection notes:</h3>
-  <textbox></textbox>
+  <textbox>{{ visualChecksNotes }}</textbox>
                                     
   <h2>7. System Safety Risks</h2>
   <h3>Tasks:</h3>
@@ -583,7 +566,7 @@
   </table>
 
   <h3>System Safety notes:</h3>
-  <textbox></textbox>
+  <textbox>{{ safetyRisksNotes }}</textbox>
 
   <h2>8. Battery Storage</h2>
   <h3>Battery info:</h3>
@@ -630,20 +613,12 @@
       <th>Task</th>
       <th>Pass / Fail / N/A</th>
     </tr>
-    <tr>
-      <td>1</td>
-      <td>Battery location safe and compliant (e.g. ventilated, non-combustible surface)?</td>
-      <td>Pass</td>
-    </tr>
-    <tr>
-      <td>2</td>
-      <td>Signs of overheating, restricted airflow, or obstruction?</td>
-      <td>Pass</td>
-    </tr>
+
+    !! batterySystemsTasks !!
   </table>
 
   <h3>Battery Storage notes:</h3>
-  <textbox></textbox>
+  <textbox>{{ batterySystemsNotes }}</textbox>
 
   <h2>9. Voltage Optimiser (VO)</h2>
   <h3>Voltage Optimiser info:</h3>
@@ -691,19 +666,11 @@
       <th>Task</th>
       <th>Pass / Fail / N/A</th>
     </tr>
-    <tr>
-      <td>1</td>
-      <td>VO location safe and compliant (e.g. ventilated, non- combustible surface)?</td>
-      <td>Pass</td>
-    </tr>
-    <tr>
-      <td>2</td>
-      <td>Signs of overheating, restricted airflow, or obstruction?</td>
-      <td>Pass</td>
-    </tr>
+
+    !! voltageOptimisersTasks !!
   </table>
 
   <h3>Voltage Optimiser notes:</h3>
-  <textbox></textbox>
+  <textbox>{{ voltageOptimisersNotes }}</textbox>
 </body>
 </html>

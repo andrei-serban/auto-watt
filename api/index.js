@@ -2,6 +2,7 @@ const fs = require('fs');
 const path = require('path');
 const puppeteer = require('puppeteer');
 const express = require('express');
+const moment = require('moment');
 const mysql = require('mysql2');
 const app = express();
 const PORT = 3020;
@@ -36,6 +37,7 @@ app.get('/', async (req, res) => {
       payload.roofAccess = payload.roofAccess ? 'Yes' : 'No';
       payload.cleaningPerformed = payload.cleaningPerformed ? 'Yes' : 'No';
       payload.ramsCompleted = payload.ramsCompleted ? 'Yes' : 'No';
+      payload.followUpRequired = ucfirst(payload.followUpRequired);
 
       const templatePath = path.join(__dirname, 'template.html');
       let html = fs.readFileSync(templatePath, 'utf8');
@@ -59,6 +61,12 @@ app.get('/', async (req, res) => {
         safetyRisksTasks1: formatTasks(payload.safetyRisksTasks.slice(0, 3)),
         safetyRisksTasks2: formatTasks([payload.safetyRisksTasks[3]], 3),
         safetyRisksTasks3: formatTasks([payload.safetyRisksTasks[4], payload.safetyRisksTasks[5]], 4),
+        voltageOptimisersTasks: formatTasks(payload.voltageOptimisersTasks),
+        performanceChecksTasks1: formatTasks([payload.performanceChecksTasks[0]]),
+        performanceChecksTasks2: formatTasks(payload.performanceChecksTasks.slice(1, 3), 2),
+        performanceChecksTasks3: formatTasks([payload.performanceChecksTasks[3]], 4),
+        batterySystemsTasks: formatTasks(payload.batterySystemsTasks),
+        timestamp: formatTimestamp(payload.date)
       };
 
       functionMatches.forEach((match) => {
@@ -138,6 +146,13 @@ const formatTaskValue = (value) => {
     return '<failure>Fail</failure>';
   }
 
-  return value.charAt(0).toUpperCase() + value.slice(1);
+  return ucfirst(value)
 }
 
+const formatTimestamp = (date) => {
+  return moment.utc(date).local().format('DD/MM/YYYY [at] HH:mm');
+}
+
+const ucfirst = (text) => {
+  return text.charAt(0).toUpperCase() + text.slice(1);
+}
