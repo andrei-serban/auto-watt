@@ -13,7 +13,7 @@ export class Inverter {
 export class InverterString {
   voc = "";
   isc = "";
-  ins = "";
+  irr = "";
   testVoltage = "";
   pos = "";
   neg = "";

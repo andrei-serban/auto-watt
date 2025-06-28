@@ -32,7 +32,16 @@ export default function StringScreen() {
 
       {selectedString ? (
         <>
-          <Text style={{ fontWeight: '600', marginTop: 20, fontSize: 30, color: '#777' }}>String</Text>
+          <Text
+            style={{
+              fontWeight: "600",
+              marginTop: 20,
+              fontSize: 30,
+              color: "#777",
+            }}
+          >
+            String
+          </Text>
 
           <InputGroup
             label="Voc (V)"
@@ -56,16 +65,25 @@ export default function StringScreen() {
           />
 
           <InputGroup
-            label="Insulation Resistance (MOhms)"
-            value={selectedString.ins}
+            label="Irradiance"
+            value={selectedString.irr}
             setValue={(value) => {
               const newSelectedString = { ...selectedString };
-              newSelectedString.ins = value;
+              newSelectedString.irr = value;
               setSelectedString(newSelectedString);
             }}
           />
 
-          <Text style={{ fontWeight: '600', marginTop: 20, fontSize: 30, color: '#777' }}>Array Test Insulation</Text>
+          <Text
+            style={{
+              fontWeight: "600",
+              marginTop: 20,
+              fontSize: 30,
+              color: "#777",
+            }}
+          >
+            Array Test Insulation
+          </Text>
 
           <InputGroup
             label="Test Voltage (V)"

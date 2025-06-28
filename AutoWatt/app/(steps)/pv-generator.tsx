@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useState, useContext } from "react";
 import { useRouter } from "expo-router";
 import { View, Text, TouchableOpacity, ScrollView } from "react-native";
 import TaskGroup from "@/components/TaskGroup";
@@ -12,6 +12,7 @@ import { GlobalContext } from "@/context/GlobalContext";
 import { Feather, MaterialIcons } from "@expo/vector-icons";
 
 export default function PvGeneratorScreen() {
+  const [currentInverterIndex, setCurrentInverterIndex] = useState(-1);
   const {
     inverters,
     pvGeneratorTasks,
@@ -106,116 +107,177 @@ export default function PvGeneratorScreen() {
         </Text>
 
         {inverters.map((inverter, inverterIndex) => {
+          const allStrings = inverter.stringObjects.length;
+          const completedStrings = inverter.stringObjects.filter(
+            (string) => string.status !== "",
+          ).length;
+
           return (
             <View key={inverterIndex}>
-              <TouchableOpacity
-                style={{
-                  borderWidth: 1,
-                  borderRadius: 10,
-                  borderColor: "#777",
-                  marginTop: 15,
-                  padding: 10,
-                }}
-              >
-                <Text style={{ color: "#555", fontSize: 28, fontWeight: 300 }}>View Inverter {inverterIndex + 1}</Text>
-                {
-                  inverter.stringObjects.filter(string => string.status === 'fail').length
-                  ? <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 10, gap: 5 }}>
-                    <MaterialIcons name="error" size={24} color="red" />
-                    <Text style={{ color: "red", fontSize: 18, fontWeight: 600 }}>Issue detected</Text>
-                  </View>
-                  : null
-                }
-                <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
-                  <View>
-                    <Text style={{ color: "#888", fontSize: 28, fontWeight: 700, marginTop: 10 }}>Partially Complete</Text>
-                    <Text style={{ color: "#888", fontSize: 18, fontWeight: 700 }}>
-                      {inverter.stringObjects.filter(string => string.status !== '').length} of {inverter.stringObjects.length} complete
-                    </Text>
-                  </View>
-                  <Feather
-                    name="chevron-down"
-                    size={28}
-                    color="#2F9DFB"
-                  />
-                </View>
-              </TouchableOpacity>
-
-              <View
-                style={{
-                  borderWidth: 1,
-                  borderRadius: 10,
-                  borderColor: "#777",
-                  marginTop: 15,
-                  padding: 10,
-                }}
-              >
-                {inverter.stringObjects.map((stringObject, stringIndex) => {
-                  return (
-                    <TouchableOpacity
-                      key={stringIndex}
+              {inverters.length > 1 ? (
+                <TouchableOpacity
+                  style={{
+                    borderWidth: 1,
+                    borderRadius: 10,
+                    borderColor: "#777",
+                    marginTop: 15,
+                    padding: 10,
+                  }}
+                  onPress={() => {
+                    setCurrentInverterIndex(
+                      currentInverterIndex === inverterIndex
+                        ? -1
+                        : inverterIndex,
+                    );
+                  }}
+                >
+                  <Text
+                    style={{ color: "#555", fontSize: 28, fontWeight: 300 }}
+                  >
+                    View Inverter {inverterIndex + 1}
+                  </Text>
+                  {inverter.stringObjects.filter(
+                    (string) => string.status === "fail",
+                  ).length ? (
+                    <View
                       style={{
-                        paddingTop: 10,
-                        paddingBottom: 10,
-                        borderBottomWidth: 1,
-                        borderBottomColor: "#777",
                         flexDirection: "row",
                         alignItems: "center",
-                        justifyContent: "space-between",
-                      }}
-                      onPress={() => {
-                        setSelectedString(stringObject);
-                        setSelectedStringIndex(stringIndex);
-                        setSelectedStringInverterIndex(inverterIndex);
-                        router.push("/(steps)/string-screen");
+                        marginTop: 10,
+                        gap: 5,
                       }}
                     >
+                      <MaterialIcons name="error" size={24} color="red" />
                       <Text
-                        style={{ color: "#555", fontSize: 28, fontWeight: 300 }}
+                        style={{ color: "red", fontSize: 18, fontWeight: 600 }}
                       >
-                        String {stringIndex + 1}
+                        Issue detected
                       </Text>
-                      <View
+                    </View>
+                  ) : null}
+                  <View
+                    style={{
+                      flexDirection: "row",
+                      alignItems: "center",
+                      justifyContent: "space-between",
+                    }}
+                  >
+                    <View>
+                      <Text
                         style={{
-                          flexDirection: "row",
-                          alignItems: "center",
-                          gap: 10,
+                          color: "#888",
+                          fontSize: 28,
+                          fontWeight: 700,
+                          marginTop: 10,
                         }}
                       >
-                        {stringObject.status === "fail" ? (
-                          <Text
-                            style={{
-                              color: "#555",
-                              fontSize: 28,
-                              fontWeight: 300,
-                              textDecorationLine: "underline",
-                              color: "red",
-                            }}
-                          >
-                            Fail
-                          </Text>
-                        ) : null}
-                        {stringObject.status === "pass" ? (
-                          <Text
-                            style={{
-                              color: "#555",
-                              fontSize: 28,
-                              fontWeight: 300,
-                            }}
-                          >
-                            Pass
-                          </Text>
-                        ) : null}
-                        <Feather
-                          name="chevron-right"
-                          size={28}
-                          color="#2F9DFB"
-                        />
-                      </View>
-                    </TouchableOpacity>
-                  );
-                })}
-              </View>
+                        {completedStrings === 0
+                          ? "Not started"
+                          : completedStrings === allStrings
+                            ? "String tests complete"
+                            : "Partially Complete"}
+                      </Text>
+                      <Text
+                        style={{ color: "#888", fontSize: 18, fontWeight: 700 }}
+                      >
+                        {completedStrings} of {allStrings} complete
+                      </Text>
+                    </View>
+                    <Feather
+                      name={
+                        currentInverterIndex === inverterIndex
+                          ? "chevron-down"
+                          : "chevron-right"
+                      }
+                      size={28}
+                      color="#2F9DFB"
+                    />
+                  </View>
+                </TouchableOpacity>
+              ) : null}
+
+              {inverters.length === 1 ||
+              currentInverterIndex === inverterIndex ? (
+                <View
+                  style={{
+                    borderWidth: 1,
+                    borderRadius: 10,
+                    borderColor: "#777",
+                    marginTop: 15,
+                    padding: 10,
+                  }}
+                >
+                  {inverter.stringObjects.map((stringObject, stringIndex) => {
+                    return (
+                      <TouchableOpacity
+                        key={stringIndex}
+                        style={{
+                          paddingTop: 10,
+                          paddingBottom: 10,
+                          borderBottomWidth: 1,
+                          borderBottomColor: "#777",
+                          flexDirection: "row",
+                          alignItems: "center",
+                          justifyContent: "space-between",
+                        }}
+                        onPress={() => {
+                          setSelectedString(stringObject);
+                          setSelectedStringIndex(stringIndex);
+                          setSelectedStringInverterIndex(inverterIndex);
+                          router.push("/(steps)/string-screen");
+                        }}
+                      >
+                        <Text
+                          style={{
+                            color: "#555",
+                            fontSize: 28,
+                            fontWeight: 300,
+                          }}
+                        >
+                          String {stringIndex + 1}
+                        </Text>
+                        <View
+                          style={{
+                            flexDirection: "row",
+                            alignItems: "center",
+                            gap: 10,
+                          }}
+                        >
+                          {stringObject.status === "fail" ? (
+                            <Text
+                              style={{
+                                color: "#555",
+                                fontSize: 28,
+                                fontWeight: 300,
+                                textDecorationLine: "underline",
+                                color: "red",
+                              }}
+                            >
+                              Fail
+                            </Text>
+                          ) : null}
+                          {stringObject.status === "pass" ? (
+                            <Text
+                              style={{
+                                color: "#555",
+                                fontSize: 28,
+                                fontWeight: 300,
+                              }}
+                            >
+                              Pass
+                            </Text>
+                          ) : null}
+                          <Feather
+                            name="chevron-right"
+                            size={28}
+                            color="#2F9DFB"
+                          />
+                        </View>
+                      </TouchableOpacity>
+                    );
+                  })}
+                </View>
+              ) : null}
             </View>
           );
         })}
