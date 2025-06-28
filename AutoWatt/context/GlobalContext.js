@@ -70,7 +70,7 @@ export const GlobalProvider = ({ children }) => {
     },
   ]);
 
-  const [followUpRequired, setFollowUpRequired] = useState(false);
+  const [followUpRequired, setFollowUpRequired] = useState('');
   const [followUpDetails, setFollowUpDetails] = useState(false);
   const [weather, setWeather] = useState("");
   const [technicianEmail, setTechnicianEmail] = useState("");

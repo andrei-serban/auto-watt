@@ -66,7 +66,10 @@ app.get('/', async (req, res) => {
         performanceChecksTasks2: formatTasks(payload.performanceChecksTasks.slice(1, 3), 2),
         performanceChecksTasks3: formatTasks([payload.performanceChecksTasks[3]], 4),
         batterySystemsTasks: formatTasks(payload.batterySystemsTasks),
-        timestamp: formatTimestamp(payload.date)
+        timestamp: formatTimestamp(payload.date),
+        inverters: formatInverters(payload.inverters),
+        batterySystems: formatBatterySystems(payload.batterySystems),
+        voltageOptimisers: formatVoltageOptimisers(payload.voltageOptimisers),
       };
 
       functionMatches.forEach((match) => {
@@ -74,23 +77,23 @@ app.get('/', async (req, res) => {
       });
 
       // Launch browser
-      // const browser = await puppeteer.launch();
-      // const page = await browser.newPage();
+      const browser = await puppeteer.launch();
+      const page = await browser.newPage();
 
       // Set content
-      // await page.setContent(html, { waitUntil: 'load' });
+      await page.setContent(html, { waitUntil: 'load' });
 
       // Generate PDF
-      // await page.pdf({
-      //   path: 'output.pdf',
-      //   format: 'A4',
-      //   printBackground: true,
-      //   margin: { top: '40px', bottom: '40px', left: '40px', right: '40px' }
-      // });
+      await page.pdf({
+        path: 'output.pdf',
+        format: 'A4',
+        printBackground: true,
+        margin: { top: '40px', bottom: '40px', left: '40px', right: '40px' }
+      });
 
-      // await browser.close();
+      await browser.close();
 
-      // return res.json({ error: 'The PDF report was successfully generated' });
+      return res.json({ error: 'The PDF report was successfully generated' });
 
       return res.send(html);
     }
@@ -151,6 +154,121 @@ const formatTaskValue = (value) => {
 
 const formatTimestamp = (date) => {
   return moment.utc(date).local().format('DD/MM/YYYY [at] HH:mm');
+}
+
+const formatInverters = (inverters) => {
+  let html = '';
+
+  inverters.forEach(inverter => {
+    html += `
+      <table>
+        <tr>
+          <td>Inverter info</td>
+          <td>Complete</td>
+        </tr>
+        <tr>
+          <td>Inverter make</td>
+          <td>${inverter.make}</td>
+        </tr>
+        <tr>
+          <td>Inverter Model</td>
+          <td>${inverter.model}</td>
+        </tr>
+        <tr>
+          <td>Inverter serial number</td>
+          <td>${inverter.serial}</td>
+        </tr>
+        <tr>
+          <td>Size of inverter (kW)</td>
+          <td>${inverter.size}</td>
+        </tr>
+        <tr>
+          <td>No. of strings on inverter</td>
+          <td>${inverter.strings}</td>
+        </tr>
+        <tr>
+          <td>Inverter status (e.g. "Enter inverter display status or error code")</td>
+          <td>${inverter.status}</td>
+        </tr>
+      <table>
+    `
+  });
+
+  return html;
+}
+
+const formatBatterySystems = (batterySystems) => {
+  let html = '';
+
+  batterySystems.forEach(batterySystem => {
+    html += `
+      <table>
+        <tr>
+          <td>Inverter info</td>
+          <td>Complete</td>
+        </tr>
+        <tr>
+          <td>Battery make</td>
+          <td>${batterySystem.make}</td>
+        </tr>
+        <tr>
+          <td>Battery Model</td>
+          <td>${batterySystem.model}</td>
+        </tr>
+        <tr>
+          <td>Battery serial number</td>
+          <td>${batterySystem.serial}</td>
+        </tr>
+        <tr>
+          <td>Size of Battery (kW)</td>
+          <td>${batterySystem.size}</td>
+        </tr>
+        <tr>
+          <td>Battery status (e.g. "Enter battery display status or error code")</td>
+          <td>${batterySystem.status}</td>
+        </tr>
+      <table>
+    `
+  });
+
+  return html;
+}
+
+const formatVoltageOptimisers = (voltageOptimisers) => {
+  let html = '';
+
+  voltageOptimisers.forEach(voltageOptimiser => {
+    html += `
+      <table>
+        <tr>
+          <td>VO Info</td>
+          <td>Complete</td>
+        </tr>
+        <tr>
+          <td>VO make</td>
+          <td>${voltageOptimiser.make}</td>
+        </tr>
+        <tr>
+          <td>VO Model</td>
+          <td>${voltageOptimiser.model}</td>
+        </tr>
+        <tr>
+          <td>VO serial number</td>
+          <td>${voltageOptimiser.serial}</td>
+        </tr>
+        <tr>
+          <td>Size of VO (kW)</td>
+          <td>${voltageOptimiser.size}</td>
+        </tr>
+        <tr>
+          <td>VO status (e.g. "Enter VO display status or error code")</td>
+          <td>${voltageOptimiser.status}</td>
+        </tr>
+      <table>
+    `
+  });
+
+  return html;
 }
 
 const ucfirst = (text) => {
