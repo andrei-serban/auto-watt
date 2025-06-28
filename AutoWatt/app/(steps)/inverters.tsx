@@ -8,7 +8,11 @@ import BackButton from "@/components/BackButton";
 import ScreenTitle from "@/components/ScreenTitle";
 import ActionButton from "@/components/ActionButton";
 import ScreenSummary from "@/components/ScreenSummary";
-import { GlobalContext, Inverter } from "@/context/GlobalContext";
+import {
+  GlobalContext,
+  Inverter,
+  InverterString,
+} from "@/context/GlobalContext";
 
 const inverterLabels = {
   make: "Inverter make",
@@ -63,7 +67,9 @@ export default function InvertersScreen() {
       />
 
       {inverters.map((inverter, index) => {
-        const allFields = Object.values(inverter);
+        const allFields = Object.values(inverter).filter(
+          (value) => typeof value === "string",
+        );
         const filledFields = allFields.filter((field) => field.trim() !== "");
 
         return (
@@ -88,25 +94,27 @@ export default function InvertersScreen() {
             />
             {activeInverter === index ? (
               <View>
-                {Object.keys(inverter).map((key) => (
-                  <View key={key}>
-                    <InputGroup
-                      label={inverterLabels[key]}
-                      placeholder={`Enter the ${key} here`}
-                      type={
-                        ["size", "strings"].includes(key)
-                          ? "numeric"
-                          : "default"
-                      }
-                      value={inverter[key]}
-                      setValue={(value) => {
-                        const newInverters = [].concat(inverters);
-                        newInverters[index][key] = value;
-                        setInverters(newInverters);
-                      }}
-                    />
-                  </View>
-                ))}
+                {Object.keys(inverter)
+                  .filter((key) => !["stringObjects"].includes(key))
+                  .map((key) => (
+                    <View key={key}>
+                      <InputGroup
+                        label={inverterLabels[key]}
+                        placeholder={`Enter the ${key} here`}
+                        type={
+                          ["size", "strings"].includes(key)
+                            ? "numeric"
+                            : "default"
+                        }
+                        value={inverter[key]}
+                        setValue={(value) => {
+                          const newInverters = [].concat(inverters);
+                          newInverters[index][key] = value;
+                          setInverters(newInverters);
+                        }}
+                      />
+                    </View>
+                  ))}
               </View>
             ) : null}
           </View>
@@ -157,7 +165,19 @@ export default function InvertersScreen() {
       />
 
       <ActionButton
-        onPress={() => router.push("/(steps)")}
+        onPress={() => {
+          const newInverters = [].concat(inverters);
+          newInverters.forEach((inverter, index) => {
+            newInverters[index].stringObjects = [];
+            const stringCount = parseInt(inverter.strings);
+
+            for (let i = 0; i < stringCount; i++) {
+              newInverters[index].stringObjects.push(new InverterString());
+            }
+          });
+          setInverters(newInverters);
+          router.push("/(steps)");
+        }}
         text="Save & Return"
       />
 

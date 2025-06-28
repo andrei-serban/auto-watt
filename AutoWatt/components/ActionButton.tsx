@@ -5,7 +5,7 @@ export default function ActionButton({
   onPress,
   width = "100%",
   marginTop = 50,
-  selected = false
+  selected = false,
 }) {
   return (
     <View style={{ alignItems: "center" }}>
@@ -24,11 +24,11 @@ export default function ActionButton({
         <Text
           style={{
             padding: 10,
-            width: '100%',
+            width: "100%",
             fontSize: 16,
             borderRadius: 3,
-            color: selected ? '#0a7ea4' : "white",
-            backgroundColor: selected ? 'white' : 'transparent',
+            color: selected ? "#0a7ea4" : "white",
+            backgroundColor: selected ? "white" : "transparent",
             fontWeight: 700,
             textAlign: "center",
           }}

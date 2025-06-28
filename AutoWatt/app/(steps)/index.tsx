@@ -9,7 +9,7 @@ import {
   TextInput,
   TouchableOpacity,
 } from "react-native";
-import axios from 'axios';
+import axios from "axios";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import InputGroup from "@/components/InputGroup";
 import MegaButton from "@/components/MegaButton";
@@ -19,7 +19,7 @@ import ActionButton from "@/components/ActionButton";
 import { GlobalContext } from "@/context/GlobalContext";
 import { Fontisto } from "@expo/vector-icons";
 
-const API_URL = 'https://100f-82-76-117-94.ngrok-free.app';
+const API_URL = "https://100f-82-76-117-94.ngrok-free.app";
 
 export default function HomeScreen() {
   const router = useRouter();
@@ -52,9 +52,9 @@ export default function HomeScreen() {
 
     weather,
     ambientTemp,
-    followUpRequired, 
+    followUpRequired,
     setFollowUpRequired,
-    followUpDetails, 
+    followUpDetails,
     setFollowUpDetails,
     technicianEmail,
     managerEmail,
@@ -72,7 +72,7 @@ export default function HomeScreen() {
     setTechnicianEmail,
     setManagerEmail,
 
-    getPayload
+    getPayload,
   } = useContext(GlobalContext);
 
   const getTaskGroupStatus = (tasks) => {
@@ -381,19 +381,19 @@ export default function HomeScreen() {
           Follow-up required?
         </Text>
         <View style={{ flexDirection: "row", justifyContent: "space-evenly" }}>
-          <ActionButton 
-            text="Yes" 
-            width={130} 
-            marginTop={20} 
-            onPress={() => setFollowUpRequired('yes')}
-            selected={followUpRequired === 'yes'}
+          <ActionButton
+            text="Yes"
+            width={130}
+            marginTop={20}
+            onPress={() => setFollowUpRequired("yes")}
+            selected={followUpRequired === "yes"}
           />
-          <ActionButton 
-            text="No" 
-            width={130} 
-            marginTop={20} 
-            onPress={() => setFollowUpRequired('no')}
-            selected={followUpRequired === 'no'}
+          <ActionButton
+            text="No"
+            width={130}
+            marginTop={20}
+            onPress={() => setFollowUpRequired("no")}
+            selected={followUpRequired === "no"}
           />
         </View>
       </View>
@@ -446,12 +446,17 @@ export default function HomeScreen() {
             if (status.isInternetReachable) {
               setSubmissionStep(1);
 
-              const submissionResponse = await axios.post(API_URL, getPayload());
+              const submissionResponse = await axios.post(
+                API_URL,
+                getPayload(),
+              );
 
               setTimeout(async () => {
                 setSubmissionStep(2);
 
-                const pdfResponse = await axios.get(`${API_URL}?id=${submissionResponse.data.insertId}`);
+                const pdfResponse = await axios.get(
+                  `${API_URL}?id=${submissionResponse.data.insertId}`,
+                );
 
                 setTimeout(() => {
                   setSubmissionStep(3);

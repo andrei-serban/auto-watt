@@ -11,12 +11,16 @@ export default function TaskGroup({
   optionCount = 3,
   yesAndNo = undefined,
   allowPhotos = false,
+  skipRedirect = false,
   onPress,
 }) {
   const router = useRouter();
   const options =
     optionCount === 2
-      ? [yesAndNo === false ? 'pass' : "yes", yesAndNo === false ? 'fail' : "no"]
+      ? [
+          yesAndNo === false ? "pass" : "yes",
+          yesAndNo === false ? "fail" : "no",
+        ]
       : [yesAndNo ? "yes" : "pass", yesAndNo ? "no" : "fail", "n/a"];
 
   return (
@@ -58,7 +62,7 @@ export default function TaskGroup({
             onPress={() => {
               onPress(option);
 
-              if (option === "fail") {
+              if (option === "fail" && !skipRedirect) {
                 router.push("/(steps)/fail");
               }
             }}

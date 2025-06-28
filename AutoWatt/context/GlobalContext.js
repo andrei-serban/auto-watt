@@ -5,16 +5,19 @@ export class Inverter {
   model = "";
   serial = "";
   size = "";
-  strings = "2";
-  stringObjects = [new InverterString(), new InverterString()];
+  strings = "1";
+  stringObjects = [new InverterString()];
   status = "";
 }
 
 export class InverterString {
-  voc = "a";
-  isc = "b";
-  ins = "c";
-  pass = false;
+  voc = "";
+  isc = "";
+  ins = "";
+  testVoltage = "";
+  pos = "";
+  neg = "";
+  status = "";
 }
 
 export const GlobalContext = createContext();
@@ -74,10 +77,8 @@ export const GlobalProvider = ({ children }) => {
   const [managerEmail, setManagerEmail] = useState("");
   const [ambientTemp, setAmbientTemp] = useState("");
 
-  const [invertersCount, setInvertersCount] = useState("2");
-  const [inverters, setInverters] = useState([
-    new Inverter()
-  ]);
+  const [invertersCount, setInvertersCount] = useState("1");
+  const [inverters, setInverters] = useState([new Inverter()]);
   const [invertersTasks, setInvertersTasks] = useState([
     {
       label: 'Inverters operaing in "normal" mode',
@@ -384,6 +385,11 @@ export const GlobalProvider = ({ children }) => {
   ]);
   const [voltageOptimisersNotes, setVoltageOptimisersNotes] = useState("");
 
+  const [selectedString, setSelectedString] = useState(null);
+  const [selectedStringIndex, setSelectedStringIndex] = useState(0);
+  const [selectedStringInverterIndex, setSelectedStringInverterIndex] =
+    useState(0);
+
   return (
     <GlobalContext.Provider
       value={{
@@ -412,9 +418,9 @@ export const GlobalProvider = ({ children }) => {
         limitations,
         setLimitations,
 
-        followUpRequired, 
+        followUpRequired,
         setFollowUpRequired,
-        followUpDetails, 
+        followUpDetails,
         setFollowUpDetails,
 
         weather,
@@ -487,7 +493,7 @@ export const GlobalProvider = ({ children }) => {
         voltageOptimisersNotes,
         setVoltageOptimisersNotes,
 
-        getPayload: function() {
+        getPayload: function () {
           return {
             name,
             notes,
@@ -501,7 +507,7 @@ export const GlobalProvider = ({ children }) => {
             ramsCompleted,
             date,
             limitations,
-            followUpRequired, 
+            followUpRequired,
             followUpDetails,
             weather,
             ambientTemp,
@@ -533,8 +539,15 @@ export const GlobalProvider = ({ children }) => {
             voltageOptimisers,
             voltageOptimisersTasks,
             voltageOptimisersNotes,
-          }
-        }
+          };
+        },
+
+        selectedString,
+        setSelectedString,
+        selectedStringIndex,
+        setSelectedStringIndex,
+        selectedStringInverterIndex,
+        setSelectedStringInverterIndex,
       }}
     >
       {children}

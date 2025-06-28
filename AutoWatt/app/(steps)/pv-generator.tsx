@@ -9,7 +9,7 @@ import ActionButton from "@/components/ActionButton";
 import ScreenSummary from "@/components/ScreenSummary";
 import MediaUploader from "@/components/MediaUploader";
 import { GlobalContext } from "@/context/GlobalContext";
-import { Feather } from "@expo/vector-icons";
+import { Feather, MaterialIcons } from "@expo/vector-icons";
 
 export default function PvGeneratorScreen() {
   const {
@@ -20,6 +20,9 @@ export default function PvGeneratorScreen() {
     setPvGeneratorPreNote,
     pvGeneratorNotes,
     setPvGeneratorNotes,
+    setSelectedString,
+    setSelectedStringIndex,
+    setSelectedStringInverterIndex,
   } = useContext(GlobalContext);
   const router = useRouter();
 
@@ -95,7 +98,6 @@ export default function PvGeneratorScreen() {
         <Text
           style={{
             fontSize: 24,
-            marginBottom: 20,
             fontWeight: 300,
             color: "#777",
           }}
@@ -103,19 +105,52 @@ export default function PvGeneratorScreen() {
           Voc / Isc sample measurement
         </Text>
 
-        {
-          inverters.map((inverter, inverterIndex) => {
-            return <View
-              key={inverterIndex}
-              style={{
-                borderWidth: 1,
-                borderRadius: 10,
-                borderColor: "#777",
-                padding: 10,
-              }}
-            >
-              {
-                inverter.stringObjects.map((stringObject, stringIndex) => {
+        {inverters.map((inverter, inverterIndex) => {
+          return (
+            <View key={inverterIndex}>
+              <TouchableOpacity
+                style={{
+                  borderWidth: 1,
+                  borderRadius: 10,
+                  borderColor: "#777",
+                  marginTop: 15,
+                  padding: 10,
+                }}
+              >
+                <Text style={{ color: "#555", fontSize: 28, fontWeight: 300 }}>View Inverter {inverterIndex + 1}</Text>
+                {
+                  inverter.stringObjects.filter(string => string.status === 'fail').length
+                  ? <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 10, gap: 5 }}>
+                    <MaterialIcons name="error" size={24} color="red" />
+                    <Text style={{ color: "red", fontSize: 18, fontWeight: 600 }}>Issue detected</Text>
+                  </View>
+                  : null
+                }
+                <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
+                  <View>
+                    <Text style={{ color: "#888", fontSize: 28, fontWeight: 700, marginTop: 10 }}>Partially Complete</Text>
+                    <Text style={{ color: "#888", fontSize: 18, fontWeight: 700 }}>
+                      {inverter.stringObjects.filter(string => string.status !== '').length} of {inverter.stringObjects.length} complete
+                    </Text>
+                  </View>
+                  <Feather
+                    name="chevron-down"
+                    size={28}
+                    color="#2F9DFB"
+                  />
+                </View>
+              </TouchableOpacity>
+
+              <View
+                style={{
+                  borderWidth: 1,
+                  borderRadius: 10,
+                  borderColor: "#777",
+                  marginTop: 15,
+                  padding: 10,
+                }}
+              >
+                {inverter.stringObjects.map((stringObject, stringIndex) => {
                   return (
                     <TouchableOpacity
                       key={stringIndex}
@@ -128,19 +163,62 @@ export default function PvGeneratorScreen() {
                         alignItems: "center",
                         justifyContent: "space-between",
                       }}
-                      onPress={() => router.push("/(steps)/string-screen")}
+                      onPress={() => {
+                        setSelectedString(stringObject);
+                        setSelectedStringIndex(stringIndex);
+                        setSelectedStringInverterIndex(inverterIndex);
+                        router.push("/(steps)/string-screen");
+                      }}
                     >
-                      <Text style={{ color: "#555", fontSize: 28, fontWeight: 300 }}>
-                        String {stringIndex+1}
+                      <Text
+                        style={{ color: "#555", fontSize: 28, fontWeight: 300 }}
+                      >
+                        String {stringIndex + 1}
                       </Text>
-                      <Feather name="chevron-right" size={28} color="#2F9DFB" />
+                      <View
+                        style={{
+                          flexDirection: "row",
+                          alignItems: "center",
+                          gap: 10,
+                        }}
+                      >
+                        {stringObject.status === "fail" ? (
+                          <Text
+                            style={{
+                              color: "#555",
+                              fontSize: 28,
+                              fontWeight: 300,
+                              textDecorationLine: "underline",
+                              color: "red",
+                            }}
+                          >
+                            Fail
+                          </Text>
+                        ) : null}
+                        {stringObject.status === "pass" ? (
+                          <Text
+                            style={{
+                              color: "#555",
+                              fontSize: 28,
+                              fontWeight: 300,
+                            }}
+                          >
+                            Pass
+                          </Text>
+                        ) : null}
+                        <Feather
+                          name="chevron-right"
+                          size={28}
+                          color="#2F9DFB"
+                        />
+                      </View>
                     </TouchableOpacity>
-                  )
-                })
-              }
+                  );
+                })}
+              </View>
             </View>
-          })
-        }
+          );
+        })}
       </View>
 
       <InputGroup

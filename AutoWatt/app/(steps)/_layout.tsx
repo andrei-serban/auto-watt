@@ -21,52 +21,21 @@ export default function TabLayout() {
         }),
       }}
     >
-      <Stack.Screen
-        name="index"
-        tabBarStyle={{ display: "none" }}
-      />
-      <Stack.Screen
-        name="inverters"
-      />
-      <Stack.Screen
-        name="mains-connection"
-      />
-      <Stack.Screen
-        name="pv-generator"
-      />
-      <Stack.Screen
-        name="string-screen"
-      />
-      <Stack.Screen
-        name="electrical-testing"
-      />
-      <Stack.Screen
-        name="performance-checks"
-      />
-      <Stack.Screen
-        name="visual-checks"
-      />
-      <Stack.Screen
-        name="safety-risks"
-      />
-      <Stack.Screen
-        name="battery-storage"
-      />
-      <Stack.Screen
-        name="voltage-optimiser"
-      />
-      <Stack.Screen
-        name="weather"
-      />
-      <Stack.Screen
-        name="ambient-temp"
-      />
-      <Stack.Screen
-        name="fail"
-      />
-      <Stack.Screen
-        name="report-submitted"
-      />
+      <Stack.Screen name="index" tabBarStyle={{ display: "none" }} />
+      <Stack.Screen name="inverters" />
+      <Stack.Screen name="mains-connection" />
+      <Stack.Screen name="pv-generator" />
+      <Stack.Screen name="string-screen" />
+      <Stack.Screen name="electrical-testing" />
+      <Stack.Screen name="performance-checks" />
+      <Stack.Screen name="visual-checks" />
+      <Stack.Screen name="safety-risks" />
+      <Stack.Screen name="battery-storage" />
+      <Stack.Screen name="voltage-optimiser" />
+      <Stack.Screen name="weather" />
+      <Stack.Screen name="ambient-temp" />
+      <Stack.Screen name="fail" />
+      <Stack.Screen name="report-submitted" />
     </Stack>
   );
 }

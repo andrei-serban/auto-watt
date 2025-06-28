@@ -12,10 +12,12 @@ import { Feather } from "@expo/vector-icons";
 
 export default function StringScreen() {
   const {
-    pvGeneratorPreNote,
-    setPvGeneratorPreNote,
-    pvGeneratorNotes,
-    setPvGeneratorNotes,
+    selectedString,
+    selectedStringIndex,
+    selectedStringInverterIndex,
+    setSelectedString,
+    setInverters,
+    inverters,
   } = useContext(GlobalContext);
   const router = useRouter();
 
@@ -24,51 +26,113 @@ export default function StringScreen() {
       <BackButton onPress={() => router.push("/(steps)/pv-generator")} />
 
       <ScreenTitle>
-        Solar Maintenance{"\n"}Voc / Isc sample{"\n"}measurement{"\n\n"}String 1
+        Solar Maintenance{"\n"}Voc / Isc sample{"\n"}measurement{"\n\n"}String{" "}
+        {selectedStringIndex + 1}
       </ScreenTitle>
 
-      <InputGroup
-        label="Voc (V)"
-        value={pvGeneratorPreNote}
-        setValue={setPvGeneratorPreNote}
-      />
+      {selectedString ? (
+        <>
+          <Text style={{ fontWeight: '600', marginTop: 20, fontSize: 30, color: '#777' }}>String</Text>
 
-      <InputGroup
-        label="Isc (A)"
-        value={pvGeneratorNotes}
-        setValue={setPvGeneratorNotes}
-      />
+          <InputGroup
+            label="Voc (V)"
+            marginTop={10}
+            value={selectedString.voc}
+            setValue={(value) => {
+              const newSelectedString = { ...selectedString };
+              newSelectedString.voc = value;
+              setSelectedString(newSelectedString);
+            }}
+          />
 
-      <InputGroup
-        label="Insulation Resistance (MOhms)"
-        value={pvGeneratorNotes}
-        setValue={setPvGeneratorNotes}
-      />
+          <InputGroup
+            label="Isc (A)"
+            value={selectedString.isc}
+            setValue={(value) => {
+              const newSelectedString = { ...selectedString };
+              newSelectedString.isc = value;
+              setSelectedString(newSelectedString);
+            }}
+          />
 
-      <View
-        style={{
-          borderWidth: 1,
-          borderRadius: 10,
-          borderColor: "#777",
-          marginTop: 25,
-          padding: 10,
-        }}
-      >
-	      <TaskGroup
-	        label="String pass"
-	        value="fail"
-	        optionCount={2}
-	        yesAndNo={false}
-	        onPress={(value) => {
-	          const newTasks = [].concat(batterySystemsTasks);
-	          newTasks[index].value = value;
-	          setBatterySystemsTasks(newTasks);
-	        }}
-	      />
-      </View>
+          <InputGroup
+            label="Insulation Resistance (MOhms)"
+            value={selectedString.ins}
+            setValue={(value) => {
+              const newSelectedString = { ...selectedString };
+              newSelectedString.ins = value;
+              setSelectedString(newSelectedString);
+            }}
+          />
+
+          <Text style={{ fontWeight: '600', marginTop: 20, fontSize: 30, color: '#777' }}>Array Test Insulation</Text>
+
+          <InputGroup
+            label="Test Voltage (V)"
+            marginTop={10}
+            value={selectedString.testVoltage}
+            setValue={(value) => {
+              const newSelectedString = { ...selectedString };
+              newSelectedString.testVoltage = value;
+              setSelectedString(newSelectedString);
+            }}
+          />
+
+          <InputGroup
+            label="Pos - Part (MΩ)"
+            value={selectedString.pos}
+            setValue={(value) => {
+              const newSelectedString = { ...selectedString };
+              newSelectedString.pos = value;
+              setSelectedString(newSelectedString);
+            }}
+          />
+
+          <InputGroup
+            label="Neg - Part (MΩ)"
+            value={selectedString.neg}
+            setValue={(value) => {
+              const newSelectedString = { ...selectedString };
+              newSelectedString.neg = value;
+              setSelectedString(newSelectedString);
+            }}
+          />
+
+          <View
+            style={{
+              borderWidth: 1,
+              borderRadius: 10,
+              borderColor: "#777",
+              marginTop: 25,
+              padding: 10,
+            }}
+          >
+            <TaskGroup
+              label="String pass"
+              value={selectedString.status}
+              optionCount={2}
+              yesAndNo={false}
+              skipRedirect={true}
+              onPress={(value) => {
+                const newSelectedString = { ...selectedString };
+                newSelectedString.status = value;
+                setSelectedString(newSelectedString);
+              }}
+            />
+          </View>
+        </>
+      ) : null}
 
       <ActionButton
-        onPress={() => router.push("/(steps)/pv-generator")}
+        onPress={() => {
+          const newInverters = [].concat(inverters);
+          const newSelectedString = { ...selectedString };
+          newInverters[selectedStringInverterIndex].stringObjects[
+            selectedStringIndex
+          ] = newSelectedString;
+          setInverters(newInverters);
+          router.push("/(steps)/pv-generator");
+        }}
         text="Submit String Check"
       />
 
