@@ -1,5 +1,22 @@
 import React, { createContext, useState } from "react";
 
+export class Inverter {
+  make = "";
+  model = "";
+  serial = "";
+  size = "";
+  strings = "2";
+  stringObjects = [new InverterString(), new InverterString()];
+  status = "";
+}
+
+export class InverterString {
+  voc = "a";
+  isc = "b";
+  ins = "c";
+  pass = false;
+}
+
 export const GlobalContext = createContext();
 
 export const GlobalProvider = ({ children }) => {
@@ -57,16 +74,9 @@ export const GlobalProvider = ({ children }) => {
   const [managerEmail, setManagerEmail] = useState("");
   const [ambientTemp, setAmbientTemp] = useState("");
 
-  const [invertersCount, setInvertersCount] = useState("1");
+  const [invertersCount, setInvertersCount] = useState("2");
   const [inverters, setInverters] = useState([
-    {
-      make: "",
-      model: "",
-      serial: "",
-      size: "",
-      strings: "1",
-      status: "",
-    },
+    new Inverter()
   ]);
   const [invertersTasks, setInvertersTasks] = useState([
     {

@@ -13,6 +13,7 @@ import { Feather } from "@expo/vector-icons";
 
 export default function PvGeneratorScreen() {
   const {
+    inverters,
     pvGeneratorTasks,
     setPvGeneratorTasks,
     pvGeneratorPreNote,
@@ -102,34 +103,44 @@ export default function PvGeneratorScreen() {
           Voc / Isc sample measurement
         </Text>
 
-        <View
-          style={{
-            borderWidth: 1,
-            borderRadius: 10,
-            borderColor: "#777",
-            padding: 10,
-          }}
-        >
-          {[1, 2, 3, 4, 5, 6].map((string) => (
-            <TouchableOpacity
-              key={string}
+        {
+          inverters.map((inverter, inverterIndex) => {
+            return <View
+              key={inverterIndex}
               style={{
-                paddingTop: 10,
-                paddingBottom: 10,
-                borderBottomWidth: 1,
-                borderBottomColor: "#777",
-                flexDirection: "row",
-                alignItems: "center",
-                justifyContent: "space-between",
+                borderWidth: 1,
+                borderRadius: 10,
+                borderColor: "#777",
+                padding: 10,
               }}
             >
-              <Text style={{ color: "#555", fontSize: 28, fontWeight: 300 }}>
-                String {string}
-              </Text>
-              <Feather name="chevron-right" size={28} color="#2F9DFB" />
-            </TouchableOpacity>
-          ))}
-        </View>
+              {
+                inverter.stringObjects.map((stringObject, stringIndex) => {
+                  return (
+                    <TouchableOpacity
+                      key={stringIndex}
+                      style={{
+                        paddingTop: 10,
+                        paddingBottom: 10,
+                        borderBottomWidth: 1,
+                        borderBottomColor: "#777",
+                        flexDirection: "row",
+                        alignItems: "center",
+                        justifyContent: "space-between",
+                      }}
+                      onPress={() => router.push("/(steps)/string-screen")}
+                    >
+                      <Text style={{ color: "#555", fontSize: 28, fontWeight: 300 }}>
+                        String {stringIndex+1}
+                      </Text>
+                      <Feather name="chevron-right" size={28} color="#2F9DFB" />
+                    </TouchableOpacity>
+                  )
+                })
+              }
+            </View>
+          })
+        }
       </View>
 
       <InputGroup

@@ -9,14 +9,14 @@ export default function TaskGroup({
   label,
   value,
   optionCount = 3,
-  yesAndNo = false,
+  yesAndNo = undefined,
   allowPhotos = false,
   onPress,
 }) {
   const router = useRouter();
   const options =
     optionCount === 2
-      ? ["yes", "no"]
+      ? [yesAndNo === false ? 'pass' : "yes", yesAndNo === false ? 'fail' : "no"]
       : [yesAndNo ? "yes" : "pass", yesAndNo ? "no" : "fail", "n/a"];
 
   return (

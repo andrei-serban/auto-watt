@@ -8,7 +8,7 @@ import BackButton from "@/components/BackButton";
 import ScreenTitle from "@/components/ScreenTitle";
 import ActionButton from "@/components/ActionButton";
 import ScreenSummary from "@/components/ScreenSummary";
-import { GlobalContext } from "@/context/GlobalContext";
+import { GlobalContext, Inverter } from "@/context/GlobalContext";
 
 const inverterLabels = {
   make: "Inverter make",
@@ -54,14 +54,7 @@ export default function InvertersScreen() {
           const newValue = isNaN(value) ? 1 : value;
 
           for (let i = 0; i < newValue; i++) {
-            newInverters.push({
-              make: "",
-              model: "",
-              serial: "",
-              size: "",
-              strings: "1",
-              status: "",
-            });
+            newInverters.push(new Inverter());
           }
 
           setInvertersCount(newValue);
