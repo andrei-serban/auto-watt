@@ -1,13 +1,16 @@
+import { useContext } from 'react';
 import { Image } from "expo-image";
 import { useRouter } from "expo-router";
 import { View, Text, TouchableOpacity } from "react-native";
 import ActionButton from "@/components/ActionButton";
 import MediaUploader from "@/components/MediaUploader";
+import { GlobalContext } from "@/context/GlobalContext";
 
 export default function TaskGroup({
   title,
   label,
   value,
+  screen = '',
   optionCount = 3,
   yesAndNo = undefined,
   allowPhotos = false,
@@ -15,6 +18,7 @@ export default function TaskGroup({
   onPress,
 }) {
   const router = useRouter();
+  const { setSelectedTask, setSelectedTaskScreen } = useContext(GlobalContext);
   const options =
     optionCount === 2
       ? [
@@ -63,6 +67,10 @@ export default function TaskGroup({
               onPress(option);
 
               if (option === "fail" && !skipRedirect) {
+                setSelectedTask({
+                  label
+                });
+                setSelectedTaskScreen(screen);
                 router.push("/(steps)/fail");
               }
             }}

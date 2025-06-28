@@ -31,13 +31,14 @@ export default function BatteryStorageScreen() {
   } = useContext(GlobalContext);
   const [activeBatterySystem, setActiveBatterySystem] = useState(-1);
   const router = useRouter();
+  const screenTitle = "Battery Storage";
 
   return (
     <ScrollView style={{ padding: 20 }}>
       <BackButton />
 
       <ScreenTitle>
-        Solar Maintenance{"\n"}System Components:{"\n"}Battery Storage
+        Solar Maintenance{"\n"}System Components:{"\n" + screenTitle}
       </ScreenTitle>
 
       <ScreenSummary />
@@ -141,6 +142,7 @@ export default function BatteryStorageScreen() {
               title={task.title}
               label={task.label}
               value={task.value}
+              screen={screenTitle}
               onPress={(value) => {
                 const newTasks = [].concat(batterySystemsTasks);
                 newTasks[index].value = value;

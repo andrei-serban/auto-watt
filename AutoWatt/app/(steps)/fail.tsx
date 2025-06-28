@@ -11,15 +11,15 @@ export default function FailScreen() {
   const severities = ["Critical fault", "Major fault", "Minor fault"];
   const [selectedSeverity, setSelectedSeverity] = useState(0);
 
-  const { electricalTestingNotes, setElectricalTestingNotes } =
+  const { selectedTask, selectedTaskScreen, electricalTestingNotes, setElectricalTestingNotes } =
     useContext(GlobalContext);
 
   return (
     <ScrollView style={{ padding: 20 }}>
       <BackButton />
 
-      <ScreenTitle subtitle="TO BE FILLED WITH ITEM">
-        TO BE FILLED WITH CATEGORY - FAIL
+      <ScreenTitle subtitle={selectedTask ? selectedTask.label : ''}>
+        {selectedTaskScreen ?? ''} - FAIL
       </ScreenTitle>
 
       <View style={{ marginTop: 30 }}>

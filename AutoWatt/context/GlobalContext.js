@@ -1,4 +1,5 @@
-import React, { createContext, useState } from "react";
+import React, { createContext, useState, useEffect } from "react";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export class Inverter {
   make = "";
@@ -81,7 +82,7 @@ export const GlobalProvider = ({ children }) => {
   const [inverters, setInverters] = useState([new Inverter()]);
   const [invertersTasks, setInvertersTasks] = useState([
     {
-      label: 'Inverters operaing in "normal" mode',
+      label: 'Inverters operating in "normal" mode',
       value: "",
     },
     {
@@ -390,6 +391,128 @@ export const GlobalProvider = ({ children }) => {
   const [selectedStringInverterIndex, setSelectedStringInverterIndex] =
     useState(0);
 
+  const [selectedTask, setSelectedTask] = useState(null);
+  const [selectedTaskScreen, setSelectedTaskScreen] = useState('');
+
+  const getPayload = () => {
+    return {
+      name,
+      notes,
+      address,
+      systemSize,
+      batteryStorage,
+      voltageOptimiser,
+      authorisedPerson,
+      roofAccess,
+      cleaningPerformed,
+      ramsCompleted,
+      date,
+      limitations,
+      followUpRequired,
+      followUpDetails,
+      weather,
+      ambientTemp,
+      technicianEmail,
+      managerEmail,
+      invertersCount,
+      inverters,
+      invertersTasks,
+      invertersNotes,
+      mainsConnectionTasks,
+      mainsConnectionNotes,
+      pvGeneratorPreNote,
+      pvGeneratorTasks,
+      pvGeneratorNotes,
+      electricalTestingTasks,
+      electricalTestingNotes,
+      performanceChecksTasks,
+      performanceChecksExportValue,
+      performanceChecksNotes,
+      visualChecksTasks,
+      visualChecksNotes,
+      safetyRisksTasks,
+      safetyRisksNotes,
+      batterySystemsCount,
+      batterySystems,
+      batterySystemsTasks,
+      batterySystemsNotes,
+      voltageOptimisersCount,
+      voltageOptimisers,
+      voltageOptimisersTasks,
+      voltageOptimisersNotes,
+    }
+  }
+
+  useEffect(() => {
+    (async () => {
+      try {
+        let latestReport = await AsyncStorage.getItem('latestReport');
+
+        if (latestReport) {
+          latestReport = JSON.parse(latestReport);
+
+          setName(latestReport.name || '');
+          setAddress(latestReport.address || '');
+
+          if (latestReport.mainsConnectionTasks) {
+            setMainsConnectionTasks(latestReport.mainsConnectionTasks);
+          }
+        }
+      } catch (e) {
+        console.error('Failed to load latest report:', e);
+      }
+    })();
+  }, [])
+
+  useEffect(() => {
+    AsyncStorage.setItem('latestReport', JSON.stringify(getPayload()));
+  }, [
+    name,
+    notes,
+    address,
+    systemSize,
+    batteryStorage,
+    voltageOptimiser,
+    authorisedPerson,
+    roofAccess,
+    cleaningPerformed,
+    ramsCompleted,
+    date,
+    limitations,
+    followUpRequired,
+    followUpDetails,
+    weather,
+    ambientTemp,
+    technicianEmail,
+    managerEmail,
+    invertersCount,
+    inverters,
+    invertersTasks,
+    invertersNotes,
+    mainsConnectionTasks,
+    mainsConnectionNotes,
+    pvGeneratorPreNote,
+    pvGeneratorTasks,
+    pvGeneratorNotes,
+    electricalTestingTasks,
+    electricalTestingNotes,
+    performanceChecksTasks,
+    performanceChecksExportValue,
+    performanceChecksNotes,
+    visualChecksTasks,
+    visualChecksNotes,
+    safetyRisksTasks,
+    safetyRisksNotes,
+    batterySystemsCount,
+    batterySystems,
+    batterySystemsTasks,
+    batterySystemsNotes,
+    voltageOptimisersCount,
+    voltageOptimisers,
+    voltageOptimisersTasks,
+    voltageOptimisersNotes
+  ]);
+
   return (
     <GlobalContext.Provider
       value={{
@@ -493,54 +616,7 @@ export const GlobalProvider = ({ children }) => {
         voltageOptimisersNotes,
         setVoltageOptimisersNotes,
 
-        getPayload: function () {
-          return {
-            name,
-            notes,
-            address,
-            systemSize,
-            batteryStorage,
-            voltageOptimiser,
-            authorisedPerson,
-            roofAccess,
-            cleaningPerformed,
-            ramsCompleted,
-            date,
-            limitations,
-            followUpRequired,
-            followUpDetails,
-            weather,
-            ambientTemp,
-            technicianEmail,
-            managerEmail,
-            invertersCount,
-            inverters,
-            invertersTasks,
-            invertersNotes,
-            mainsConnectionTasks,
-            mainsConnectionNotes,
-            pvGeneratorPreNote,
-            pvGeneratorTasks,
-            pvGeneratorNotes,
-            electricalTestingTasks,
-            electricalTestingNotes,
-            performanceChecksTasks,
-            performanceChecksExportValue,
-            performanceChecksNotes,
-            visualChecksTasks,
-            visualChecksNotes,
-            safetyRisksTasks,
-            safetyRisksNotes,
-            batterySystemsCount,
-            batterySystems,
-            batterySystemsTasks,
-            batterySystemsNotes,
-            voltageOptimisersCount,
-            voltageOptimisers,
-            voltageOptimisersTasks,
-            voltageOptimisersNotes,
-          };
-        },
+        getPayload,
 
         selectedString,
         setSelectedString,
@@ -548,6 +624,11 @@ export const GlobalProvider = ({ children }) => {
         setSelectedStringIndex,
         selectedStringInverterIndex,
         setSelectedStringInverterIndex,
+
+        selectedTask,
+        setSelectedTask,
+        selectedTaskScreen,
+        setSelectedTaskScreen
       }}
     >
       {children}
