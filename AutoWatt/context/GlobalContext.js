@@ -455,7 +455,6 @@ export const GlobalProvider = ({ children }) => {
           setRoofAccess(latestReport.roofAccess ?? false);
           setCleaningPerformed(latestReport.cleaningPerformed ?? false);
           setRamsCompleted(latestReport.ramsCompleted ?? false);
-          console.log("latestReport", latestReport.date);
 
           if (latestReport.date) {
             setDate(new Date(latestReport.date));
@@ -545,7 +544,6 @@ export const GlobalProvider = ({ children }) => {
   }, []);
 
   useEffect(() => {
-    console.log("AAA: " + getPayload().date);
     AsyncStorage.setItem("latestReport", JSON.stringify(getPayload()));
   }, [
     name,

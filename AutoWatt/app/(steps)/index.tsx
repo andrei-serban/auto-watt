@@ -167,7 +167,7 @@ export default function HomeScreen() {
             is24Hour={true}
             display="default"
             onChange={(event, value) => {
-              console.log('a,b,c', value);
+              setDate(new Date(value));
             }}
           />
           <DateTimePicker
@@ -176,7 +176,7 @@ export default function HomeScreen() {
             is24Hour={true}
             display="default"
             onChange={(event, value) => {
-              console.log('a,b,c', value);
+              setDate(new Date(value));
             }}
           />
         </View>
