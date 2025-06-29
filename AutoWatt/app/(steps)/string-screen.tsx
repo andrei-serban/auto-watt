@@ -20,8 +20,6 @@ export default function StringScreen() {
   const router = useRouter();
   const { stringIndex, inverterIndex } = useLocalSearchParams();
 
-  console.log(stringIndex, inverterIndex);
-
   return (
     <ScrollView style={{ padding: 20 }}>
       <BackButton onPress={() => router.push("/(steps)/pv-generator")} />

@@ -18,7 +18,6 @@ export default function TaskGroup({
   onPress,
 }) {
   const router = useRouter();
-  const { setSelectedTask, setSelectedTaskScreen } = useContext(GlobalContext);
   const options =
     optionCount === 2
       ? [
@@ -67,11 +66,13 @@ export default function TaskGroup({
               onPress(option);
 
               if (option === "fail" && !skipRedirect) {
-                setSelectedTask({
-                  label
+                router.push({
+                  pathname: "/(steps)/fail",
+                  params: {
+                    selectedTaskLabel: label,
+                    selectedTaskScreen: screen
+                  },
                 });
-                setSelectedTaskScreen(screen);
-                router.push("/(steps)/fail");
               }
             }}
             key={option}

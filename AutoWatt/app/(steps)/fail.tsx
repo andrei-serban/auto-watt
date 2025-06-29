@@ -1,4 +1,5 @@
 import { useState, useContext } from "react";
+import { useLocalSearchParams } from "expo-router";
 import { View, Text, ScrollView, TouchableOpacity } from "react-native";
 import BackButton from "@/components/BackButton";
 import InputGroup from "@/components/InputGroup";
@@ -10,15 +11,14 @@ import { GlobalContext } from "@/context/GlobalContext";
 export default function FailScreen() {
   const severities = ["Critical fault", "Major fault", "Minor fault"];
   const [selectedSeverity, setSelectedSeverity] = useState(0);
-
-  const { selectedTask, selectedTaskScreen, electricalTestingNotes, setElectricalTestingNotes } =
-    useContext(GlobalContext);
+  const { selectedTaskLabel, selectedTaskScreen } = useLocalSearchParams();
+  const { electricalTestingNotes, setElectricalTestingNotes } = useContext(GlobalContext);
 
   return (
     <ScrollView style={{ padding: 20 }}>
       <BackButton />
 
-      <ScreenTitle subtitle={selectedTask ? selectedTask.label : ''}>
+      <ScreenTitle subtitle={selectedTaskLabel ?? ''}>
         {selectedTaskScreen ?? ''} - FAIL
       </ScreenTitle>
 

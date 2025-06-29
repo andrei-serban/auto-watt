@@ -387,8 +387,6 @@ export const GlobalProvider = ({ children }) => {
   const [voltageOptimisersNotes, setVoltageOptimisersNotes] = useState("");
 
   const [selectedString, setSelectedString] = useState(null);
-  const [selectedTask, setSelectedTask] = useState(null);
-  const [selectedTaskScreen, setSelectedTaskScreen] = useState('');
 
   const getPayload = () => {
     return {
@@ -616,11 +614,6 @@ export const GlobalProvider = ({ children }) => {
 
         selectedString,
         setSelectedString,
-
-        selectedTask,
-        setSelectedTask,
-        selectedTaskScreen,
-        setSelectedTaskScreen
       }}
     >
       {children}
