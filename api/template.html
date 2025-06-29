@@ -30,6 +30,10 @@
       margin: 40px 0px 20px;
       text-decoration: underline;
     }
+    img {
+      display: block;
+      margin: 20px 0px;
+    }
     table {
       width: 100%;
       border-collapse: collapse;
@@ -298,9 +302,12 @@
   <textbox>{{ mainsConnectionNotes }}</textbox>
 
   <h2>3. PV Generator (DC Side)</h2>
+  
   <h3>Modules soiling / shading:</h3>
   <textbox>{{ pvGeneratorPreNote }}</textbox>
+  
   <h3>Media upload:</h3>
+  !! pvGeneratorPhotos !!
 
   <h3>Tasks:</h3>
 

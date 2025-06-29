@@ -9,6 +9,7 @@ const app = express();
 const PORT = 3020;
 
 app.use(express.json());
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 const dbConnection = {
   host: 'localhost',
@@ -20,7 +21,7 @@ const dbConnection = {
 const storage = multer.diskStorage({
   destination: 'uploads/',
   filename: (req, file, cb) => {
-    cb(null, file.originalname); // risky if not sanitized
+    cb(null, file.originalname);
   }
 });
 
@@ -65,6 +66,7 @@ app.get('/', async (req, res) => {
         mainsConnectionTasks: formatTasks(payload.mainsConnectionTasks),
         electricalTestingTasks: formatTasks(payload.electricalTestingTasks),
         pvGeneratorTasks: formatTasks(payload.pvGeneratorTasks),
+        pvGeneratorPhotos: formatPhotos(payload.pvGeneratorPhotos),
         visualChecksTasks1: formatTasks(payload.visualChecksTasks.slice(0, 4)),
         visualChecksTasks2: formatTasks([payload.visualChecksTasks[4]], 4),
         visualChecksTasks3: formatTasks([payload.visualChecksTasks[5]], 5),
@@ -156,6 +158,12 @@ const formatTasks = (tasks, increments = 0) => {
         <td>${formatTaskValue(task.value)}</td>
       </tr>
     `;
+  }).join('');
+}
+
+const formatPhotos = (photos) => {
+  return photos.map((photo) => {
+    return `<img src="http://localhost:3020/uploads/${photo.replace(/[^a-zA-Z0-9-]/g, '_')}.jpg" />`;
   }).join('');
 }
 

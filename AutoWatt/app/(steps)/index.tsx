@@ -22,7 +22,7 @@ import ActionButton from "@/components/ActionButton";
 import { GlobalContext } from "@/context/GlobalContext";
 import { Fontisto } from "@expo/vector-icons";
 
-const API_URL = "https://abe8-82-76-117-130.ngrok-free.app";
+const API_URL = "https://just-intensely-crane.ngrok-free.app";
 
 export default function HomeScreen() {
   const router = useRouter();
