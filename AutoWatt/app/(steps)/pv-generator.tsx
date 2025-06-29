@@ -292,7 +292,7 @@ export default function PvGeneratorScreen() {
       />
 
       <ActionButton
-        onPress={() => router.push("/(steps)")}
+        onPress={() => router.back()}
         text="Save & Return"
       />
 

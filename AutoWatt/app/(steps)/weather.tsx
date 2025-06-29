@@ -49,7 +49,7 @@ export default function WeatherScreen() {
               simple={true}
               onPress={() => {
                 setWeather(option);
-                router.push("/(steps)");
+                router.back();
               }}
             />
           </View>

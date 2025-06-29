@@ -73,7 +73,7 @@ export default function MainsConnectionScreen() {
       />
 
       <ActionButton
-        onPress={() => router.push("/(steps)")}
+        onPress={() => router.back()}
         text="Save & Return"
       />
 

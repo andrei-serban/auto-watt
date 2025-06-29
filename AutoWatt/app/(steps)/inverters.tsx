@@ -176,7 +176,7 @@ export default function InvertersScreen() {
             }
           });
           setInverters(newInverters);
-          router.push("/(steps)");
+          router.back();
         }}
         text="Save & Return"
       />

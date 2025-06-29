@@ -59,7 +59,7 @@ export default function AmbientTempScreen() {
               simple={true}
               onPress={() => {
                 setAmbientTemp(option.value);
-                router.push("/(steps)");
+                router.back();
               }}
             />
           </View>

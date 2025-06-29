@@ -13,7 +13,7 @@ export default function BackButton({ onPress }) {
           if (onPress) {
             onPress();
           } else {
-            router.push("/(steps)");
+            router.back();
           }
         }}
       >

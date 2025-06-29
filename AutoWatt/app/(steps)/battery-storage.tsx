@@ -162,7 +162,7 @@ export default function BatteryStorageScreen() {
       />
 
       <ActionButton
-        onPress={() => router.push("/(steps)")}
+        onPress={() => router.back()}
         text="Save & Return"
       />
 

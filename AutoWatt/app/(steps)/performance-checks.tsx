@@ -121,7 +121,7 @@ export default function PerformanceChecksScreen() {
       />
 
       <ActionButton
-        onPress={() => router.push("/(steps)")}
+        onPress={() => router.back()}
         text="Save & Return"
       />
 
