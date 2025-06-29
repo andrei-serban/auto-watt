@@ -2,7 +2,7 @@ import { useState, useContext } from "react";
 import { useRouter } from "expo-router";
 import * as Network from "expo-network";
 import * as MediaLibrary from "expo-media-library";
-import * as ImageManipulator from 'expo-image-manipulator';
+import * as ImageManipulator from "expo-image-manipulator";
 import {
   View,
   Text,
@@ -10,7 +10,7 @@ import {
   ScrollView,
   TextInput,
   TouchableOpacity,
-  ActivityIndicator
+  ActivityIndicator,
 } from "react-native";
 import axios from "axios";
 import DateTimePicker from "@react-native-community/datetimepicker";
@@ -456,13 +456,18 @@ export default function HomeScreen() {
 
                 const payload = getPayload();
 
-                console.log('payload.pvGeneratorPhotos', payload.pvGeneratorPhotos);
+                console.log(
+                  "payload.pvGeneratorPhotos",
+                  payload.pvGeneratorPhotos,
+                );
 
                 for (let i in payload.pvGeneratorPhotos) {
                   const photoId = payload.pvGeneratorPhotos[i];
-                  const photoInfo = await MediaLibrary.getAssetInfoAsync(photoId);
+                  const photoInfo =
+                    await MediaLibrary.getAssetInfoAsync(photoId);
                   const localUri = photoInfo.localUri;
-                  const filename = photoId.replace(/[^a-zA-Z0-9-]/g, '_') + '.jpg';
+                  const filename =
+                    photoId.replace(/[^a-zA-Z0-9-]/g, "_") + ".jpg";
 
                   const resized = await ImageManipulator.manipulateAsync(
                     localUri,
@@ -470,29 +475,30 @@ export default function HomeScreen() {
                     {
                       compress: 0.8,
                       format: ImageManipulator.SaveFormat.JPEG,
-                    }
+                    },
                   );
 
                   const formData = new FormData();
-                  formData.append('image', {
+                  formData.append("image", {
                     uri: resized.uri,
                     name: filename,
-                    type: 'image/jpeg',
+                    type: "image/jpeg",
                   });
 
-                  const response = await axios.post(`${API_URL}/upload`, formData, {
-                    headers: {
-                      'Content-Type': 'multipart/form-data',
+                  const response = await axios.post(
+                    `${API_URL}/upload`,
+                    formData,
+                    {
+                      headers: {
+                        "Content-Type": "multipart/form-data",
+                      },
                     },
-                  });
+                  );
 
-                  console.log('Upload success:', response.data);
+                  console.log("Upload success:", response.data);
                 }
 
-                const submissionResponse = await axios.post(
-                  API_URL,
-                  payload,
-                );
+                const submissionResponse = await axios.post(API_URL, payload);
 
                 setSubmissionStep(2);
 
@@ -511,7 +517,7 @@ export default function HomeScreen() {
                 );
               }
             } catch (error) {
-              console.log('Upload error:', error);
+              console.log("Upload error:", error);
             }
           }}
           text="Generate Report"
@@ -557,13 +563,11 @@ export default function HomeScreen() {
         </Text>
       ) : null}
 
-      {
-        submissionStep
-        ? <View style={{ padding: 10 }}>
+      {submissionStep ? (
+        <View style={{ padding: 10 }}>
           <ActivityIndicator size="large" color="#0a7ea4" />
         </View>
-        : null
-      }
+      ) : null}
 
       <View style={{ height: 360 }}></View>
     </ScrollView>

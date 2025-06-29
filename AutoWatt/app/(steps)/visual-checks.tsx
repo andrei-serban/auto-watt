@@ -57,11 +57,17 @@ export default function VisualChecksScreen() {
                 value={task.value}
                 screen={screenTitle}
                 yesAndNo={task.yesAndNo}
+                photos={task.photos || []}
                 allowPhotos={task.allowPhotos}
                 optionCount={task.optionCount}
                 onPress={(value) => {
                   const newTasks = [].concat(visualChecksTasks);
                   newTasks[index].value = value;
+                  setVisualChecksNotes(newTasks);
+                }}
+                onUpdatePhotos={(photos) => {
+                  const newTasks = [].concat(visualChecksTasks);
+                  newTasks[index].photos = photos;
                   setVisualChecksNotes(newTasks);
                 }}
               />

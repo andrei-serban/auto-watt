@@ -57,11 +57,17 @@ export default function SafetyRisksScreen() {
                 value={task.value}
                 screen={screenTitle}
                 yesAndNo={task.yesAndNo}
+                photos={task.photos || []}
                 allowPhotos={task.allowPhotos}
                 optionCount={task.optionCount}
                 onPress={(value) => {
                   const newTasks = [].concat(safetyRisksTasks);
                   newTasks[index].value = value;
+                  setSafetyRisksTasks(newTasks);
+                }}
+                onUpdatePhotos={(photos) => {
+                  const newTasks = [].concat(safetyRisksTasks);
+                  newTasks[index].photos = photos;
                   setSafetyRisksTasks(newTasks);
                 }}
               />

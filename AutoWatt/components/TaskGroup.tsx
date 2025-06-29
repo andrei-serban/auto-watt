@@ -10,11 +10,13 @@ export default function TaskGroup({
   title,
   label,
   value,
+  photos = [],
   screen = "",
   optionCount = 3,
   yesAndNo = undefined,
   allowPhotos = false,
   skipRedirect = false,
+  onUpdatePhotos,
   onPress,
 }) {
   const router = useRouter();
@@ -112,7 +114,11 @@ export default function TaskGroup({
             <Text style={{ fontWeight: 700 }}>YES</Text> selected
           </Text>
 
-          <MediaUploader maxCount={3} />
+          <MediaUploader
+            maxCount={3}
+            photos={photos}
+            onUpdate={(photos) => onUpdatePhotos(photos)}
+          />
         </View>
       ) : null}
     </View>

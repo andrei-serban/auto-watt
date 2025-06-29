@@ -5,7 +5,7 @@ import FontAwesome from "@expo/vector-icons/FontAwesome";
 import ActionButton from "@/components/ActionButton";
 import MediaUploaderImage from "@/components/MediaUploaderImage";
 
-export default function MediaUploader({ photos, onUpdate, maxCount = 5 }) {
+export default function MediaUploader({ photos = [], onUpdate, maxCount = 5 }) {
   const handleTakePhoto = async () => {
     const cameraPermissionStatus =
       await ImagePicker.requestCameraPermissionsAsync();
