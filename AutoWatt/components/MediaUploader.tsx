@@ -1,15 +1,14 @@
-import { useState } from "react";
 import * as ImagePicker from "expo-image-picker";
-import * as MediaLibrary from 'expo-media-library';
+import * as MediaLibrary from "expo-media-library";
 import { View, Alert, TouchableOpacity } from "react-native";
-import { Image } from "expo-image";
+import FontAwesome from "@expo/vector-icons/FontAwesome";
 import ActionButton from "@/components/ActionButton";
+import MediaUploaderImage from "@/components/MediaUploaderImage";
 
-export default function MediaUploader({ maxCount = 5 }) {
-  const [photos, setPhotos] = useState([]);
-
+export default function MediaUploader({ photos, onUpdate, maxCount = 5 }) {
   const handleTakePhoto = async () => {
-    const cameraPermissionStatus = await ImagePicker.requestCameraPermissionsAsync();
+    const cameraPermissionStatus =
+      await ImagePicker.requestCameraPermissionsAsync();
 
     if (cameraPermissionStatus.status !== "granted") {
       Alert.alert(
@@ -21,8 +20,11 @@ export default function MediaUploader({ maxCount = 5 }) {
 
     const mediaLibraryStatus = await MediaLibrary.requestPermissionsAsync();
 
-    if (mediaLibraryStatus.status !== 'granted') {
-      Alert.alert('Media Library Permission', 'Storage access is required to save photos.');
+    if (mediaLibraryStatus.status !== "granted") {
+      Alert.alert(
+        "Media Library Permission",
+        "Storage access is required to save photos.",
+      );
       return;
     }
 
@@ -37,14 +39,12 @@ export default function MediaUploader({ maxCount = 5 }) {
       const photoUri = result.assets[0].uri;
 
       try {
-        await MediaLibrary.createAssetAsync(photoUri);
-        console.log('Photo saved to gallery');
+        const saveResult = await MediaLibrary.createAssetAsync(photoUri);
+        const newPhotos = [...photos, saveResult.id];
+        onUpdate(newPhotos);
       } catch (error) {
-        console.error('Error saving photo to gallery:', error);
+        console.error("Error saving photo to gallery:", error);
       }
-
-      const newPhotos = [...photos, photoUri];
-      setPhotos(newPhotos);
     }
   };
 
@@ -60,17 +60,31 @@ export default function MediaUploader({ maxCount = 5 }) {
           }}
         >
           {photos.map((photo) => (
-            <TouchableOpacity key={photo}>
-              <Image
-                source={photo}
+            <TouchableOpacity
+              key={photo}
+              style={{
+                position: "relative",
+              }}
+              onPress={() => {
+                const newPhotos = photos.filter((id) => id !== photo);
+                onUpdate(newPhotos);
+              }}
+            >
+              <MediaUploaderImage id={photo} />
+              <View
                 style={{
-                  width: "33%",
-                  height: 100,
-                  aspectRatio: 1,
-                  borderWidth: 2,
-                  borderColor: "#0a7ea4",
+                  right: 5,
+                  bottom: 5,
+                  width: 28,
+                  height: 28,
+                  position: "absolute",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  backgroundColor: "#0a7ea4",
                 }}
-              />
+              >
+                <FontAwesome name="trash" size={21} color="white" />
+              </View>
             </TouchableOpacity>
           ))}
         </View>

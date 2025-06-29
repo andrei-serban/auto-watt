@@ -24,7 +24,7 @@ export default function TabLayout() {
       <Stack.Screen
         name="index"
         options={{
-          title: "Welcome"
+          title: "Welcome",
         }}
       />
     </Stack>

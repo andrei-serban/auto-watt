@@ -15,6 +15,8 @@ export default function PvGeneratorScreen() {
   const [currentInverterIndex, setCurrentInverterIndex] = useState(-1);
   const {
     inverters,
+    pvGeneratorPhotos,
+    setPvGeneratorPhotos,
     pvGeneratorTasks,
     setPvGeneratorTasks,
     pvGeneratorPreNote,
@@ -56,7 +58,11 @@ export default function PvGeneratorScreen() {
           Media upload (up to 5 photos)
         </Text>
 
-        <MediaUploader maxCount={5} />
+        <MediaUploader
+          maxCount={5}
+          onUpdate={(photos) => setPvGeneratorPhotos(photos)}
+          photos={pvGeneratorPhotos}
+        />
       </View>
 
       <View style={{ marginTop: 30 }}>

@@ -149,6 +149,7 @@ export const GlobalProvider = ({ children }) => {
   const [invertersNotes, setInvertersNotes] = useState("");
 
   const [pvGeneratorPreNote, setPvGeneratorPreNote] = useState("");
+  const [pvGeneratorPhotos, setPvGeneratorPhotos] = useState([]);
   const [pvGeneratorTasks, setPvGeneratorTasks] = useState([
     {
       label: "PV frame screw options (5% sample)",
@@ -415,6 +416,7 @@ export const GlobalProvider = ({ children }) => {
       mainsConnectionTasks,
       mainsConnectionNotes,
       pvGeneratorPreNote,
+      pvGeneratorPhotos,
       pvGeneratorTasks,
       pvGeneratorNotes,
       electricalTestingTasks,
@@ -482,6 +484,9 @@ export const GlobalProvider = ({ children }) => {
           setInvertersNotes(latestReport.invertersNotes || "");
 
           setPvGeneratorPreNote(latestReport.pvGeneratorPreNote || "");
+          if (latestReport.pvGeneratorPhotos) {
+            setPvGeneratorPhotos(latestReport.pvGeneratorPhotos);
+          }
           if (latestReport.pvGeneratorTasks) {
             setPvGeneratorTasks(latestReport.pvGeneratorTasks);
           }
@@ -571,6 +576,7 @@ export const GlobalProvider = ({ children }) => {
     mainsConnectionTasks,
     mainsConnectionNotes,
     pvGeneratorPreNote,
+    pvGeneratorPhotos,
     pvGeneratorTasks,
     pvGeneratorNotes,
     electricalTestingTasks,
@@ -650,6 +656,8 @@ export const GlobalProvider = ({ children }) => {
 
         pvGeneratorPreNote,
         setPvGeneratorPreNote,
+        pvGeneratorPhotos,
+        setPvGeneratorPhotos,
         pvGeneratorTasks,
         setPvGeneratorTasks,
         pvGeneratorNotes,
