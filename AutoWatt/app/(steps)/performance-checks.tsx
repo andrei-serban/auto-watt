@@ -19,13 +19,14 @@ export default function PerformanceChecksScreen() {
     setPerformanceChecksNotes,
   } = useContext(GlobalContext);
   const router = useRouter();
+  const screenTitle = "Performance Checks";
 
   return (
     <ScrollView style={{ padding: 20 }}>
       <BackButton />
 
       <ScreenTitle>
-        Solar Maintenance{"\n"}System Components:{"\n"}Performance Checks
+        Solar Maintenance{"\n"}System Components:{"\n" + screenTitle}
       </ScreenTitle>
 
       <ScreenSummary />
@@ -60,6 +61,7 @@ export default function PerformanceChecksScreen() {
                 title={task.title}
                 label={task.label}
                 value={task.value}
+                screen={screenTitle}
                 optionCount={task.optionCount}
                 onPress={(value) => {
                   const newTasks = [].concat(performanceChecksTasks);
@@ -100,6 +102,7 @@ export default function PerformanceChecksScreen() {
                 title={task.title}
                 label={task.label}
                 value={task.value}
+                screen={screenTitle}
                 optionCount={task.optionCount}
                 onPress={(value) => {
                   const newTasks = [].concat(performanceChecksTasks);

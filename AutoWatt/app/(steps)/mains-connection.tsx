@@ -17,13 +17,14 @@ export default function MainsConnectionScreen() {
     setMainsConnectionNotes,
   } = useContext(GlobalContext);
   const router = useRouter();
+  const screenTitle = "Mains Connection";
 
   return (
     <ScrollView style={{ padding: 20 }}>
       <BackButton />
 
       <ScreenTitle>
-        Solar Maintenance{"\n"}System Components:{"\n"}Mains Connection
+        Solar Maintenance{"\n"}System Components:{"\n" + screenTitle}
       </ScreenTitle>
 
       <ScreenSummary />
@@ -54,6 +55,7 @@ export default function MainsConnectionScreen() {
               title={task.title}
               label={task.label}
               value={task.value}
+              screen={screenTitle}
               onPress={(value) => {
                 const newTasks = [].concat(mainsConnectionTasks);
                 newTasks[index].value = value;

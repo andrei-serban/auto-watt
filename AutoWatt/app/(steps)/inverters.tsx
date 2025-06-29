@@ -37,13 +37,14 @@ export default function InvertersScreen() {
   } = useContext(GlobalContext);
   const [activeInverter, setActiveInverter] = useState(-1);
   const router = useRouter();
+  const screenTitle = "Inverters / DC";
 
   return (
     <ScrollView style={{ padding: 20 }}>
       <BackButton />
 
       <ScreenTitle>
-        Solar Maintenance{"\n"}System Components:{"\n"}Inverters / DC
+        Solar Maintenance{"\n"}System Components:{"\n" + screenTitle}
         Distribution
       </ScreenTitle>
 
@@ -146,6 +147,7 @@ export default function InvertersScreen() {
               title={task.title}
               label={task.label}
               value={task.value}
+              screen={screenTitle}
               onPress={(value) => {
                 const newTasks = [].concat(invertersTasks);
                 newTasks[index].value = value;

@@ -17,13 +17,14 @@ export default function ElectricalTestingScreen() {
     setElectricalTestingNotes,
   } = useContext(GlobalContext);
   const router = useRouter();
+  const screenTitle = "Electrical Testing";
 
   return (
     <ScrollView style={{ padding: 20 }}>
       <BackButton />
 
       <ScreenTitle>
-        Solar Maintenance{"\n"}System Components:{"\n"}Electrical Testing
+        Solar Maintenance{"\n"}System Components:{"\n" + screenTitle}
       </ScreenTitle>
 
       <ScreenSummary />
@@ -53,6 +54,7 @@ export default function ElectricalTestingScreen() {
               title={task.title}
               label={task.label}
               value={task.value}
+              screen={screenTitle}
               onPress={(value) => {
                 const newTasks = [].concat(electricalTestingTasks);
                 newTasks[index].value = value;
