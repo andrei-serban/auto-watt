@@ -2,6 +2,7 @@ import { useState, useContext } from "react";
 import { useRouter } from "expo-router";
 import * as Network from "expo-network";
 import * as MediaLibrary from "expo-media-library";
+import * as ImageManipulator from 'expo-image-manipulator';
 import {
   View,
   Text,
@@ -450,19 +451,28 @@ export default function HomeScreen() {
               const status = await Network.getNetworkStateAsync();
               const payload = getPayload();
 
+              console.log('payload.pvGeneratorPhotos', payload.pvGeneratorPhotos);
+
               for (let i in payload.pvGeneratorPhotos) {
                 const photoId = payload.pvGeneratorPhotos[i];
                 const photoInfo = await MediaLibrary.getAssetInfoAsync(photoId);
-
                 const localUri = photoInfo.localUri;
-                const filename = localUri.split('/').pop();
-                const match = /\.(\w+)$/.exec(filename ?? '');
-                const type = match ? `image/${match[1]}` : `image`;
+                const filename = photoId.replace(/[^a-zA-Z0-9-]/g, '_') + '.jpg';
+
+                const resized = await ImageManipulator.manipulateAsync(
+                  localUri,
+                  [{ resize: { width: 1024 } }],
+                  {
+                    compress: 0.8,
+                    format: ImageManipulator.SaveFormat.JPEG,
+                  }
+                );
+
                 const formData = new FormData();
                 formData.append('image', {
-                  uri: localUri,
+                  uri: resized.uri,
                   name: filename,
-                  type,
+                  type: 'image/jpeg',
                 });
 
                 const response = await axios.post(`${API_URL}/upload`, formData, {
@@ -470,14 +480,11 @@ export default function HomeScreen() {
                     'Content-Type': 'multipart/form-data',
                   },
                 });
+
                 console.log('Upload success:', response.data);
-
-                // setPhoto(asset);
-
-                console.log('photoInfo', localUri, filename, match, type);
               }
             } catch (error) {
-              console.log(error);
+              console.log('Upload error:', error);
             }
 
             // if (status.isInternetReachable) {
