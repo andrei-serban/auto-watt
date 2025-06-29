@@ -72,7 +72,7 @@ export const GlobalProvider = ({ children }) => {
   ]);
 
   const [followUpRequired, setFollowUpRequired] = useState('');
-  const [followUpDetails, setFollowUpDetails] = useState(false);
+  const [followUpDetails, setFollowUpDetails] = useState('');
   const [weather, setWeather] = useState("");
   const [technicianEmail, setTechnicianEmail] = useState("");
   const [managerEmail, setManagerEmail] = useState("");
@@ -447,6 +447,126 @@ export const GlobalProvider = ({ children }) => {
 
           setName(latestReport.name || '');
           setAddress(latestReport.address || '');
+          setSystemSize(latestReport.systemSize ?? '');
+          setBatteryStorage(latestReport.batteryStorage ?? false);
+          setVoltageOptimiser(latestReport.voltageOptimiser ?? false);
+          setAuthorisedPerson(latestReport.authorisedPerson ?? '');
+          setNotes(latestReport.notes ?? '');
+          setRoofAccess(latestReport.roofAccess ?? false);
+          setCleaningPerformed(latestReport.cleaningPerformed ?? false);
+          setRamsCompleted(latestReport.ramsCompleted ?? false);
+          // const [date, setDate] = useState(new Date());
+          setNotes(latestReport.notes || '');
+
+          if (latestReport.limitations) {
+            setLimitations(latestReport.limitations);
+          }
+
+          setFollowUpRequired(latestReport.followUpRequired || '');
+          setFollowUpDetails(latestReport.followUpDetails || '');
+          setWeather(latestReport.weather || '');
+          setTechnicianEmail(latestReport.technicianEmail || '');
+          setManagerEmail(latestReport.managerEmail || '');
+          setAmbientTemp(latestReport.ambientTemp || '');
+
+          setInvertersCount(latestReport.invertersCount || '1');
+          if (latestReport.inverters) {
+            setInverters(latestReport.inverters);
+          }
+          if (latestReport.invertersTasks) {
+            setInvertersTasks(latestReport.invertersTasks);
+          }
+          setInvertersNotes(latestReport.invertersNotes || '');
+
+  // const [pvGeneratorPreNote, setPvGeneratorPreNote] = useState("");
+  // const [pvGeneratorTasks, setPvGeneratorTasks] = useState([
+  //   {
+  //     label: "PV frame screw options (5% sample)",
+  //     value: "",
+  //   }
+  // ]);
+  // const [pvGeneratorNotes, setPvGeneratorNotes] = useState("");
+
+          if (latestReport.mainsConnectionTasks) {
+            setMainsConnectionTasks(latestReport.mainsConnectionTasks);
+          }
+          setMainsConnectionNotes(latestReport.mainsConnectionNotes || '');
+
+  // const [electricalTestingTasks, setElectricalTestingTasks] = useState([
+  //   {
+  //     label: "Voc within acceptable range",
+  //     value: "",
+  //   }
+  // ]);
+  // const [electricalTestingNotes, setElectricalTestingNotes] = useState("");
+
+          setPerformanceChecksExportValue(latestReport.performanceChecksExportValue || '');
+          if (latestReport.performanceChecksTasks) {
+            setPerformanceChecksTasks(latestReport.performanceChecksTasks);
+          }
+          setPerformanceChecksNotes(latestReport.performanceChecksNotes || '');
+
+  // const [visualChecksTasks, setVisualChecksTasks] = useState([
+  //   {
+  //     label: "PV modules visually sound (no damage, soiling)",
+  //     value: "",
+  //   }
+  // ]);
+  // const [visualChecksNotes, setVisualChecksNotes] = useState("");
+
+  // const [safetyRisksTasks, setSafetyRisksTasks] = useState([
+  //   {
+  //     label: "Are MC4 connectors secure, matched and undamaged? (5% sample)",
+  //     value: "",
+  //   }
+  // ]);
+  // const [safetyRisksNotes, setSafetyRisksNotes] = useState("");
+
+  // const [batterySystemsCount, setBatterySystemsCount] = useState("1");
+  // const [batterySystems, setBatterySystems] = useState([
+  //   {
+  //     make: "",
+  //     model: "",
+  //     serial: "",
+  //     size: "",
+  //     status: "",
+  //   },
+  // ]);
+  // const [batterySystemsTasks, setBatterySystemsTasks] = useState([
+  //   {
+  //     label:
+  //       "Battery location safe and compliant (e.g. ventilated, non-combustible surface)",
+  //     value: "",
+  //   },
+  //   {
+  //     label: "Signs of overheating, restricted airflow, or obstruction",
+  //     value: "",
+  //   },
+  // ]);
+  // const [batterySystemsNotes, setBatterySystemsNotes] = useState("");
+
+  // const [voltageOptimisersCount, setVoltageOptimisersCount] = useState("1");
+  // const [voltageOptimisers, setVoltageOptimisers] = useState([
+  //   {
+  //     make: "",
+  //     model: "",
+  //     serial: "",
+  //     size: "",
+  //     status: "",
+  //   },
+  // ]);
+  // const [voltageOptimisersTasks, setVoltageOptimisersTasks] = useState([
+  //   {
+  //     label:
+  //       "VO location safe and compliant (e.g. ventilated, non-combustible surface)",
+  //     value: "",
+  //   },
+  //   {
+  //     label: "Signs of overheating, restricted airflow, or obstruction",
+  //     value: "",
+  //   },
+  // ]);
+  // const [voltageOptimisersNotes, setVoltageOptimisersNotes] = useState("");
 
           if (latestReport.mainsConnectionTasks) {
             setMainsConnectionTasks(latestReport.mainsConnectionTasks);
