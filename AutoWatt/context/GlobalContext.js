@@ -387,10 +387,6 @@ export const GlobalProvider = ({ children }) => {
   const [voltageOptimisersNotes, setVoltageOptimisersNotes] = useState("");
 
   const [selectedString, setSelectedString] = useState(null);
-  const [selectedStringIndex, setSelectedStringIndex] = useState(0);
-  const [selectedStringInverterIndex, setSelectedStringInverterIndex] =
-    useState(0);
-
   const [selectedTask, setSelectedTask] = useState(null);
   const [selectedTaskScreen, setSelectedTaskScreen] = useState('');
 
@@ -620,10 +616,6 @@ export const GlobalProvider = ({ children }) => {
 
         selectedString,
         setSelectedString,
-        selectedStringIndex,
-        setSelectedStringIndex,
-        selectedStringInverterIndex,
-        setSelectedStringInverterIndex,
 
         selectedTask,
         setSelectedTask,

@@ -21,9 +21,7 @@ export default function PvGeneratorScreen() {
     setPvGeneratorPreNote,
     pvGeneratorNotes,
     setPvGeneratorNotes,
-    setSelectedString,
-    setSelectedStringIndex,
-    setSelectedStringInverterIndex,
+    setSelectedString
   } = useContext(GlobalContext);
   const router = useRouter();
 
@@ -222,9 +220,13 @@ export default function PvGeneratorScreen() {
                         }}
                         onPress={() => {
                           setSelectedString(stringObject);
-                          setSelectedStringIndex(stringIndex);
-                          setSelectedStringInverterIndex(inverterIndex);
-                          router.push("/(steps)/string-screen");
+                          router.push({
+                            pathname: "/(steps)/string-screen",
+                            params: {
+                              stringIndex,
+                              inverterIndex
+                            },
+                          });
                         }}
                       >
                         <Text

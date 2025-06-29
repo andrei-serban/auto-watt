@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { useRouter } from "expo-router";
+import { useRouter, useLocalSearchParams } from "expo-router";
 import { View, Text, TouchableOpacity, ScrollView } from "react-native";
 import TaskGroup from "@/components/TaskGroup";
 import InputGroup from "@/components/InputGroup";
@@ -13,13 +13,14 @@ import { Feather } from "@expo/vector-icons";
 export default function StringScreen() {
   const {
     selectedString,
-    selectedStringIndex,
-    selectedStringInverterIndex,
     setSelectedString,
     setInverters,
     inverters,
   } = useContext(GlobalContext);
   const router = useRouter();
+  const { stringIndex, inverterIndex } = useLocalSearchParams();
+
+  console.log(stringIndex, inverterIndex);
 
   return (
     <ScrollView style={{ padding: 20 }}>
@@ -27,7 +28,7 @@ export default function StringScreen() {
 
       <ScreenTitle>
         Solar Maintenance{"\n"}Voc / Isc sample{"\n"}measurement{"\n\n"}String{" "}
-        {selectedStringIndex + 1}
+        {stringIndex * 1 + 1}
       </ScreenTitle>
 
       {selectedString ? (
@@ -145,9 +146,7 @@ export default function StringScreen() {
         onPress={() => {
           const newInverters = [].concat(inverters);
           const newSelectedString = { ...selectedString };
-          newInverters[selectedStringInverterIndex].stringObjects[
-            selectedStringIndex
-          ] = newSelectedString;
+          newInverters[inverterIndex].stringObjects[stringIndex] = newSelectedString;
           setInverters(newInverters);
           router.push("/(steps)/pv-generator");
         }}
