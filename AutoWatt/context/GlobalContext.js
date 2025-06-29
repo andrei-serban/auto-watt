@@ -455,7 +455,11 @@ export const GlobalProvider = ({ children }) => {
           setRoofAccess(latestReport.roofAccess ?? false);
           setCleaningPerformed(latestReport.cleaningPerformed ?? false);
           setRamsCompleted(latestReport.ramsCompleted ?? false);
-          // const [date, setDate] = useState(new Date());
+          console.log('latestReport', latestReport.date);
+
+          if (latestReport.date) {
+            setDate(new Date(latestReport.date));
+          }
           setNotes(latestReport.notes || '');
 
           if (latestReport.limitations) {
@@ -505,59 +509,28 @@ export const GlobalProvider = ({ children }) => {
           }
           setVisualChecksNotes(latestReport.visualChecksNotes || '');
 
-  // const [safetyRisksTasks, setSafetyRisksTasks] = useState([
-  //   {
-  //     label: "Are MC4 connectors secure, matched and undamaged? (5% sample)",
-  //     value: "",
-  //   }
-  // ]);
-  // const [safetyRisksNotes, setSafetyRisksNotes] = useState("");
+          if (latestReport.safetyRisksTasks) {
+            setSafetyRisksTasks(latestReport.safetyRisksTasks);
+          }
+          setSafetyRisksNotes(latestReport.safetyRisksNotes || '');
 
-  // const [batterySystemsCount, setBatterySystemsCount] = useState("1");
-  // const [batterySystems, setBatterySystems] = useState([
-  //   {
-  //     make: "",
-  //     model: "",
-  //     serial: "",
-  //     size: "",
-  //     status: "",
-  //   },
-  // ]);
-  // const [batterySystemsTasks, setBatterySystemsTasks] = useState([
-  //   {
-  //     label:
-  //       "Battery location safe and compliant (e.g. ventilated, non-combustible surface)",
-  //     value: "",
-  //   },
-  //   {
-  //     label: "Signs of overheating, restricted airflow, or obstruction",
-  //     value: "",
-  //   },
-  // ]);
-  // const [batterySystemsNotes, setBatterySystemsNotes] = useState("");
+          setBatterySystemsCount(latestReport.batterySystemsCount || '1');
+          if (latestReport.batterySystems) {
+            setBatterySystems(latestReport.batterySystems);
+          }
+          if (latestReport.batterySystemsTasks) {
+            setBatterySystemsTasks(latestReport.batterySystemsTasks);
+          }
+          setBatterySystemsNotes(latestReport.batterySystemsNotes || '');
 
-  // const [voltageOptimisersCount, setVoltageOptimisersCount] = useState("1");
-  // const [voltageOptimisers, setVoltageOptimisers] = useState([
-  //   {
-  //     make: "",
-  //     model: "",
-  //     serial: "",
-  //     size: "",
-  //     status: "",
-  //   },
-  // ]);
-  // const [voltageOptimisersTasks, setVoltageOptimisersTasks] = useState([
-  //   {
-  //     label:
-  //       "VO location safe and compliant (e.g. ventilated, non-combustible surface)",
-  //     value: "",
-  //   },
-  //   {
-  //     label: "Signs of overheating, restricted airflow, or obstruction",
-  //     value: "",
-  //   },
-  // ]);
-  // const [voltageOptimisersNotes, setVoltageOptimisersNotes] = useState("");
+          setVoltageOptimisersCount(latestReport.voltageOptimisersCount || '1');
+          if (latestReport.voltageOptimisers) {
+            setVoltageOptimisers(latestReport.voltageOptimisers);
+          }
+          if (latestReport.voltageOptimisersTasks) {
+            setVoltageOptimisersTasks(latestReport.voltageOptimisersTasks);
+          }
+          setVoltageOptimisersNotes(latestReport.voltageOptimisersNotes || '');
 
           if (latestReport.mainsConnectionTasks) {
             setMainsConnectionTasks(latestReport.mainsConnectionTasks);
@@ -570,6 +543,7 @@ export const GlobalProvider = ({ children }) => {
   }, [])
 
   useEffect(() => {
+    console.log('AAA: ' + getPayload().date);
     AsyncStorage.setItem('latestReport', JSON.stringify(getPayload()));
   }, [
     name,
