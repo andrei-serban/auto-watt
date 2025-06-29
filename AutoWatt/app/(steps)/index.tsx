@@ -1,6 +1,7 @@
 import { useState, useContext } from "react";
 import { useRouter } from "expo-router";
 import * as Network from "expo-network";
+import * as MediaLibrary from "expo-media-library";
 import {
   View,
   Text,
@@ -445,36 +446,68 @@ export default function HomeScreen() {
       {submissionStep === 0 ? (
         <ActionButton
           onPress={async () => {
-            const status = await Network.getNetworkStateAsync();
+            try {
+              const status = await Network.getNetworkStateAsync();
+              const payload = getPayload();
 
-            if (status.isInternetReachable) {
-              setSubmissionStep(1);
+              for (let i in payload.pvGeneratorPhotos) {
+                const photoId = payload.pvGeneratorPhotos[i];
+                const photoInfo = await MediaLibrary.getAssetInfoAsync(photoId);
 
-              const submissionResponse = await axios.post(
-                API_URL,
-                getPayload(),
-              );
+                const localUri = photoInfo.localUri;
+                const filename = localUri.split('/').pop();
+                const match = /\.(\w+)$/.exec(filename ?? '');
+                const type = match ? `image/${match[1]}` : `image`;
+                const formData = new FormData();
+                formData.append('image', {
+                  uri: localUri,
+                  name: filename,
+                  type,
+                });
 
-              setTimeout(async () => {
-                setSubmissionStep(2);
+                const response = await axios.post(`${API_URL}/upload`, formData, {
+                  headers: {
+                    'Content-Type': 'multipart/form-data',
+                  },
+                });
+                console.log('Upload success:', response.data);
 
-                const pdfResponse = await axios.get(
-                  `${API_URL}?id=${submissionResponse.data.insertId}`,
-                );
+                // setPhoto(asset);
 
-                setTimeout(() => {
-                  setSubmissionStep(3);
-
-                  setTimeout(() => {
-                    router.push("/(steps)/report-submitted");
-                  }, 1000);
-                }, 1000);
-              }, 1000);
-            } else {
-              Alert.alert(
-                "The report cannot be submitted right now because your device is offline. Please try again when the device will be back online.",
-              );
+                console.log('photoInfo', localUri, filename, match, type);
+              }
+            } catch (error) {
+              console.log(error);
             }
+
+            // if (status.isInternetReachable) {
+            //   setSubmissionStep(1);
+
+            //   const submissionResponse = await axios.post(
+            //     API_URL,
+            //     payload,
+            //   );
+
+            //   setTimeout(async () => {
+            //     setSubmissionStep(2);
+
+            //     const pdfResponse = await axios.get(
+            //       `${API_URL}?id=${submissionResponse.data.insertId}`,
+            //     );
+
+            //     setTimeout(() => {
+            //       setSubmissionStep(3);
+
+            //       setTimeout(() => {
+            //         router.push("/(steps)/report-submitted");
+            //       }, 1000);
+            //     }, 1000);
+            //   }, 1000);
+            // } else {
+            //   Alert.alert(
+            //     "The report cannot be submitted right now because your device is offline. Please try again when the device will be back online.",
+            //   );
+            // }
           }}
           text="Generate Report"
         />

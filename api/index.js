@@ -2,6 +2,7 @@ const fs = require('fs');
 const path = require('path');
 const puppeteer = require('puppeteer');
 const express = require('express');
+const multer = require('multer');
 const moment = require('moment');
 const mysql = require('mysql2');
 const app = express();
@@ -15,6 +16,15 @@ const dbConnection = {
   password: 'root',
   database: 'auto-watt'
 };
+
+const storage = multer.diskStorage({
+  destination: 'uploads/',
+  filename: (req, file, cb) => {
+    cb(null, file.originalname); // risky if not sanitized
+  }
+});
+
+const upload = multer({ storage });
 
 app.get('/', async (req, res) => {
   const connection = mysql.createConnection(dbConnection).promise();
@@ -112,6 +122,13 @@ app.post('/', async (req, res) => {
   await connection.end();
 
   return res.send(result);
+});
+
+app.post('/upload', upload.single('image'), (req, res) => {
+  if (!req.file) {
+    return res.status(400).json({ message: 'No file uploaded.' });
+  }
+  res.status(200).json({ message: 'Upload successful', file: req.file });
 });
 
 app.listen(PORT, () => {
