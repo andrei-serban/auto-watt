@@ -478,27 +478,21 @@ export const GlobalProvider = ({ children }) => {
           }
           setInvertersNotes(latestReport.invertersNotes || '');
 
-  // const [pvGeneratorPreNote, setPvGeneratorPreNote] = useState("");
-  // const [pvGeneratorTasks, setPvGeneratorTasks] = useState([
-  //   {
-  //     label: "PV frame screw options (5% sample)",
-  //     value: "",
-  //   }
-  // ]);
-  // const [pvGeneratorNotes, setPvGeneratorNotes] = useState("");
+          setPvGeneratorPreNote(latestReport.pvGeneratorPreNote || '');
+          if (latestReport.pvGeneratorTasks) {
+            setPvGeneratorTasks(latestReport.pvGeneratorTasks);
+          }
+          setPvGeneratorNotes(latestReport.pvGeneratorNotes || '');
 
           if (latestReport.mainsConnectionTasks) {
             setMainsConnectionTasks(latestReport.mainsConnectionTasks);
           }
           setMainsConnectionNotes(latestReport.mainsConnectionNotes || '');
 
-  // const [electricalTestingTasks, setElectricalTestingTasks] = useState([
-  //   {
-  //     label: "Voc within acceptable range",
-  //     value: "",
-  //   }
-  // ]);
-  // const [electricalTestingNotes, setElectricalTestingNotes] = useState("");
+          if (latestReport.electricalTestingTasks) {
+            setElectricalTestingTasks(latestReport.electricalTestingTasks);
+          }
+          setElectricalTestingNotes(latestReport.electricalTestingNotes || '');
 
           setPerformanceChecksExportValue(latestReport.performanceChecksExportValue || '');
           if (latestReport.performanceChecksTasks) {
@@ -506,13 +500,10 @@ export const GlobalProvider = ({ children }) => {
           }
           setPerformanceChecksNotes(latestReport.performanceChecksNotes || '');
 
-  // const [visualChecksTasks, setVisualChecksTasks] = useState([
-  //   {
-  //     label: "PV modules visually sound (no damage, soiling)",
-  //     value: "",
-  //   }
-  // ]);
-  // const [visualChecksNotes, setVisualChecksNotes] = useState("");
+          if (latestReport.visualChecksTasks) {
+            setVisualChecksTasks(latestReport.visualChecksTasks);
+          }
+          setVisualChecksNotes(latestReport.visualChecksNotes || '');
 
   // const [safetyRisksTasks, setSafetyRisksTasks] = useState([
   //   {
