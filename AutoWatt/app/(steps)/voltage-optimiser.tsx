@@ -31,13 +31,14 @@ export default function VoltageOptimiserScreen() {
   } = useContext(GlobalContext);
   const [activeVoltageOptimiser, setActiveVoltageOptimiser] = useState(-1);
   const router = useRouter();
+  const screenTitle = "Voltage Optimiser (VO)";
 
   return (
     <ScrollView style={{ padding: 20 }}>
       <BackButton />
 
       <ScreenTitle>
-        Solar Maintenance{"\n"}System Components:{"\n"}Voltage Optimiser (VO)
+        Solar Maintenance{"\n"}System Components:{"\n" + screenTitle}
       </ScreenTitle>
 
       <ScreenSummary />
@@ -143,6 +144,7 @@ export default function VoltageOptimiserScreen() {
               title={task.title}
               label={task.label}
               value={task.value}
+              screen={screenTitle}
               onPress={(value) => {
                 const newTasks = [].concat(voltageOptimisersTasks);
                 newTasks[index].value = value;
@@ -161,10 +163,7 @@ export default function VoltageOptimiserScreen() {
         setValue={setVoltageOptimisersNotes}
       />
 
-      <ActionButton
-        onPress={() => router.back()}
-        text="Save & Return"
-      />
+      <ActionButton onPress={() => router.back()} text="Save & Return" />
 
       <View style={{ height: 360 }}></View>
     </ScrollView>

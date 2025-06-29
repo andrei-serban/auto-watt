@@ -12,14 +12,15 @@ export default function FailScreen() {
   const severities = ["Critical fault", "Major fault", "Minor fault"];
   const [selectedSeverity, setSelectedSeverity] = useState(0);
   const { selectedTaskLabel, selectedTaskScreen } = useLocalSearchParams();
-  const { electricalTestingNotes, setElectricalTestingNotes } = useContext(GlobalContext);
+  const { electricalTestingNotes, setElectricalTestingNotes } =
+    useContext(GlobalContext);
 
   return (
     <ScrollView style={{ padding: 20 }}>
       <BackButton />
 
-      <ScreenTitle subtitle={selectedTaskLabel ?? ''}>
-        {selectedTaskScreen ?? ''} - FAIL
+      <ScreenTitle subtitle={selectedTaskLabel ?? ""}>
+        {selectedTaskScreen ?? ""} - FAIL
       </ScreenTitle>
 
       <View style={{ marginTop: 30 }}>

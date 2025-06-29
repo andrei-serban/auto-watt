@@ -1,5 +1,5 @@
 import React, { createContext, useState, useEffect } from "react";
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export class Inverter {
   make = "";
@@ -71,8 +71,8 @@ export const GlobalProvider = ({ children }) => {
     },
   ]);
 
-  const [followUpRequired, setFollowUpRequired] = useState('');
-  const [followUpDetails, setFollowUpDetails] = useState('');
+  const [followUpRequired, setFollowUpRequired] = useState("");
+  const [followUpDetails, setFollowUpDetails] = useState("");
   const [weather, setWeather] = useState("");
   const [technicianEmail, setTechnicianEmail] = useState("");
   const [managerEmail, setManagerEmail] = useState("");
@@ -434,117 +434,119 @@ export const GlobalProvider = ({ children }) => {
       voltageOptimisers,
       voltageOptimisersTasks,
       voltageOptimisersNotes,
-    }
-  }
+    };
+  };
 
   useEffect(() => {
     (async () => {
       try {
-        let latestReport = await AsyncStorage.getItem('latestReport');
+        let latestReport = await AsyncStorage.getItem("latestReport");
 
         if (latestReport) {
           latestReport = JSON.parse(latestReport);
 
-          setName(latestReport.name || '');
-          setAddress(latestReport.address || '');
-          setSystemSize(latestReport.systemSize ?? '');
+          setName(latestReport.name || "");
+          setAddress(latestReport.address || "");
+          setSystemSize(latestReport.systemSize ?? "");
           setBatteryStorage(latestReport.batteryStorage ?? false);
           setVoltageOptimiser(latestReport.voltageOptimiser ?? false);
-          setAuthorisedPerson(latestReport.authorisedPerson ?? '');
-          setNotes(latestReport.notes ?? '');
+          setAuthorisedPerson(latestReport.authorisedPerson ?? "");
+          setNotes(latestReport.notes ?? "");
           setRoofAccess(latestReport.roofAccess ?? false);
           setCleaningPerformed(latestReport.cleaningPerformed ?? false);
           setRamsCompleted(latestReport.ramsCompleted ?? false);
-          console.log('latestReport', latestReport.date);
+          console.log("latestReport", latestReport.date);
 
           if (latestReport.date) {
             setDate(new Date(latestReport.date));
           }
-          setNotes(latestReport.notes || '');
+          setNotes(latestReport.notes || "");
 
           if (latestReport.limitations) {
             setLimitations(latestReport.limitations);
           }
 
-          setFollowUpRequired(latestReport.followUpRequired || '');
-          setFollowUpDetails(latestReport.followUpDetails || '');
-          setWeather(latestReport.weather || '');
-          setTechnicianEmail(latestReport.technicianEmail || '');
-          setManagerEmail(latestReport.managerEmail || '');
-          setAmbientTemp(latestReport.ambientTemp || '');
+          setFollowUpRequired(latestReport.followUpRequired || "");
+          setFollowUpDetails(latestReport.followUpDetails || "");
+          setWeather(latestReport.weather || "");
+          setTechnicianEmail(latestReport.technicianEmail || "");
+          setManagerEmail(latestReport.managerEmail || "");
+          setAmbientTemp(latestReport.ambientTemp || "");
 
-          setInvertersCount(latestReport.invertersCount || '1');
+          setInvertersCount(latestReport.invertersCount || "1");
           if (latestReport.inverters) {
             setInverters(latestReport.inverters);
           }
           if (latestReport.invertersTasks) {
             setInvertersTasks(latestReport.invertersTasks);
           }
-          setInvertersNotes(latestReport.invertersNotes || '');
+          setInvertersNotes(latestReport.invertersNotes || "");
 
-          setPvGeneratorPreNote(latestReport.pvGeneratorPreNote || '');
+          setPvGeneratorPreNote(latestReport.pvGeneratorPreNote || "");
           if (latestReport.pvGeneratorTasks) {
             setPvGeneratorTasks(latestReport.pvGeneratorTasks);
           }
-          setPvGeneratorNotes(latestReport.pvGeneratorNotes || '');
+          setPvGeneratorNotes(latestReport.pvGeneratorNotes || "");
 
           if (latestReport.mainsConnectionTasks) {
             setMainsConnectionTasks(latestReport.mainsConnectionTasks);
           }
-          setMainsConnectionNotes(latestReport.mainsConnectionNotes || '');
+          setMainsConnectionNotes(latestReport.mainsConnectionNotes || "");
 
           if (latestReport.electricalTestingTasks) {
             setElectricalTestingTasks(latestReport.electricalTestingTasks);
           }
-          setElectricalTestingNotes(latestReport.electricalTestingNotes || '');
+          setElectricalTestingNotes(latestReport.electricalTestingNotes || "");
 
-          setPerformanceChecksExportValue(latestReport.performanceChecksExportValue || '');
+          setPerformanceChecksExportValue(
+            latestReport.performanceChecksExportValue || "",
+          );
           if (latestReport.performanceChecksTasks) {
             setPerformanceChecksTasks(latestReport.performanceChecksTasks);
           }
-          setPerformanceChecksNotes(latestReport.performanceChecksNotes || '');
+          setPerformanceChecksNotes(latestReport.performanceChecksNotes || "");
 
           if (latestReport.visualChecksTasks) {
             setVisualChecksTasks(latestReport.visualChecksTasks);
           }
-          setVisualChecksNotes(latestReport.visualChecksNotes || '');
+          setVisualChecksNotes(latestReport.visualChecksNotes || "");
 
           if (latestReport.safetyRisksTasks) {
             setSafetyRisksTasks(latestReport.safetyRisksTasks);
           }
-          setSafetyRisksNotes(latestReport.safetyRisksNotes || '');
+          setSafetyRisksNotes(latestReport.safetyRisksNotes || "");
 
-          setBatterySystemsCount(latestReport.batterySystemsCount || '1');
+          setBatterySystemsCount(latestReport.batterySystemsCount || "1");
           if (latestReport.batterySystems) {
             setBatterySystems(latestReport.batterySystems);
           }
           if (latestReport.batterySystemsTasks) {
             setBatterySystemsTasks(latestReport.batterySystemsTasks);
           }
-          setBatterySystemsNotes(latestReport.batterySystemsNotes || '');
+          setBatterySystemsNotes(latestReport.batterySystemsNotes || "");
 
-          setVoltageOptimisersCount(latestReport.voltageOptimisersCount || '1');
+          setVoltageOptimisersCount(latestReport.voltageOptimisersCount || "1");
           if (latestReport.voltageOptimisers) {
             setVoltageOptimisers(latestReport.voltageOptimisers);
           }
           if (latestReport.voltageOptimisersTasks) {
             setVoltageOptimisersTasks(latestReport.voltageOptimisersTasks);
           }
-          setVoltageOptimisersNotes(latestReport.voltageOptimisersNotes || '');
+          setVoltageOptimisersNotes(latestReport.voltageOptimisersNotes || "");
 
           if (latestReport.mainsConnectionTasks) {
             setMainsConnectionTasks(latestReport.mainsConnectionTasks);
           }
         }
       } catch (e) {
-        console.error('Failed to load latest report:', e);
+        console.error("Failed to load latest report:", e);
       }
     })();
-  }, [])
+  }, []);
 
   useEffect(() => {
-    console.log('AAA: ' + getPayload().date);
-    AsyncStorage.setItem('latestReport', JSON.stringify(getPayload()));
+    console.log("AAA: " + getPayload().date);
+    AsyncStorage.setItem("latestReport", JSON.stringify(getPayload()));
   }, [
     name,
     notes,
@@ -589,7 +591,7 @@ export const GlobalProvider = ({ children }) => {
     voltageOptimisersCount,
     voltageOptimisers,
     voltageOptimisersTasks,
-    voltageOptimisersNotes
+    voltageOptimisersNotes,
   ]);
 
   return (

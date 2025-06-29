@@ -161,10 +161,7 @@ export default function BatteryStorageScreen() {
         setValue={setBatterySystemsNotes}
       />
 
-      <ActionButton
-        onPress={() => router.back()}
-        text="Save & Return"
-      />
+      <ActionButton onPress={() => router.back()} text="Save & Return" />
 
       <View style={{ height: 360 }}></View>
     </ScrollView>

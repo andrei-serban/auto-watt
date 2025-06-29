@@ -74,10 +74,7 @@ export default function MainsConnectionScreen() {
         setValue={setMainsConnectionNotes}
       />
 
-      <ActionButton
-        onPress={() => router.back()}
-        text="Save & Return"
-      />
+      <ActionButton onPress={() => router.back()} text="Save & Return" />
 
       <View style={{ height: 360 }}></View>
     </ScrollView>

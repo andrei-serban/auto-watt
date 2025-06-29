@@ -21,16 +21,17 @@ export default function PvGeneratorScreen() {
     setPvGeneratorPreNote,
     pvGeneratorNotes,
     setPvGeneratorNotes,
-    setSelectedString
+    setSelectedString,
   } = useContext(GlobalContext);
   const router = useRouter();
+  const screenTitle = "PV Generator (DC Side)";
 
   return (
     <ScrollView style={{ padding: 20 }}>
-      <BackButton />
+      <BackButton onPress={() => router.push("/(steps)")} />
 
       <ScreenTitle>
-        Solar Maintenance{"\n"}System Components:{"\n"}PV Generator (DC Side)
+        Solar Maintenance{"\n"}System Components:{"\n" + screenTitle}
       </ScreenTitle>
 
       <ScreenSummary />
@@ -83,6 +84,7 @@ export default function PvGeneratorScreen() {
               title={task.title}
               label={task.label}
               value={task.value}
+              screen={screenTitle}
               onPress={(value) => {
                 const newTasks = [].concat(pvGeneratorTasks);
                 newTasks[index].value = value;
@@ -224,7 +226,7 @@ export default function PvGeneratorScreen() {
                             pathname: "/(steps)/string-screen",
                             params: {
                               stringIndex,
-                              inverterIndex
+                              inverterIndex,
                             },
                           });
                         }}
@@ -294,7 +296,7 @@ export default function PvGeneratorScreen() {
       />
 
       <ActionButton
-        onPress={() => router.back()}
+        onPress={() => router.push("/(steps)")}
         text="Save & Return"
       />
 

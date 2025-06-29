@@ -17,13 +17,14 @@ export default function VisualChecksScreen() {
     setVisualChecksNotes,
   } = useContext(GlobalContext);
   const router = useRouter();
+  const screenTitle = "Visual Inspection";
 
   return (
     <ScrollView style={{ padding: 20 }}>
       <BackButton />
 
       <ScreenTitle>
-        Solar Maintenance{"\n"}System Components:{"\n"}Visual Inspection
+        Solar Maintenance{"\n"}System Components:{"\n" + screenTitle}
       </ScreenTitle>
 
       <ScreenSummary />
@@ -54,6 +55,7 @@ export default function VisualChecksScreen() {
                 title={task.title}
                 label={task.label}
                 value={task.value}
+                screen={screenTitle}
                 yesAndNo={task.yesAndNo}
                 allowPhotos={task.allowPhotos}
                 optionCount={task.optionCount}
@@ -76,10 +78,7 @@ export default function VisualChecksScreen() {
         setValue={setVisualChecksNotes}
       />
 
-      <ActionButton
-        onPress={() => router.back()}
-        text="Save & Return"
-      />
+      <ActionButton onPress={() => router.back()} text="Save & Return" />
 
       <View style={{ height: 360 }}></View>
     </ScrollView>

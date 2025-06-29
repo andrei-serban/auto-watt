@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext } from "react";
 import { Image } from "expo-image";
 import { useRouter } from "expo-router";
 import { View, Text, TouchableOpacity } from "react-native";
@@ -10,7 +10,7 @@ export default function TaskGroup({
   title,
   label,
   value,
-  screen = '',
+  screen = "",
   optionCount = 3,
   yesAndNo = undefined,
   allowPhotos = false,
@@ -70,7 +70,7 @@ export default function TaskGroup({
                   pathname: "/(steps)/fail",
                   params: {
                     selectedTaskLabel: label,
-                    selectedTaskScreen: screen
+                    selectedTaskScreen: screen,
                   },
                 });
               }

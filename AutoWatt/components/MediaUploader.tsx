@@ -11,7 +11,10 @@ export default function MediaUploader({ maxCount = 5 }) {
     const { status } = await ImagePicker.requestCameraPermissionsAsync();
 
     if (status !== "granted") {
-      Alert.alert("Camera Permission", "Camera access is required to take photos.");
+      Alert.alert(
+        "Camera Permission",
+        "Camera access is required to take photos.",
+      );
       return;
     }
 

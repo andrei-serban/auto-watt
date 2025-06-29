@@ -123,10 +123,7 @@ export default function PerformanceChecksScreen() {
         setValue={setPerformanceChecksNotes}
       />
 
-      <ActionButton
-        onPress={() => router.back()}
-        text="Save & Return"
-      />
+      <ActionButton onPress={() => router.back()} text="Save & Return" />
 
       <View style={{ height: 360 }}></View>
     </ScrollView>

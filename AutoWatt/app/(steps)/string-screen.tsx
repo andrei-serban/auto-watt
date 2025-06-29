@@ -11,12 +11,8 @@ import { GlobalContext } from "@/context/GlobalContext";
 import { Feather } from "@expo/vector-icons";
 
 export default function StringScreen() {
-  const {
-    selectedString,
-    setSelectedString,
-    setInverters,
-    inverters,
-  } = useContext(GlobalContext);
+  const { selectedString, setSelectedString, setInverters, inverters } =
+    useContext(GlobalContext);
   const router = useRouter();
   const { stringIndex, inverterIndex } = useLocalSearchParams();
 
@@ -144,7 +140,8 @@ export default function StringScreen() {
         onPress={() => {
           const newInverters = [].concat(inverters);
           const newSelectedString = { ...selectedString };
-          newInverters[inverterIndex].stringObjects[stringIndex] = newSelectedString;
+          newInverters[inverterIndex].stringObjects[stringIndex] =
+            newSelectedString;
           setInverters(newInverters);
           router.push("/(steps)/pv-generator");
         }}

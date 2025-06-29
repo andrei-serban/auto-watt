@@ -73,10 +73,7 @@ export default function ElectricalTestingScreen() {
         setValue={setElectricalTestingNotes}
       />
 
-      <ActionButton
-        onPress={() => router.back()}
-        text="Save & Return"
-      />
+      <ActionButton onPress={() => router.back()} text="Save & Return" />
 
       <View style={{ height: 360 }}></View>
     </ScrollView>

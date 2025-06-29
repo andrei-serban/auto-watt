@@ -17,13 +17,14 @@ export default function SafetyRisksScreen() {
     setSafetyRisksNotes,
   } = useContext(GlobalContext);
   const router = useRouter();
+  const screenTitle = "System Safety Risks";
 
   return (
     <ScrollView style={{ padding: 20 }}>
       <BackButton />
 
       <ScreenTitle>
-        Solar Maintenance{"\n"}System Components:{"\n"}System Safety Risks
+        Solar Maintenance{"\n"}System Components:{"\n" + screenTitle}
       </ScreenTitle>
 
       <ScreenSummary />
@@ -54,6 +55,7 @@ export default function SafetyRisksScreen() {
                 title={task.title}
                 label={task.label}
                 value={task.value}
+                screen={screenTitle}
                 yesAndNo={task.yesAndNo}
                 allowPhotos={task.allowPhotos}
                 optionCount={task.optionCount}
@@ -76,10 +78,7 @@ export default function SafetyRisksScreen() {
         setValue={setSafetyRisksNotes}
       />
 
-      <ActionButton
-        onPress={() => router.back()}
-        text="Save & Return"
-      />
+      <ActionButton onPress={() => router.back()} text="Save & Return" />
 
       <View style={{ height: 360 }}></View>
     </ScrollView>
