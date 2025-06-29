@@ -10,6 +10,7 @@ import {
   ScrollView,
   TextInput,
   TouchableOpacity,
+  ActivityIndicator
 } from "react-native";
 import axios from "axios";
 import DateTimePicker from "@react-native-community/datetimepicker";
@@ -449,72 +450,69 @@ export default function HomeScreen() {
           onPress={async () => {
             try {
               const status = await Network.getNetworkStateAsync();
-              const payload = getPayload();
 
-              console.log('payload.pvGeneratorPhotos', payload.pvGeneratorPhotos);
+              if (status.isInternetReachable) {
+                setSubmissionStep(1);
 
-              for (let i in payload.pvGeneratorPhotos) {
-                const photoId = payload.pvGeneratorPhotos[i];
-                const photoInfo = await MediaLibrary.getAssetInfoAsync(photoId);
-                const localUri = photoInfo.localUri;
-                const filename = photoId.replace(/[^a-zA-Z0-9-]/g, '_') + '.jpg';
+                const payload = getPayload();
 
-                const resized = await ImageManipulator.manipulateAsync(
-                  localUri,
-                  [{ resize: { width: 1024 } }],
-                  {
-                    compress: 0.8,
-                    format: ImageManipulator.SaveFormat.JPEG,
-                  }
+                console.log('payload.pvGeneratorPhotos', payload.pvGeneratorPhotos);
+
+                for (let i in payload.pvGeneratorPhotos) {
+                  const photoId = payload.pvGeneratorPhotos[i];
+                  const photoInfo = await MediaLibrary.getAssetInfoAsync(photoId);
+                  const localUri = photoInfo.localUri;
+                  const filename = photoId.replace(/[^a-zA-Z0-9-]/g, '_') + '.jpg';
+
+                  const resized = await ImageManipulator.manipulateAsync(
+                    localUri,
+                    [{ resize: { width: 1024 } }],
+                    {
+                      compress: 0.8,
+                      format: ImageManipulator.SaveFormat.JPEG,
+                    }
+                  );
+
+                  const formData = new FormData();
+                  formData.append('image', {
+                    uri: resized.uri,
+                    name: filename,
+                    type: 'image/jpeg',
+                  });
+
+                  const response = await axios.post(`${API_URL}/upload`, formData, {
+                    headers: {
+                      'Content-Type': 'multipart/form-data',
+                    },
+                  });
+
+                  console.log('Upload success:', response.data);
+                }
+
+                const submissionResponse = await axios.post(
+                  API_URL,
+                  payload,
                 );
 
-                const formData = new FormData();
-                formData.append('image', {
-                  uri: resized.uri,
-                  name: filename,
-                  type: 'image/jpeg',
-                });
+                setSubmissionStep(2);
 
-                const response = await axios.post(`${API_URL}/upload`, formData, {
-                  headers: {
-                    'Content-Type': 'multipart/form-data',
-                  },
-                });
+                const pdfResponse = await axios.get(
+                  `${API_URL}?id=${submissionResponse.data.insertId}`,
+                );
 
-                console.log('Upload success:', response.data);
+                setSubmissionStep(3);
+
+                setTimeout(() => {
+                  router.push("/(steps)/report-submitted");
+                }, 1000);
+              } else {
+                Alert.alert(
+                  "The report cannot be submitted right now because your device is offline. Please try again when the device will be back online.",
+                );
               }
             } catch (error) {
               console.log('Upload error:', error);
             }
-
-            // if (status.isInternetReachable) {
-            //   setSubmissionStep(1);
-
-            //   const submissionResponse = await axios.post(
-            //     API_URL,
-            //     payload,
-            //   );
-
-            //   setTimeout(async () => {
-            //     setSubmissionStep(2);
-
-            //     const pdfResponse = await axios.get(
-            //       `${API_URL}?id=${submissionResponse.data.insertId}`,
-            //     );
-
-            //     setTimeout(() => {
-            //       setSubmissionStep(3);
-
-            //       setTimeout(() => {
-            //         router.push("/(steps)/report-submitted");
-            //       }, 1000);
-            //     }, 1000);
-            //   }, 1000);
-            // } else {
-            //   Alert.alert(
-            //     "The report cannot be submitted right now because your device is offline. Please try again when the device will be back online.",
-            //   );
-            // }
           }}
           text="Generate Report"
         />
@@ -558,6 +556,14 @@ export default function HomeScreen() {
           📨 Sent to technician@example.com
         </Text>
       ) : null}
+
+      {
+        submissionStep
+        ? <View style={{ padding: 10 }}>
+          <ActivityIndicator size="large" color="#0a7ea4" />
+        </View>
+        : null
+      }
 
       <View style={{ height: 360 }}></View>
     </ScrollView>
