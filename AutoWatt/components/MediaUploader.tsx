@@ -1,6 +1,7 @@
 import { useState } from "react";
 import * as ImagePicker from "expo-image-picker";
-import { View, Alert } from "react-native";
+import * as MediaLibrary from 'expo-media-library';
+import { View, Alert, TouchableOpacity } from "react-native";
 import { Image } from "expo-image";
 import ActionButton from "@/components/ActionButton";
 
@@ -8,13 +9,20 @@ export default function MediaUploader({ maxCount = 5 }) {
   const [photos, setPhotos] = useState([]);
 
   const handleTakePhoto = async () => {
-    const { status } = await ImagePicker.requestCameraPermissionsAsync();
+    const cameraPermissionStatus = await ImagePicker.requestCameraPermissionsAsync();
 
-    if (status !== "granted") {
+    if (cameraPermissionStatus.status !== "granted") {
       Alert.alert(
         "Camera Permission",
         "Camera access is required to take photos.",
       );
+      return;
+    }
+
+    const mediaLibraryStatus = await MediaLibrary.requestPermissionsAsync();
+
+    if (mediaLibraryStatus.status !== 'granted') {
+      Alert.alert('Media Library Permission', 'Storage access is required to save photos.');
       return;
     }
 
@@ -26,7 +34,16 @@ export default function MediaUploader({ maxCount = 5 }) {
     });
 
     if (!result.canceled) {
-      const newPhotos = [...photos, result.assets[0].uri];
+      const photoUri = result.assets[0].uri;
+
+      try {
+        await MediaLibrary.createAssetAsync(photoUri);
+        console.log('Photo saved to gallery');
+      } catch (error) {
+        console.error('Error saving photo to gallery:', error);
+      }
+
+      const newPhotos = [...photos, photoUri];
       setPhotos(newPhotos);
     }
   };
@@ -43,17 +60,18 @@ export default function MediaUploader({ maxCount = 5 }) {
           }}
         >
           {photos.map((photo) => (
-            <Image
-              key={photo}
-              source={photo}
-              style={{
-                width: "33%",
-                height: 100,
-                aspectRatio: 1,
-                borderWidth: 2,
-                borderColor: "#0a7ea4",
-              }}
-            />
+            <TouchableOpacity key={photo}>
+              <Image
+                source={photo}
+                style={{
+                  width: "33%",
+                  height: 100,
+                  aspectRatio: 1,
+                  borderWidth: 2,
+                  borderColor: "#0a7ea4",
+                }}
+              />
+            </TouchableOpacity>
           ))}
         </View>
       ) : null}

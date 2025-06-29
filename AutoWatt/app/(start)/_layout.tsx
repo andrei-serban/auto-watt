@@ -1,8 +1,6 @@
 import { Stack } from "expo-router";
 import React from "react";
 import { Platform } from "react-native";
-
-import { IconSymbol } from "@/components/ui/IconSymbol";
 import { Colors } from "@/constants/Colors";
 import { useColorScheme } from "@/hooks/useColorScheme";
 
@@ -26,10 +24,7 @@ export default function TabLayout() {
       <Stack.Screen
         name="index"
         options={{
-          title: "Welcome",
-          tabBarIcon: ({ color }) => (
-            <IconSymbol size={28} name="house.fill" color={color} />
-          ),
+          title: "Welcome"
         }}
       />
     </Stack>

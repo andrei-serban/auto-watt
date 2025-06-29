@@ -6,9 +6,7 @@ import InputGroup from "@/components/InputGroup";
 import BackButton from "@/components/BackButton";
 import ScreenTitle from "@/components/ScreenTitle";
 import ActionButton from "@/components/ActionButton";
-import MediaUploader from "@/components/MediaUploader";
 import { GlobalContext } from "@/context/GlobalContext";
-import { Feather } from "@expo/vector-icons";
 
 export default function StringScreen() {
   const { selectedString, setSelectedString, setInverters, inverters } =

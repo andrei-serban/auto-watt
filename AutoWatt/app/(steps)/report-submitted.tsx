@@ -29,7 +29,7 @@ export default function ReportSubmittedScreen() {
         </View>
 
         <Image
-          source={require("@/assets/images/partial-react-logo.png")}
+          source={require("@/assets/images/auto-watt-logo.png")}
           style={styles.reactLogo}
         />
 
@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   reactLogo: {
-    height: 240,
+    height: 200,
     width: "100%",
   },
 });
