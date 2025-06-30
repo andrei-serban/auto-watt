@@ -492,6 +492,26 @@ export default function HomeScreen() {
 
                 const payload = getPayload();
 
+                for (let key in payload) {
+                  if (key.toLowerCase().includes('tasks')) {
+                    const tasks = payload[key];
+
+                    for (let taskIndex in tasks) {
+                      const task = tasks[taskIndex];
+
+                      if (task.photos) {
+                        console.log('task.photos', task.photos);
+
+                        for (let photoIndex in task.photos) {
+                          const uploadResponse = await uploadPhoto(task.photos[photoIndex]);
+
+                          console.log("Upload success:", uploadResponse);
+                        }
+                      }
+                    }
+                  }
+                }
+
                 console.log(
                   "payload.pvGeneratorPhotos",
                   payload.pvGeneratorPhotos,
@@ -500,7 +520,7 @@ export default function HomeScreen() {
                 for (let i in payload.pvGeneratorPhotos) {
                   const uploadResponse = await uploadPhoto(payload.pvGeneratorPhotos[i]);
 
-                  console.log("Upload success:", uploadResponse);                  
+                  console.log("Upload success:", uploadResponse);
                 }
 
                 const submissionResponse = await axios.post(API_URL, payload);
