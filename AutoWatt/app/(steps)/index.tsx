@@ -582,7 +582,7 @@ export default function HomeScreen() {
             fontSize: 16,
           }}
         >
-          📨 Sent to technician@example.com
+          📨 Sent to {technicianEmail} and {managerEmail}
         </Text>
       ) : null}
 

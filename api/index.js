@@ -1,11 +1,14 @@
 const fs = require('fs');
 const path = require('path');
+const nodemailer = require('nodemailer');
 const puppeteer = require('puppeteer');
 const express = require('express');
 const multer = require('multer');
 const moment = require('moment');
 const mysql = require('mysql2');
 const app = express();
+
+require('dotenv').config();
 
 const PORT = 3020;
 const BASE_URL = 'http://localhost:3020';
@@ -100,19 +103,62 @@ app.get('/', async (req, res) => {
       // Launch browser
       const browser = await puppeteer.launch();
       const page = await browser.newPage();
+      const pdfPath = path.join(__dirname, 'downloads', `${id}.pdf`);
 
       // Set content
       await page.setContent(html, { waitUntil: 'load' });
 
       // Generate PDF
       await page.pdf({
-        path: path.join(__dirname, 'downloads', `${id}.pdf`),
+        path: pdfPath,
         format: 'A4',
         printBackground: true,
         margin: { top: '40px', bottom: '40px', left: '40px', right: '40px' }
       });
 
       await browser.close();
+
+      const transporter = nodemailer.createTransport({
+        service: 'Gmail',
+        auth: {
+          user: process.env.EMAIL_USER,
+          pass: process.env.EMAIL_PASS
+        }
+      });
+
+      const recipients = [];
+
+      if (payload.technicianEmail) {
+        recipients.push(payload.technicianEmail);
+      }
+
+      if (payload.managerEmail) {
+        recipients.push(payload.managerEmail);
+      }
+
+      if (recipients.length) {
+        const mailOptions = {
+          from: 'me@andreiserban.com',
+          to: recipients,
+          subject: 'AutoWatt PDF Report',
+          text: 'Please find the PDF report attached.',
+          attachments: [
+            {
+              filename: 'report.pdf',
+              path: pdfPath,
+              contentType: 'application/pdf'
+            }
+          ]
+        };
+
+        transporter.sendMail(mailOptions, (error, info) => {
+          if (error) {
+            return console.error(error);
+          }
+
+          console.log(`Email sent to ${JSON.stringify(recipients)}: ${info.response}`);
+        });
+      }
 
       return res.send(`
           <a href="${BASE_URL}/downloads/${id}.pdf" target="_blank">PDF Report</a>
