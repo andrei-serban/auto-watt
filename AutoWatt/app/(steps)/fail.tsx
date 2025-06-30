@@ -1,5 +1,5 @@
 import { useState, useContext } from "react";
-import { useLocalSearchParams } from "expo-router";
+import { useRouter, useLocalSearchParams } from "expo-router";
 import { View, Text, ScrollView, TouchableOpacity } from "react-native";
 import BackButton from "@/components/BackButton";
 import InputGroup from "@/components/InputGroup";
@@ -11,6 +11,8 @@ import { GlobalContext } from "@/context/GlobalContext";
 export default function FailScreen() {
   const severities = ["Critical fault", "Major fault", "Minor fault"];
   const [selectedSeverity, setSelectedSeverity] = useState(0);
+  const [photos, setPhotos] = useState([]);
+  const router = useRouter();
   const { selectedTaskLabel, selectedTaskScreen } = useLocalSearchParams();
   const { electricalTestingNotes, setElectricalTestingNotes } =
     useContext(GlobalContext);
@@ -119,10 +121,14 @@ export default function FailScreen() {
           Media upload (up to 5 photos)
         </Text>
 
-        <MediaUploader maxCount={5} />
+        <MediaUploader 
+          maxCount={5}
+          photos={photos}
+          onUpdate={(photos) => setPhotos(photos)}
+        />
       </View>
 
-      <ActionButton onPress={() => {}} text="Save Fault Log" />
+      <ActionButton onPress={() => router.back()} text="Save Fault Log" />
 
       <View style={{ height: 360 }}></View>
     </ScrollView>

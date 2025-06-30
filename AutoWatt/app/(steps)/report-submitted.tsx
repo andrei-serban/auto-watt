@@ -16,7 +16,7 @@ export default function ReportSubmittedScreen() {
         height: "100%",
       }}
     >
-      <View style={{ width: "100%", gap: 40, paddingBottom: 40 }}>
+      <View style={{ width: "100%", paddingBottom: 40 }}>
         <View style={styles.titleContainer}>
           <ThemedText
             type="subtitle"
@@ -30,7 +30,7 @@ export default function ReportSubmittedScreen() {
 
         <Image
           source={require("@/assets/images/auto-watt-logo.png")}
-          style={styles.reactLogo}
+          style={styles.appLogo}
         />
 
         <ActionButton onPress={() => router.push("/(start)")} text="HOME" />
@@ -45,8 +45,9 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "center",
   },
-  reactLogo: {
-    height: 200,
+  appLogo: {
+    height: 240,
     width: "100%",
+    marginTop: 30
   },
 });
