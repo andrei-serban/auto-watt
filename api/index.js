@@ -6,7 +6,9 @@ const multer = require('multer');
 const moment = require('moment');
 const mysql = require('mysql2');
 const app = express();
+
 const PORT = 3020;
+const BASE_URL = 'http://localhost:3020';
 
 app.use(express.json());
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
@@ -69,9 +71,12 @@ app.get('/', async (req, res) => {
         pvGeneratorPhotos: formatPhotos(payload.pvGeneratorPhotos),
         visualChecksTasks1: formatTasks(payload.visualChecksTasks.slice(0, 4)),
         visualChecksTasks2: formatTasks([payload.visualChecksTasks[4]], 4),
+        visualChecksTasks2Photos: formatTaskPhotos(payload.visualChecksTasks[4]),
         visualChecksTasks3: formatTasks([payload.visualChecksTasks[5]], 5),
+        visualChecksTasks3Photos: formatTaskPhotos(payload.visualChecksTasks[5]),
         safetyRisksTasks1: formatTasks(payload.safetyRisksTasks.slice(0, 3)),
         safetyRisksTasks2: formatTasks([payload.safetyRisksTasks[3]], 3),
+        safetyRisksTasks2Photos: formatTaskPhotos(payload.safetyRisksTasks[3]),
         safetyRisksTasks3: formatTasks([payload.safetyRisksTasks[4], payload.safetyRisksTasks[5]], 4),
         voltageOptimisersTasks: formatTasks(payload.voltageOptimisersTasks),
         performanceChecksTasks1: formatTasks([payload.performanceChecksTasks[0]]),
@@ -161,9 +166,15 @@ const formatTasks = (tasks, increments = 0) => {
   }).join('');
 }
 
+const formatTaskPhotos = (task) => {
+  return (task.photos || []).map((photo) => {
+    return `<img src="${BASE_URL}/uploads/${photo.replace(/[^a-zA-Z0-9-]/g, '_')}.jpg" />`;
+  }).join('');
+}
+
 const formatPhotos = (photos) => {
   return photos.map((photo) => {
-    return `<img src="http://localhost:3020/uploads/${photo.replace(/[^a-zA-Z0-9-]/g, '_')}.jpg" />`;
+    return `<img src="${BASE_URL}/uploads/${photo.replace(/[^a-zA-Z0-9-]/g, '_')}.jpg" />`;
   }).join('');
 }
 
