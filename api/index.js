@@ -12,6 +12,7 @@ const BASE_URL = 'http://localhost:3020';
 
 app.use(express.json());
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+app.use('/downloads', express.static(path.join(__dirname, 'downloads')));
 
 const dbConnection = {
   host: 'localhost',
@@ -63,6 +64,7 @@ app.get('/', async (req, res) => {
 
       const functionMatches = [...html.matchAll(/!!\s*(\w+)\s*!!/g)];
       const functions = {
+        systemComponents: formatSystemComponents(payload),
         limitations: formatLimitations(payload),
         invertersTasks: formatTasks(payload.invertersTasks),
         mainsConnectionTasks: formatTasks(payload.mainsConnectionTasks),
@@ -102,7 +104,7 @@ app.get('/', async (req, res) => {
 
       // Generate PDF
       await page.pdf({
-        path: 'output.pdf',
+        path: path.join(__dirname, 'downloads', `${id}.pdf`),
         format: 'A4',
         printBackground: true,
         margin: { top: '40px', bottom: '40px', left: '40px', right: '40px' }
@@ -110,9 +112,13 @@ app.get('/', async (req, res) => {
 
       await browser.close();
 
-      return res.json({ error: 'The PDF report was successfully generated' });
-
-      return res.send(html);
+      return res.send(`
+          <a href="${BASE_URL}/downloads/${id}.pdf" target="_blank">PDF Report</a>
+          <br/><br/>
+          <hr/>
+          <br/>
+          ${html}`
+      );
     }
   }
 
@@ -141,6 +147,84 @@ app.post('/upload', upload.single('image'), (req, res) => {
 app.listen(PORT, () => {
   console.log(`Server is running at http://localhost:${PORT}`);
 });
+
+const formatSystemComponents = (payload) => {
+  const formatComponent = (tasks) => {
+    let status = 'N/A';
+    const failures = tasks.filter(task => task.value === 'fail');
+    const passes = tasks.filter(task => task.value === 'pass');
+
+    if (failures.length > 0) {
+      status = '<failure>Fail:</failure>';
+    } else if (passes.length) {
+      status = 'Pass';
+    }
+
+    return `
+      <!--<td>
+        ${tasks.map(task => {
+          return JSON.stringify(task) + '<br/>';
+        }).join('')}
+      </td>-->
+      <td>
+        ${status}
+      </td>
+      <td>
+        ${failures.map(task => {
+          return `&bull;&nbsp;${task.label}`;
+        }).join('<br/>')}
+      </td>
+    `;
+  }
+
+  return `
+    <tr>
+      <td>1</td>
+      <td>Inverters / AC Distribution</td>
+      ${formatComponent(payload.invertersTasks)}
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>Mains Connection</td>
+      ${formatComponent(payload.mainsConnectionTasks)}
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>PV Generator (DC Side)</td>
+      ${formatComponent(payload.pvGeneratorTasks)}
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>Electrical Testing</td>
+      ${formatComponent(payload.electricalTestingTasks)}
+    </tr>
+    <tr> 
+      <td>5</td>
+      <td>Performance Checks</td>
+      ${formatComponent(payload.performanceChecksTasks)}
+    </tr>
+    <tr>
+      <td>6</td>
+      <td>Visual inspection</td>
+      ${formatComponent(payload.visualChecksTasks)}
+    </tr>
+    <tr>
+      <td>7</td>
+      <td>System Safety Risks</td>
+      ${formatComponent(payload.safetyRisksTasks)}
+    </tr>
+    <tr> 
+      <td>8</td>
+      <td>Battery Systems</td>
+      ${formatComponent(payload.batterySystemsTasks)}
+    </tr>
+    <tr>
+      <td>9</td>
+      <td>Voltage Optimiser</td>
+      ${formatComponent(payload.voltageOptimisersTasks)}
+    </tr>
+  `;
+}
 
 const formatLimitations = (payload) => {
   return payload.limitations.map((limitation, index) => {
