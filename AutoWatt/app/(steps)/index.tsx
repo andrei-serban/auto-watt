@@ -24,6 +24,42 @@ import { Fontisto } from "@expo/vector-icons";
 
 const API_URL = "https://just-intensely-crane.ngrok-free.app";
 
+const uploadPhoto = async (photoId) => {
+  const photoInfo =
+    await MediaLibrary.getAssetInfoAsync(photoId);
+  const localUri = photoInfo.localUri;
+  const filename =
+    photoId.replace(/[^a-zA-Z0-9-]/g, "_") + ".jpg";
+
+  const resized = await ImageManipulator.manipulateAsync(
+    localUri,
+    [{ resize: { width: 1024 } }],
+    {
+      compress: 0.8,
+      format: ImageManipulator.SaveFormat.JPEG,
+    },
+  );
+
+  const formData = new FormData();
+  formData.append("image", {
+    uri: resized.uri,
+    name: filename,
+    type: "image/jpeg",
+  });
+
+  const response = await axios.post(
+    `${API_URL}/upload`,
+    formData,
+    {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    },
+  );
+
+  return response.data;
+}
+
 export default function HomeScreen() {
   const router = useRouter();
   const [submissionStep, setSubmissionStep] = useState(0);
@@ -462,40 +498,9 @@ export default function HomeScreen() {
                 );
 
                 for (let i in payload.pvGeneratorPhotos) {
-                  const photoId = payload.pvGeneratorPhotos[i];
-                  const photoInfo =
-                    await MediaLibrary.getAssetInfoAsync(photoId);
-                  const localUri = photoInfo.localUri;
-                  const filename =
-                    photoId.replace(/[^a-zA-Z0-9-]/g, "_") + ".jpg";
+                  const uploadResponse = await uploadPhoto(payload.pvGeneratorPhotos[i]);
 
-                  const resized = await ImageManipulator.manipulateAsync(
-                    localUri,
-                    [{ resize: { width: 1024 } }],
-                    {
-                      compress: 0.8,
-                      format: ImageManipulator.SaveFormat.JPEG,
-                    },
-                  );
-
-                  const formData = new FormData();
-                  formData.append("image", {
-                    uri: resized.uri,
-                    name: filename,
-                    type: "image/jpeg",
-                  });
-
-                  const response = await axios.post(
-                    `${API_URL}/upload`,
-                    formData,
-                    {
-                      headers: {
-                        "Content-Type": "multipart/form-data",
-                      },
-                    },
-                  );
-
-                  console.log("Upload success:", response.data);
+                  console.log("Upload success:", uploadResponse);                  
                 }
 
                 const submissionResponse = await axios.post(API_URL, payload);
