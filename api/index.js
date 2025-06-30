@@ -71,6 +71,7 @@ app.get('/', async (req, res) => {
         electricalTestingTasks: formatTasks(payload.electricalTestingTasks),
         pvGeneratorTasks: formatTasks(payload.pvGeneratorTasks),
         pvGeneratorPhotos: formatPhotos(payload.pvGeneratorPhotos),
+        pvGeneratorStrings: formatStrings(payload.inverters),
         visualChecksTasks1: formatTasks(payload.visualChecksTasks.slice(0, 4)),
         visualChecksTasks2: formatTasks([payload.visualChecksTasks[4]], 4),
         visualChecksTasks2Photos: formatTaskPhotos(payload.visualChecksTasks[4]),
@@ -315,6 +316,49 @@ const formatInverters = (inverters) => {
   });
 
   return html;
+}
+
+const formatStrings = (inverters) => {
+  const strings = inverters.map(inverter => inverter.stringObjects).flat();
+
+  return `
+    <table>
+      <tr>
+        <th colspan="2">String</th>
+        ${strings.map((string, index) => `<td>${index+1}</td>`).join('')}
+      </tr>
+      <tr>
+        <th rowspan="3" valign="top">String Test</th>
+        <th>
+          V<small>oc</small>(V)
+        </th>
+        ${strings.map((string) => `<td>${string.voc}</td>`).join('')}
+      </tr>
+      <tr>
+        <th>
+          I<small>sc</small>(A)
+        </th>
+        ${strings.map((string) => `<td>${string.isc}</td>`).join('')}
+      </tr>
+      <tr>
+        <th>Irradiance</th>
+        ${strings.map((string) => `<td>${string.irr}</td>`).join('')}
+      </tr>
+      <tr>
+        <th rowspan="3" valign="top">Array Test insulation</th>
+        <th>Test Voltage (V)</th>
+        ${strings.map((string) => `<td>${string.testVoltage}</td>`).join('')}
+      </tr>
+      <tr>
+        <th>Pos – Earth (MΩ)</th>
+        ${strings.map((string) => `<td>${string.pos}</td>`).join('')}
+      </tr>
+      <tr>
+        <th>NEG – Earth (MΩ)</th>
+        ${strings.map((string) => `<td>${string.neg}</td>`).join('')}
+      </tr>
+    </table>
+  `;
 }
 
 const formatBatterySystems = (batterySystems) => {
