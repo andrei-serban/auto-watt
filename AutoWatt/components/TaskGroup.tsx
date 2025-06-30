@@ -19,6 +19,7 @@ export default function TaskGroup({
   onUpdatePhotos,
   onPress,
 }) {
+  const { setSelectedTask, getPayload } = useContext(GlobalContext);
   const router = useRouter();
   const options =
     optionCount === 2
@@ -68,10 +69,29 @@ export default function TaskGroup({
               onPress(option);
 
               if (option === "fail" && !skipRedirect) {
+                const payload = getPayload();
+
+                for (let key in payload) {
+                  if (key.toLowerCase().includes("tasks")) {
+                    const tasks = payload[key];
+
+                    for (let taskIndex in tasks) {
+                      const task = tasks[taskIndex];
+
+                      if (task.label === label) {
+                        setSelectedTask({
+                          ...task,
+                          category: key,
+                          index: taskIndex,
+                        });
+                      }
+                    }
+                  }
+                }
+
                 router.push({
                   pathname: "/(steps)/fail",
                   params: {
-                    selectedTaskLabel: label,
                     selectedTaskScreen: screen,
                   },
                 });

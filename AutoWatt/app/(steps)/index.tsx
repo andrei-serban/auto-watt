@@ -25,11 +25,9 @@ import { Fontisto } from "@expo/vector-icons";
 const API_URL = "https://just-intensely-crane.ngrok-free.app";
 
 const uploadPhoto = async (photoId) => {
-  const photoInfo =
-    await MediaLibrary.getAssetInfoAsync(photoId);
+  const photoInfo = await MediaLibrary.getAssetInfoAsync(photoId);
   const localUri = photoInfo.localUri;
-  const filename =
-    photoId.replace(/[^a-zA-Z0-9-]/g, "_") + ".jpg";
+  const filename = photoId.replace(/[^a-zA-Z0-9-]/g, "_") + ".jpg";
 
   const resized = await ImageManipulator.manipulateAsync(
     localUri,
@@ -47,18 +45,14 @@ const uploadPhoto = async (photoId) => {
     type: "image/jpeg",
   });
 
-  const response = await axios.post(
-    `${API_URL}/upload`,
-    formData,
-    {
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
+  const response = await axios.post(`${API_URL}/upload`, formData, {
+    headers: {
+      "Content-Type": "multipart/form-data",
     },
-  );
+  });
 
   return response.data;
-}
+};
 
 export default function HomeScreen() {
   const router = useRouter();
@@ -493,17 +487,19 @@ export default function HomeScreen() {
                 const payload = getPayload();
 
                 for (let key in payload) {
-                  if (key.toLowerCase().includes('tasks')) {
+                  if (key.toLowerCase().includes("tasks")) {
                     const tasks = payload[key];
 
                     for (let taskIndex in tasks) {
                       const task = tasks[taskIndex];
 
                       if (task.photos) {
-                        console.log('task.photos', task.photos);
+                        console.log("task.photos", task.photos);
 
                         for (let photoIndex in task.photos) {
-                          const uploadResponse = await uploadPhoto(task.photos[photoIndex]);
+                          const uploadResponse = await uploadPhoto(
+                            task.photos[photoIndex],
+                          );
 
                           console.log("Upload success:", uploadResponse);
                         }
@@ -518,7 +514,9 @@ export default function HomeScreen() {
                 );
 
                 for (let i in payload.pvGeneratorPhotos) {
-                  const uploadResponse = await uploadPhoto(payload.pvGeneratorPhotos[i]);
+                  const uploadResponse = await uploadPhoto(
+                    payload.pvGeneratorPhotos[i],
+                  );
 
                   console.log("Upload success:", uploadResponse);
                 }

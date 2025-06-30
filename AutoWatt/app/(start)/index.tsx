@@ -67,6 +67,6 @@ const styles = StyleSheet.create({
   appLogo: {
     height: 240,
     width: "100%",
-    marginTop: 30
+    marginTop: 30,
   },
 });

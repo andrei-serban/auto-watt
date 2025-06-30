@@ -1,4 +1,4 @@
-import { useState, useContext } from "react";
+import { useState, useEffect, useContext } from "react";
 import { useRouter, useLocalSearchParams } from "expo-router";
 import { View, Text, ScrollView, TouchableOpacity } from "react-native";
 import BackButton from "@/components/BackButton";
@@ -10,18 +10,52 @@ import { GlobalContext } from "@/context/GlobalContext";
 
 export default function FailScreen() {
   const severities = ["Critical fault", "Major fault", "Minor fault"];
+  const { selectedTaskScreen } = useLocalSearchParams();
   const [selectedSeverity, setSelectedSeverity] = useState(0);
+  const [systemSafeNote, setSystemSafeNote] = useState("");
+  const [remedialWorkNote, setRemedialWorkNote] = useState("");
+  const [stepsFurtherNote, setStepsFurtherNote] = useState("");
   const [photos, setPhotos] = useState([]);
   const router = useRouter();
-  const { selectedTaskLabel, selectedTaskScreen } = useLocalSearchParams();
-  const { electricalTestingNotes, setElectricalTestingNotes } =
-    useContext(GlobalContext);
+  const {
+    selectedTask,
+    invertersTasks,
+    setInvertersTasks,
+    mainsConnectionTasks,
+    setMainsConnectionTasks,
+    pvGeneratorTasks,
+    setPvGeneratorTasks,
+    electricalTestingTasks,
+    setElectricalTestingTasks,
+    performanceChecksTasks,
+    setPerformanceChecksTasks,
+    visualChecksTasks,
+    setVisualChecksTasks,
+    safetyRisksTasks,
+    setSafetyRisksTasks,
+    batterySystemsTasks,
+    setBatterySystemsTasks,
+    voltageOptimisersTasks,
+    setVoltageOptimisersTasks,
+  } = useContext(GlobalContext);
+
+  useEffect(() => {
+    if (selectedTask) {
+      setSelectedSeverity(selectedTask.severity);
+      setSystemSafeNote(selectedTask.safeNote);
+      setRemedialWorkNote(selectedTask.remedialWorkNote);
+      setStepsFurtherNote(selectedTask.stepsFurtherNote);
+      setPhotos(selectedTask.photos);
+    }
+  }, [selectedTask]);
+
+  console.log("debug", selectedTask);
 
   return (
     <ScrollView style={{ padding: 20 }}>
       <BackButton />
 
-      <ScreenTitle subtitle={selectedTaskLabel ?? ""}>
+      <ScreenTitle subtitle={selectedTask ? selectedTask.label : ""}>
         {selectedTaskScreen ?? ""} - FAIL
       </ScreenTitle>
 
@@ -89,24 +123,24 @@ export default function FailScreen() {
         numberOfLines={8}
         label="is the system safe to generate?"
         placeholder="Note"
-        value={electricalTestingNotes}
-        setValue={setElectricalTestingNotes}
+        value={systemSafeNote}
+        setValue={setSystemSafeNote}
       />
 
       <InputGroup
         numberOfLines={8}
         label="What remedial work was done?"
         placeholder="Note"
-        value={electricalTestingNotes}
-        setValue={setElectricalTestingNotes}
+        value={remedialWorkNote}
+        setValue={setRemedialWorkNote}
       />
 
       <InputGroup
         numberOfLines={8}
         label="What needs to happen next?"
         placeholder="Note"
-        value={electricalTestingNotes}
-        setValue={setElectricalTestingNotes}
+        value={stepsFurtherNote}
+        setValue={setStepsFurtherNote}
       />
 
       <View style={{ marginTop: 50 }}>
@@ -121,14 +155,66 @@ export default function FailScreen() {
           Media upload (up to 5 photos)
         </Text>
 
-        <MediaUploader 
+        <MediaUploader
           maxCount={5}
           photos={photos}
           onUpdate={(photos) => setPhotos(photos)}
         />
       </View>
 
-      <ActionButton onPress={() => router.back()} text="Save Fault Log" />
+      <ActionButton
+        onPress={() => {
+          const newTask = {
+            ...selectedTask,
+            severity: selectedSeverity,
+            safeNote: systemSafeNote,
+            remedialWorkNote: remedialWorkNote,
+            stepsFurtherNote: stepsFurtherNote,
+            photos: photos,
+          };
+
+          if (newTask.category === "invertersTasks") {
+            const newTasks = [].concat(invertersTasks);
+            newTasks[newTask.index] = newTask;
+            setInvertersTasks(newTasks);
+          } else if (newTask.category === "mainsConnectionTasks") {
+            const newTasks = [].concat(mainsConnectionTasks);
+            newTasks[newTask.index] = newTask;
+            setMainsConnectionTasks(newTasks);
+          } else if (newTask.category === "pvGeneratorTasks") {
+            const newTasks = [].concat(pvGeneratorTasks);
+            newTasks[newTask.index] = newTask;
+            setPvGeneratorTasks(newTasks);
+          } else if (newTask.category === "electricalTestingTasks") {
+            const newTasks = [].concat(electricalTestingTasks);
+            newTasks[newTask.index] = newTask;
+            setElectricalTestingTasks(newTasks);
+          } else if (newTask.category === "performanceChecksTasks") {
+            const newTasks = [].concat(performanceChecksTasks);
+            newTasks[newTask.index] = newTask;
+            setPerformanceChecksTasks(newTasks);
+          } else if (newTask.category === "visualChecksTasks") {
+            const newTasks = [].concat(visualChecksTasks);
+            newTasks[newTask.index] = newTask;
+            setVisualChecksTasks(newTasks);
+          } else if (newTask.category === "safetyRisksTasks") {
+            const newTasks = [].concat(safetyRisksTasks);
+            newTasks[newTask.index] = newTask;
+            setSafetyRisksTasks(newTasks);
+          } else if (newTask.category === "batterySystemsTasks") {
+            const newTasks = [].concat(batterySystemsTasks);
+            newTasks[newTask.index] = newTask;
+            setBatterySystemsTasks(newTasks);
+          } else if (newTask.category === "voltageOptimisersTasks") {
+            const newTasks = [].concat(voltageOptimisersTasks);
+            newTasks[newTask.index] = newTask;
+            setVoltageOptimisersTasks(newTasks);
+          }
+
+          router.back();
+        }}
+        text="Save Fault Log"
+      />
 
       <View style={{ height: 360 }}></View>
     </ScrollView>
