@@ -67,6 +67,7 @@ app.get('/', async (req, res) => {
         systemComponents: formatSystemComponents(payload),
         limitations: formatLimitations(payload),
         invertersTasks: formatTasks(payload.invertersTasks),
+        invertersTaskFailures: formatTaskFailures(payload.invertersTasks),
         mainsConnectionTasks: formatTasks(payload.mainsConnectionTasks),
         electricalTestingTasks: formatTasks(payload.electricalTestingTasks),
         pvGeneratorTasks: formatTasks(payload.pvGeneratorTasks),
@@ -74,12 +75,12 @@ app.get('/', async (req, res) => {
         pvGeneratorStrings: formatStrings(payload.inverters),
         visualChecksTasks1: formatTasks(payload.visualChecksTasks.slice(0, 4)),
         visualChecksTasks2: formatTasks([payload.visualChecksTasks[4]], 4),
-        visualChecksTasks2Photos: formatTaskPhotos(payload.visualChecksTasks[4]),
+        visualChecksTasks2Photos: formatPhotos(payload.visualChecksTasks[4].photos ?? []),
         visualChecksTasks3: formatTasks([payload.visualChecksTasks[5]], 5),
-        visualChecksTasks3Photos: formatTaskPhotos(payload.visualChecksTasks[5]),
+        visualChecksTasks3Photos: formatPhotos(payload.visualChecksTasks[5].photos ?? []),
         safetyRisksTasks1: formatTasks(payload.safetyRisksTasks.slice(0, 3)),
         safetyRisksTasks2: formatTasks([payload.safetyRisksTasks[3]], 3),
-        safetyRisksTasks2Photos: formatTaskPhotos(payload.safetyRisksTasks[3]),
+        safetyRisksTasks2Photos: formatPhotos(payload.safetyRisksTasks[3].photos ?? []),
         safetyRisksTasks3: formatTasks([payload.safetyRisksTasks[4], payload.safetyRisksTasks[5]], 4),
         voltageOptimisersTasks: formatTasks(payload.voltageOptimisersTasks),
         performanceChecksTasks1: formatTasks([payload.performanceChecksTasks[0]]),
@@ -251,10 +252,37 @@ const formatTasks = (tasks, increments = 0) => {
   }).join('');
 }
 
-const formatTaskPhotos = (task) => {
-  return (task.photos || []).map((photo) => {
-    return `<img src="${BASE_URL}/uploads/${photo.replace(/[^a-zA-Z0-9-]/g, '_')}.jpg" />`;
-  }).join('');
+const formatTaskFailures = (tasks) => {
+  const failures = [];
+  
+  tasks.filter((task) => task.value === 'fail').forEach((task) => {
+    failures.push(`
+      <p>
+        <failure>Fail:</failure> ${task.label}
+      </p>
+
+      <p>
+        <em>Category:</em> ${task.severity ?? ''}
+      </p>
+      
+      <pretitle>Is the system safe to generate?</pretitle>
+      <textbox>${task.safeNote ?? ''}</textbox>
+     
+      <pretitle>What remedial work was done?</pretitle>
+      <textbox>${task.remedialWorkNote ?? ''}</textbox>
+
+      <pretitle>What needs to happen next?</pretitle>
+      <textbox>${task.stepsFurtherNote ?? ''}</textbox>
+
+      <h3>
+        Media upload of <failure>Fail</failure>:
+      </h3>
+
+      ${formatPhotos(task.photos ?? [])}
+    `);
+  });
+
+  return failures.join('');
 }
 
 const formatPhotos = (photos) => {
