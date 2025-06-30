@@ -22,7 +22,7 @@ import ActionButton from "@/components/ActionButton";
 import { GlobalContext } from "@/context/GlobalContext";
 import { Fontisto } from "@expo/vector-icons";
 
-const API_URL = "https://just-intensely-crane.ngrok-free.app";
+const API_URL = "https://8487-2a02-2f0e-5617-3100-e51e-2077-ecb6-81de.ngrok-free.app";
 
 const uploadPhoto = async (photoId) => {
   const photoInfo = await MediaLibrary.getAssetInfoAsync(photoId);
